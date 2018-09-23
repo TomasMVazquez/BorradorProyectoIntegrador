@@ -1,103 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_margin="2dp"
-    >
-
-    <TextView
-        android:id="@+id/tvPeliculaComentario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryText"
-        android:text="Pelicula"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
+    card_view:cardCornerRadius="2dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardElevation="@dimen/cardview_default_elevation"
+        >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
-
-        <ImageView
-            android:id="@+id/ivImagenPeliculaComentario"
-            android:layout_width="0dp"
-            android:layout_weight="20"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_foreground"
-            android:background="@color/colorAccent"
-            android:layout_margin="2dp"
-            />
-
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="65"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="25"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
         <TextView
-            android:id="@+id/tvUsuarioComentario"
+            android:id="@+id/tvPeliculaComentario"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryText"
-            android:text="Usuario"
-            android:textSize="15sp"
+            android:text="Pelicula"
+            android:textSize="20sp"
             android:textStyle="bold"
             />
 
-            <ImageView
-                android:id="@+id/ivImagenUsuarioComentario"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher_foreground"
-                android:background="@color/colorAccent"
-                android:layout_margin="2dp"
-                />
-        </LinearLayout>
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="75"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             >
-        <TextView
-                android:id="@+id/tvComentarioComentario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryText"
-                android:text="Comentario......."
-                android:textSize="15sp"
+
+            <ImageView
+                android:id="@+id/ivImagenPeliculaComentario"
+
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:layout_height="match_parent"
+                android:src="@drawable/play_movie_icon_sketch"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop"
                 />
-            <RatingBar
-                android:id="@+id/rbComentarioComentario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                style="?android:attr/ratingBarStyleSmall"
-                android:isIndicator="true"
-                android:gravity="bottom"
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="65"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="25"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                    android:id="@+id/tvUsuarioComentario"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    android:text="Usuario"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    />
+
+                    <ImageView
+                        android:id="@+id/ivImagenUsuarioComentario"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/shadow_profile"
+                        android:layout_margin="2dp"
+                        android:scaleType="centerCrop"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="75"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    >
+                    <TextView
+                        android:id="@+id/tvComentarioComentario"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryText"
+                        android:text="Comentario......."
+                        android:textSize="15sp"
+                        />
+                    <RatingBar
+                        android:id="@+id/rbUsuarioAPeliculaComentario"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:isIndicator="true"
+                        android:gravity="bottom"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivMeGustaComentario"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_like"
                 />
+
         </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_weight="10"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_like"
-        />
-
-
-    </LinearLayout>
-</LinearLayout>
+</android.support.v7.widget.CardView>

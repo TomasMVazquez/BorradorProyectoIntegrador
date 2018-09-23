@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">BorradorProyectoIntegrador</string>
 
+    //Pantalla Main
     <string name="hintSearch"> Buscar pelicula o serie</string>
 
+    //Pantalla Login
+    <string name="hintUsuario">Usuario</string>
+    <string name="hintContrasena">Contraseña</string>
+    <string name="hintRepitaContrasena">Repita Contraseña</string>
+    <string name="tvIngresarCon">Ingresar con:</string>
+    <string name="btnIngresar">Ingresar</string>
 </resources>

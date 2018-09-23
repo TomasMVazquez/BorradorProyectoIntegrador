@@ -5,6 +5,193 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogIn">
+    tools:context=".LogIn"
+    android:orientation="vertical"
+    android:layout_margin="4dp"
+    android:gravity="center_horizontal"
+    android:background="@color/colorNegro"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/cine_back"
+            android:scaleType="centerCrop"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="115dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/colorPrimaryDarkTrans"
+            android:orientation="vertical"
+            android:paddingTop="50dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            >
+
+            <EditText
+                android:id="@+id/etUsuarioLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintUsuario"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="15dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/etContrasenaLogin"
+                    android:layout_width="0dp"
+                    android:layout_weight="90"
+                    android:layout_height="match_parent"
+                    android:hint="@string/hintContrasena"
+                    android:inputType="textPassword"
+                    android:layout_marginBottom="15dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivVisibilityOff_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_visibility_off_black_24dp"
+                    android:scaleType="fitCenter"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/etRepitaContrasenaLogin"
+                    android:layout_width="0dp"
+                    android:layout_weight="90"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hintRepitaContrasena"
+                    android:inputType="textPassword"
+                    android:layout_marginBottom="15dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivVisibilityOff_2"
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_visibility_off_black_24dp"
+                    android:scaleType="fitCenter"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnIngresarLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:text="@string/btnIngresar"
+                android:textSize="30sp"
+                android:textColor="@color/colorBlanco"
+                android:layout_marginBottom="15dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider"
+                android:layout_marginBottom="15dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tvIngresarCon"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryText"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="15dp"
+                >
+
+                <ImageButton
+                    android:id="@+id/ibtnTwitter"
+                    android:layout_width="0dp"
+                    android:layout_weight="30"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/twitter"
+                    android:scaleType="fitCenter"
+                    android:background="@color/colorBlancoTrans"
+                    />
+
+                <ImageButton
+                    android:id="@+id/ibtnFacebook"
+                    android:layout_width="0dp"
+                    android:layout_weight="30"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/facebook"
+                    android:scaleType="fitCenter"
+                    android:background="@color/colorBlancoTrans"
+                    />
+                <ImageButton
+                    android:id="@+id/ibtnInstagram"
+                    android:layout_width="0dp"
+                    android:layout_weight="30"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/instagram"
+                    android:scaleType="fitCenter"
+                    android:background="@color/colorBlancoTrans"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/shadow_profile"
+                android:paddingTop="10dp"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/cortinas_login"
+                android:scaleType="fitXY"
+                android:paddingBottom="10dp"
+                />
+
+        </FrameLayout>
+
+
+    </FrameLayout>
 
 </LinearLayout>
