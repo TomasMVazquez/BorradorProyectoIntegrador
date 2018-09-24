@@ -181,17 +181,8 @@
                 android:paddingTop="10dp"
                 />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/cortinas_login"
-                android:scaleType="fitXY"
-                android:paddingBottom="10dp"
-                />
-
         </FrameLayout>
-
-
+        
     </FrameLayout>
 
 </LinearLayout>
