@@ -120,48 +120,57 @@
                 />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tvIngresarCon"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:layout_gravity="center"
                 android:textColor="@color/colorPrimaryText"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_margin="15dp"
                 >
 
-                <ImageButton
-                    android:id="@+id/ibtnTwitter"
-                    android:layout_width="0dp"
-                    android:layout_weight="30"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/twitter"
-                    android:scaleType="fitCenter"
-                    android:background="@color/colorBlancoTrans"
-                    />
+                <!--<ImageButton-->
+                    <!--android:id="@+id/ibtnTwitter"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="30"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:src="@drawable/twitter"-->
+                    <!--android:scaleType="fitCenter"-->
+                    <!--android:background="@color/colorBlancoTrans"-->
+                    <!--/>-->
 
-                <ImageButton
-                    android:id="@+id/ibtnFacebook"
-                    android:layout_width="0dp"
-                    android:layout_weight="30"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/facebook"
-                    android:scaleType="fitCenter"
-                    android:background="@color/colorBlancoTrans"
-                    />
-                <ImageButton
-                    android:id="@+id/ibtnInstagram"
-                    android:layout_width="0dp"
-                    android:layout_weight="30"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/instagram"
-                    android:scaleType="fitCenter"
-                    android:background="@color/colorBlancoTrans"
-                    />
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp" />
+
+                <!--<ImageButton-->
+                    <!--android:id="@+id/ibtnFacebook"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="30"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:src="@drawable/facebook"-->
+                    <!--android:scaleType="fitCenter"-->
+                    <!--android:background="@color/colorBlancoTrans"-->
+                    <!--/>-->
+                <!--<ImageButton-->
+                    <!--android:id="@+id/ibtnInstagram"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="30"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:src="@drawable/instagram"-->
+                    <!--android:scaleType="fitCenter"-->
+                    <!--android:background="@color/colorBlancoTrans"-->
+                    <!--/>-->
 
             </LinearLayout>
 
@@ -182,7 +191,7 @@
                 />
 
         </FrameLayout>
-        
+
     </FrameLayout>
 
 </LinearLayout>
