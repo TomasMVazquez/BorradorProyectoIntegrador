@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -27,6 +28,8 @@ import static android.provider.ContactsContract.Intents.Insert.EMAIL;
 import static android.provider.Telephony.Carriers.AUTH_TYPE;
 
 public class LogIn extends AppCompatActivity {
+
+    //Atributos
     private CallbackManager callbackManager;
 
     @Override
@@ -41,15 +44,10 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-
-
-
-
-
         //Llamo a los views (edittexts, botones, etc)
 
         //EDIT TEXTS
-        EditText etUsuarioLogin             = findViewById(R.id.etUsuarioLogin);
+        EditText etUsuarioLogin                   = findViewById(R.id.etUsuarioLogin);
         final EditText etContrasenaLogin          = findViewById(R.id.etContrasenaLogin);
         final EditText etRepitaContrasenaLogin    = findViewById(R.id.etRepitaContrasenaLogin);
 
@@ -69,17 +67,21 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 setResult(RESULT_OK);
+                Toast.makeText(LogIn.this, "Estas logeado con Facebook", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onCancel() {
                 setResult(RESULT_CANCELED);
+                Toast.makeText(LogIn.this, "Log off de Facebook", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onError(FacebookException e) {
+                Toast.makeText(LogIn.this, "ERROR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LogIn.this, String.valueOf(e), Toast.LENGTH_LONG).show();
                 // Handle exception
             }
         });
