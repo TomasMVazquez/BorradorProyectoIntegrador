@@ -3,6 +3,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -20,7 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -28,9 +31,8 @@ import static android.provider.ContactsContract.Intents.Insert.EMAIL;
 import static android.provider.Telephony.Carriers.AUTH_TYPE;
 
 public class LogIn extends AppCompatActivity {
-
-    //Atributos
     private CallbackManager callbackManager;
+    private static final String EMAIL = "email";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -44,10 +46,15 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
+
+
+
+
+
         //Llamo a los views (edittexts, botones, etc)
 
         //EDIT TEXTS
-        EditText etUsuarioLogin                   = findViewById(R.id.etUsuarioLogin);
+        EditText etUsuarioLogin             = findViewById(R.id.etUsuarioLogin);
         final EditText etContrasenaLogin          = findViewById(R.id.etContrasenaLogin);
         final EditText etRepitaContrasenaLogin    = findViewById(R.id.etRepitaContrasenaLogin);
 
@@ -56,40 +63,30 @@ public class LogIn extends AppCompatActivity {
         final ImageView ivVisibilityOff_2         = findViewById(R.id.ivVisibilityOff_2);
 
         //BUTTONS
-        Button btnIngresarLogin             = findViewById(R.id.btnIngresarLogin);
+//        Button btnIngresarLogin             = findViewById(R.id.btnIngresarLogin);
 
-        //Login Facebook
+        //LOGIN FACEBOOK
         callbackManager = CallbackManager.Factory.create();
+        //Facebook LoginButton
         LoginButton loginButtonFacebook = findViewById(R.id.login_button);
 
         // Register a callback to respond to the user
         loginButtonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                setResult(RESULT_OK);
-                Toast.makeText(LogIn.this, "Estas logeado con Facebook", Toast.LENGTH_SHORT).show();
-                finish();
+                // App code
             }
 
             @Override
             public void onCancel() {
-                setResult(RESULT_CANCELED);
-                Toast.makeText(LogIn.this, "Log off de Facebook", Toast.LENGTH_SHORT).show();
-                finish();
+                // App code
             }
 
             @Override
-            public void onError(FacebookException e) {
-                Toast.makeText(LogIn.this, "ERROR", Toast.LENGTH_SHORT).show();
-                Toast.makeText(LogIn.this, String.valueOf(e), Toast.LENGTH_LONG).show();
-                // Handle exception
+            public void onError(FacebookException exception) {
+                // App code
             }
         });
-
-
-
-
-
 
 
 
