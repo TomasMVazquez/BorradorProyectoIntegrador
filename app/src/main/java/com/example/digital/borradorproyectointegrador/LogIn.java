@@ -9,7 +9,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import org.json.JSONObject;
-
 import java.util.Arrays;
-
 import static android.provider.ContactsContract.Intents.Insert.EMAIL;
 import static android.provider.Telephony.Carriers.AUTH_TYPE;
 
@@ -46,12 +42,7 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-
-
-
-
-
-        //Llamo a los views (edittexts, botones, etc)
+//Llamo a los views (edittexts, botones, etc)
 
         //EDIT TEXTS
         EditText etUsuarioLogin             = findViewById(R.id.etUsuarioLogin);
