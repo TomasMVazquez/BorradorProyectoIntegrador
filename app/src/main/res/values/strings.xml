@@ -10,6 +10,9 @@
     <string name="hintRepitaContrasena">Repita Contraseña</string>
     <string name="tvIngresarCon">Ingresar con:</string>
     <string name="btnIngresar">Ingresar</string>
+    <string name="tilUsuarioLoginError">Debes completar un Email válido</string>
+    <string name="tilContrasenaLoginError">Debe contener al menos 10 caracteres</string>
+    <string name="tilRepitaContrasenaLoginError">Las contraseñas no son iguales</string>
 
     //FACEBOOK
     <string name="facebook_app_id">367842997089334</string>

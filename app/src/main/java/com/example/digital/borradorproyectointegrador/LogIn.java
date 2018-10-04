@@ -11,8 +11,11 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
@@ -45,9 +48,14 @@ public class LogIn extends AppCompatActivity {
 //Llamo a los views (edittexts, botones, etc)
 
         //EDIT TEXTS
-        EditText etUsuarioLogin             = findViewById(R.id.etUsuarioLogin);
+        final EditText etUsuarioLogin                   = findViewById(R.id.etUsuarioLogin);
         final EditText etContrasenaLogin          = findViewById(R.id.etContrasenaLogin);
         final EditText etRepitaContrasenaLogin    = findViewById(R.id.etRepitaContrasenaLogin);
+
+        //TEXTINPUTLAYOUT
+        final TextInputLayout tilUsuarioLogin             = findViewById(R.id.tilUsuarioLogin);
+        final TextInputLayout tilContrasenaLogin          = findViewById(R.id.tilContrasenaLogin);
+        final TextInputLayout tilRepitaContrasenaLogin    = findViewById(R.id.tilRepitaContrasenaLogin);
 
         //IMAGE VIEWS
         final ImageView ivVisibilityOff_1         = findViewById(R.id.ivVisibilityOff_1);
@@ -124,6 +132,72 @@ public class LogIn extends AppCompatActivity {
         });
 
         //Fin ---- ---------------------------------------------------------------------
+
+        //COMIENZO DE SETEO PARA LOS EDIT TEXT------------------------------------------------------------
+
+        etUsuarioLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (etUsuarioLogin.getText().toString().contains("@") && etUsuarioLogin.getText().toString().contains(".com")){
+                    tilUsuarioLogin.setError(null);
+                }else {
+                    tilUsuarioLogin.setError("Debes completar un Email válido");
+                }
+            }
+        });
+
+        etContrasenaLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (etContrasenaLogin.getText().length() < 10) {
+                    tilContrasenaLogin.setError("La contraseña debe contener al menos 10 caracteres");
+                } else {
+                    tilContrasenaLogin.setError(null);
+                }
+            }
+        });
+
+        etRepitaContrasenaLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (etRepitaContrasenaLogin.getText().equals(etContrasenaLogin.getText())){
+                    tilRepitaContrasenaLogin.setError(null);
+                }else {
+                    tilRepitaContrasenaLogin.setError("Las contraseñas deben coincidir");
+                }
+            }
+        });
+        //Fin-------------------------------------------------------------------------------------------
 
     }
 }
