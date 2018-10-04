@@ -57,6 +57,11 @@ public class LogIn extends AppCompatActivity {
         final TextInputLayout tilContrasenaLogin          = findViewById(R.id.tilContrasenaLogin);
         final TextInputLayout tilRepitaContrasenaLogin    = findViewById(R.id.tilRepitaContrasenaLogin);
 
+        //BUSCAR LOS ERRORES
+        final String errorUsuarioLogin = getResources().getString(R.string.tilUsuarioLoginError);
+        final String errorConstrasenaLogin = getResources().getString(R.string.tilContrasenaLoginError);
+        final String errorRepitaContrasenaLogin = getResources().getString(R.string.tilRepitaContrasenaLoginError);
+
         //IMAGE VIEWS
         final ImageView ivVisibilityOff_1         = findViewById(R.id.ivVisibilityOff_1);
         final ImageView ivVisibilityOff_2         = findViewById(R.id.ivVisibilityOff_2);
@@ -151,7 +156,7 @@ public class LogIn extends AppCompatActivity {
                 if (etUsuarioLogin.getText().toString().contains("@") && etUsuarioLogin.getText().toString().contains(".com")){
                     tilUsuarioLogin.setError(null);
                 }else {
-                    tilUsuarioLogin.setError("Debes completar un Email válido");
+                    tilUsuarioLogin.setError(errorUsuarioLogin);
                 }
             }
         });
@@ -170,7 +175,7 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (etContrasenaLogin.getText().length() < 10) {
-                    tilContrasenaLogin.setError("La contraseña debe contener al menos 10 caracteres");
+                    tilContrasenaLogin.setError(errorConstrasenaLogin);
                 } else {
                     tilContrasenaLogin.setError(null);
                 }
@@ -193,7 +198,7 @@ public class LogIn extends AppCompatActivity {
                 if (etRepitaContrasenaLogin.getText().equals(etContrasenaLogin.getText())){
                     tilRepitaContrasenaLogin.setError(null);
                 }else {
-                    tilRepitaContrasenaLogin.setError("Las contraseñas deben coincidir");
+                    tilRepitaContrasenaLogin.setError(errorRepitaContrasenaLogin);
                 }
             }
         });
