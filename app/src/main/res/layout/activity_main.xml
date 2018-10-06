@@ -7,47 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:layout_margin="2dp"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="2dp"
+    <include
+        android:id="@+id/actionBar"
+        layout="@layout/action_bar"
         >
 
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/hintSearch"
-            android:layout_weight="80"
-            />
-        <ImageButton
-            android:layout_weight="20"
-            android:layout_width="0dp"
+    </include>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_search_black_36dp"
-            android:background="@color/colorBlanco"
-            />
+            android:orientation="vertical"
+            >
 
 
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/contenedorMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="1"
-        />
+            </FrameLayout>
 
-    <Button
-        android:layout_margin="50dp"
-        android:id="@+id/irLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Solo para ir al LogIn y verlo"
-        />
+        </LinearLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
 
 </LinearLayout>

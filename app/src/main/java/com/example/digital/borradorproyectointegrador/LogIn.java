@@ -50,21 +50,21 @@ public class LogIn extends AppCompatActivity {
         //EDIT TEXTS
         final EditText etUsuarioLogin                   = findViewById(R.id.etUsuarioLogin);
         final EditText etContrasenaLogin          = findViewById(R.id.etContrasenaLogin);
-        final EditText etRepitaContrasenaLogin    = findViewById(R.id.etRepitaContrasenaLogin);
+        //final EditText etRepitaContrasenaLogin    = findViewById(R.id.etRepitaContrasenaLogin);
 
         //TEXTINPUTLAYOUT
         final TextInputLayout tilUsuarioLogin             = findViewById(R.id.tilUsuarioLogin);
         final TextInputLayout tilContrasenaLogin          = findViewById(R.id.tilContrasenaLogin);
-        final TextInputLayout tilRepitaContrasenaLogin    = findViewById(R.id.tilRepitaContrasenaLogin);
+        //final TextInputLayout tilRepitaContrasenaLogin    = findViewById(R.id.tilRepitaContrasenaLogin);
 
         //BUSCAR LOS ERRORES
         final String errorUsuarioLogin = getResources().getString(R.string.tilUsuarioLoginError);
         final String errorConstrasenaLogin = getResources().getString(R.string.tilContrasenaLoginError);
-        final String errorRepitaContrasenaLogin = getResources().getString(R.string.tilRepitaContrasenaLoginError);
+        //final String errorRepitaContrasenaLogin = getResources().getString(R.string.tilRepitaContrasenaLoginError);
 
         //IMAGE VIEWS
         final ImageView ivVisibilityOff_1         = findViewById(R.id.ivVisibilityOff_1);
-        final ImageView ivVisibilityOff_2         = findViewById(R.id.ivVisibilityOff_2);
+        //final ImageView ivVisibilityOff_2         = findViewById(R.id.ivVisibilityOff_2);
 
         //BUTTONS
 //        Button btnIngresarLogin             = findViewById(R.id.btnIngresarLogin);
@@ -116,25 +116,25 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
-        ivVisibilityOff_2.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        etRepitaContrasenaLogin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                        etRepitaContrasenaLogin.setSelection(etRepitaContrasenaLogin.getText().length());
-                        ivVisibilityOff_2.setImageResource(R.drawable.ic_visibility_black_24dp);
-                        return true;
-
-                    case MotionEvent.ACTION_UP:
-                        etRepitaContrasenaLogin.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        etRepitaContrasenaLogin.setSelection(etRepitaContrasenaLogin.getText().length());
-                        ivVisibilityOff_2.setImageResource(R.drawable.ic_visibility_off_black_24dp);
-                        return true;
-                }
-                return false;
-            }
-        });
+//        ivVisibilityOff_2.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                switch (motionEvent.getAction()){
+//                    case MotionEvent.ACTION_DOWN:
+//                        etRepitaContrasenaLogin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                        etRepitaContrasenaLogin.setSelection(etRepitaContrasenaLogin.getText().length());
+//                        ivVisibilityOff_2.setImageResource(R.drawable.ic_visibility_black_24dp);
+//                        return true;
+//
+//                    case MotionEvent.ACTION_UP:
+//                        etRepitaContrasenaLogin.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                        etRepitaContrasenaLogin.setSelection(etRepitaContrasenaLogin.getText().length());
+//                        ivVisibilityOff_2.setImageResource(R.drawable.ic_visibility_off_black_24dp);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
 
         //Fin ---- ---------------------------------------------------------------------
 
@@ -182,26 +182,26 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
-        etRepitaContrasenaLogin.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (etRepitaContrasenaLogin.getText().equals(etContrasenaLogin.getText())){
-                    tilRepitaContrasenaLogin.setError(null);
-                }else {
-                    tilRepitaContrasenaLogin.setError(errorRepitaContrasenaLogin);
-                }
-            }
-        });
+//        etRepitaContrasenaLogin.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (etRepitaContrasenaLogin.getText().equals(etContrasenaLogin.getText())){
+//                    tilRepitaContrasenaLogin.setError(null);
+//                }else {
+//                    tilRepitaContrasenaLogin.setError(errorRepitaContrasenaLogin);
+//                }
+//            }
+//        });
         //Fin-------------------------------------------------------------------------------------------
 
     }

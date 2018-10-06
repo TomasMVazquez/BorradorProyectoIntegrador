@@ -5,6 +5,8 @@
     <string name="hintSearch"> Buscar pelicula o serie</string>
 
     //Pantalla Login
+    <string name="logIn">Login:</string>
+    <string name="registrarse">No tengo cuenta, registrarme</string>
     <string name="hintUsuario">Usuario</string>
     <string name="hintContrasena">Contraseña</string>
     <string name="hintRepitaContrasena">Repita Contraseña</string>
@@ -17,4 +19,5 @@
     //FACEBOOK
     <string name="facebook_app_id">367842997089334</string>
     <string name="fb_login_protocol_scheme">fb367842997089334</string>
+
 </resources>
