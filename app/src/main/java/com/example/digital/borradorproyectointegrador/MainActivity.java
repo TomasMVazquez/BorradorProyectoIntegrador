@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //Llamar a la action bar para mostrar
         android.support.v7.widget.Toolbar actionBar = findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
@@ -45,4 +46,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
         startActivity(intent);
     }
+
+
+
 }

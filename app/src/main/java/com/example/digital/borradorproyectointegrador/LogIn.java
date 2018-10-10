@@ -44,6 +44,8 @@ public class LogIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
 //Llamo a los views (edittexts, botones, etc)
 
@@ -69,7 +71,7 @@ public class LogIn extends AppCompatActivity {
         //BUTTONS
 //        Button btnIngresarLogin             = findViewById(R.id.btnIngresarLogin);
 
-        //LOGIN FACEBOOK
+        // ACA EMPIEZAN LOS LOGINS
         callbackManager = CallbackManager.Factory.create();
         //Facebook LoginButton
         LoginButton loginButtonFacebook = findViewById(R.id.login_button);
@@ -91,6 +93,11 @@ public class LogIn extends AppCompatActivity {
                 // App code
             }
         });
+
+
+
+
+        // ACA TERMINA LOS LOGINS
 
 
 
