@@ -4,11 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toolbar;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.support.v7.widget.LinearLayoutManager.*;
 
 
 /**
@@ -32,7 +40,7 @@ public class PeliculasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
 
-
+        //Boton para ir al login
         Button btnIngresarLogin = view.findViewById(R.id.btnIngresarLogin);
 
         btnIngresarLogin.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +49,38 @@ public class PeliculasFragment extends Fragment {
                 onButtonPressed();
             }
         });
+
+        //Recycler view
+        //Datos
+        ImageView cars = new ImageView(this.getContext());
+        ImageView coco = new ImageView(this.getContext());
+        ImageView starwars = new ImageView(this.getContext());
+        ImageView tomorrowland = new ImageView(this.getContext());
+        cars.setImageResource(R.drawable.cars);
+        coco.setImageResource(R.drawable.coco);
+        starwars.setImageResource(R.drawable.starwars);
+        tomorrowland.setImageResource(R.drawable.tomorrowland);
+
+        List<PeliculaSerie> peliculaSeries = new ArrayList<>();
+        peliculaSeries.add(new PeliculaSerie(cars,2));
+        peliculaSeries.add(new PeliculaSerie(coco,1));
+        peliculaSeries.add(new PeliculaSerie(starwars,4));
+        peliculaSeries.add(new PeliculaSerie(tomorrowland,5));
+
+        //Lista
+        RecyclerView recyclerViewPrimero = view.findViewById(R.id.recylcerViewPrimero);
+
+        //Mejora el desempeño si el tamaño del recycler no cambia durante la ejecucion
+        recyclerViewPrimero.setHasFixedSize(true);
+
+        //Como se muestra
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
+        recyclerViewPrimero.setLayoutManager(layoutManager);
+
+        //Adapter
+        AdaptadorRecyclerPeliculaSerie adaptadorRecyclerPeliculaSerie =new AdaptadorRecyclerPeliculaSerie(peliculaSeries);
+
+        recyclerViewPrimero.setAdapter(adaptadorRecyclerPeliculaSerie);
 
         return view;
     }

@@ -7,8 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".LogIn"
     android:orientation="vertical"
+    android:padding="4dp"
     android:gravity="center_horizontal"
     android:background="@color/colorNegro"
+    android:backgroundTint="@color/colorPrimaryDark"
     >
 
     <FrameLayout
@@ -224,7 +226,7 @@
             android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal"
             >
-            
+
 
         </FrameLayout>
 
