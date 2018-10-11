@@ -6,13 +6,22 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener {
+    SearchView searchView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -21,8 +30,15 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         setContentView(R.layout.activity_main);
 
         //Llamar a la action bar para mostrar
-        android.support.v7.widget.Toolbar actionBar = findViewById(R.id.actionBar);
-        setSupportActionBar(actionBar);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbarMain);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(null);
+
+        // Llamar el Search View
+//        searchView = findViewById(R.id.itemSearch);
+
+
+
 
         //Llamar al FragmentPeliculas
         PeliculasFragment peliculasFragment = new PeliculasFragment();
@@ -31,6 +47,47 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contenedorMain,peliculasFragment);
         fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.itemAccount:
+                Intent intentAccount = new Intent(MainActivity.this, LogIn.class);
+                startActivity(intentAccount);
+                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.itemSearch:
+
+                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item1:
+                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item2:
+                Toast.makeText(this, "Item 2 Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item3:
+                Toast.makeText(this, "Item 3 Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.subItem1:
+                Toast.makeText(this, "Sub Item 1 Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.subItem2:
+                Toast.makeText(this, "Sub Item 2 Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
     }
 
