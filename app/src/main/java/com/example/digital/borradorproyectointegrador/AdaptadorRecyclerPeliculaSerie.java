@@ -72,7 +72,7 @@ public class AdaptadorRecyclerPeliculaSerie extends RecyclerView.Adapter {
         //Metodo para bindear Data
         public  void cargar (PeliculaSerie peliculaSerie){
             imagen.setImageDrawable(peliculaSerie.getImagen().getDrawable());
-            ratingBar.setNumStars(peliculaSerie.getCantEstrellas());
+            ratingBar.setRating(peliculaSerie.getCantEstrellas());
         }
 
     }
