@@ -41,14 +41,14 @@ public class PeliculasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
 
         //Boton para ir al login
-        Button btnIngresarLogin = view.findViewById(R.id.btnIngresarLogin);
-
-        btnIngresarLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onButtonPressed();
-            }
-        });
+//        Button btnIngresarLogin = view.findViewById(R.id.btnIngresarLogin);
+//
+//        btnIngresarLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onButtonPressed();
+//            }
+//        });
 
         //Recycler view
         //Datos
@@ -69,18 +69,38 @@ public class PeliculasFragment extends Fragment {
 
         //Lista
         RecyclerView recyclerViewPrimero = view.findViewById(R.id.recylcerViewPrimero);
+        RecyclerView recyclerViewSegundo = view.findViewById(R.id.recylcerViewSegundo);
+        RecyclerView recyclerViewTercero = view.findViewById(R.id.recylcerViewTercero);
+        RecyclerView recyclerViewCuarto = view.findViewById(R.id.recylcerViewCuarto);
+        RecyclerView recyclerViewQuinto = view.findViewById(R.id.recylcerViewQuinto);
 
         //Mejora el desempeño si el tamaño del recycler no cambia durante la ejecucion
         recyclerViewPrimero.setHasFixedSize(true);
+        recyclerViewSegundo.setHasFixedSize(true);
+        recyclerViewTercero.setHasFixedSize(true);
+        recyclerViewCuarto.setHasFixedSize(true);
+        recyclerViewQuinto.setHasFixedSize(true);
 
         //Como se muestra
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
-        recyclerViewPrimero.setLayoutManager(layoutManager);
+        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager layoutManager3 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager layoutManager4 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager layoutManager5 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
+        recyclerViewPrimero.setLayoutManager(layoutManager1);
+        recyclerViewSegundo.setLayoutManager(layoutManager2);
+        recyclerViewTercero.setLayoutManager(layoutManager3);
+        recyclerViewCuarto.setLayoutManager(layoutManager4);
+        recyclerViewQuinto.setLayoutManager(layoutManager5);
 
         //Adapter
         AdaptadorRecyclerPeliculaSerie adaptadorRecyclerPeliculaSerie =new AdaptadorRecyclerPeliculaSerie(peliculaSeries);
 
         recyclerViewPrimero.setAdapter(adaptadorRecyclerPeliculaSerie);
+        recyclerViewSegundo.setAdapter(adaptadorRecyclerPeliculaSerie);
+        recyclerViewTercero.setAdapter(adaptadorRecyclerPeliculaSerie);
+        recyclerViewCuarto.setAdapter(adaptadorRecyclerPeliculaSerie);
+        recyclerViewQuinto.setAdapter(adaptadorRecyclerPeliculaSerie);
 
         return view;
     }
