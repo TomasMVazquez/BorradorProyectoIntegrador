@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/colorPrimaryTrans"
+            android:background="@color/colorBlanco"
             >
 
             <ImageView
@@ -52,7 +52,7 @@
                     android:id="@+id/recylcerViewPrimero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDarkTrans"
+                    android:background="@color/colorPrimaryDark"
                     />
 
                 <View
@@ -90,7 +90,7 @@
                     android:id="@+id/recylcerViewSegundo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDarkTrans"
+                    android:background="@color/colorPrimaryDark"
                     />
 
                 <View
@@ -128,7 +128,7 @@
                     android:id="@+id/recylcerViewTercero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDarkTrans"
+                    android:background="@color/colorPrimaryDark"
                     />
 
                 <View
@@ -166,7 +166,7 @@
                     android:id="@+id/recylcerViewCuarto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDarkTrans"
+                    android:background="@color/colorPrimaryDark"
                     />
 
                 <View
@@ -204,7 +204,7 @@
                     android:id="@+id/recylcerViewQuinto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDarkTrans"
+                    android:background="@color/colorPrimaryDark"
                     />
 
                 <View
