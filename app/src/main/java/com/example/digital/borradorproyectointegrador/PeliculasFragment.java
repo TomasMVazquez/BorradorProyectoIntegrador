@@ -66,6 +66,11 @@ public class PeliculasFragment extends Fragment {
         peliculaSeries.add(new PeliculaSerie(coco,1));
         peliculaSeries.add(new PeliculaSerie(starwars,4));
         peliculaSeries.add(new PeliculaSerie(tomorrowland,5));
+        peliculaSeries.add(new PeliculaSerie(cars,2));
+        peliculaSeries.add(new PeliculaSerie(coco,1));
+        peliculaSeries.add(new PeliculaSerie(starwars,4));
+        peliculaSeries.add(new PeliculaSerie(tomorrowland,5));
+
 
         //Lista
         RecyclerView recyclerViewPrimero = view.findViewById(R.id.recylcerViewPrimero);
