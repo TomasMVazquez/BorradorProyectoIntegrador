@@ -4,6 +4,19 @@
     //Pantalla Main
     <string name="hintSearch"> Buscar pelicula o serie</string>
 
+    //Navigation View
+    <string name="nav_header_title">Humeantes</string>
+    <string name="nav_header_subtitle">humeantes@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_item1">Inicio</string>
+    <string name="nav_header_item2">Sign In</string>
+    <string name="nav_header_item3">Encuestas</string>
+    <string name="nav_header_item4">Listas</string>
+    <string name="nav_header_communicate">Communicate</string>
+    <string name="nav_header_share">Share</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     //Pantalla Login
     <string name="logIn">Login:</string>
     <string name="registrarse">No tengo cuenta, registrarme</string>

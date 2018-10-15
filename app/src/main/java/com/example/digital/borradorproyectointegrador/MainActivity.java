@@ -3,10 +3,15 @@ package com.example.digital.borradorproyectointegrador;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -20,7 +25,7 @@ import android.widget.Toolbar;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
     SearchView searchView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -33,6 +38,16 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(null);
+
+        //LLamar Navigation View
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Llamar el Search View
 //        searchView = findViewById(R.id.itemSearch);
@@ -103,5 +118,25 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
+        if (id == R.id.nav_inicio) {
+            // Handle the camera action
+        } else if (id == R.id.nav_signin) {
+
+        } else if (id == R.id.nav_encuestas) {
+
+        } else if (id == R.id.nav_listas) {
+
+        } else if (id == R.id.nav_share) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
