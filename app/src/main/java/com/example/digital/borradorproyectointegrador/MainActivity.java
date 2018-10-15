@@ -126,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         if (id == R.id.nav_inicio) {
             // Handle the camera action
         } else if (id == R.id.nav_signin) {
-
+            Intent intentAccount = new Intent(MainActivity.this, LogIn.class);
+            startActivity(intentAccount);
         } else if (id == R.id.nav_encuestas) {
 
         } else if (id == R.id.nav_listas) {

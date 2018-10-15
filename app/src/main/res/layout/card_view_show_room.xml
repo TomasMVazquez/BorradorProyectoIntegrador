@@ -1,42 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="100dp"
     android:layout_height="140dp"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="@dimen/cardview_default_elevation"
-    android:background="@color/colorBlancoTrans"
-    android:layout_margin="4dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:weightSum="100"
     >
-
-    <LinearLayout
+    <ImageView
+        android:id="@+id/cvShowRoom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorBlancoTrans"
-        android:gravity="center"
-        android:layout_marginTop="2dp"
-        >
-        <ImageView
-            android:id="@+id/cvShowRoom"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="75"
-            android:src="@drawable/play_movie_icon_sketch"
-            android:scaleType="fitXY"
-            />
-        <android.support.v7.widget.AppCompatRatingBar
-            android:id="@+id/rbShowRoom"
-            android:numStars="5"
-            android:rating="4"
-            android:isIndicator="true"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="18"
-            style="?android:attr/ratingBarStyleSmall"
-            />
+        android:layout_height="0dp"
+        android:layout_weight="85"
+        android:src="@drawable/play_movie_icon_sketch"
+        android:scaleType="fitXY"
+        />
+    <android.support.v7.widget.AppCompatRatingBar
+        android:id="@+id/rbShowRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+        android:numStars="5"
+        android:rating="4"
+        android:isIndicator="true"
+        style="?android:attr/ratingBarStyleSmall"
+        />
+</LinearLayout>

@@ -73,6 +73,7 @@ public class AdaptadorRecyclerPeliculaSerie extends RecyclerView.Adapter {
         public  void cargar (PeliculaSerie peliculaSerie){
             imagen.setImageDrawable(peliculaSerie.getImagen().getDrawable());
             ratingBar.setRating(peliculaSerie.getCantEstrellas());
+            ratingBar.setNumStars(5);
         }
 
     }

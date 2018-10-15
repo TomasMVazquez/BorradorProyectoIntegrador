@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryTrans">#64009688</color>
-    <color name="colorPrimaryDark">#00796B</color>
-    <color name="colorPrimaryDarkTrans">#9600796b</color>
-    <color name="colorAccent">#FF5722</color>
-    <color name="colorAccentDark">#E64A19</color>
-    <color name="colorAccentLight">#FFCCBC</color>
-    <color name="colorPrimaryLight">#B2DFDB</color>
+    <color name="colorPrimaryLight">#8eacbb</color>
+    <color name="colorPrimary">#607d8b</color>
+    <color name="colorPrimaryDark">#34515e</color>
+    <color name="colorAccent">#c62828</color>
+    <color name="colorAccentDark">#8e0000</color>
+    <color name="colorAccentLight">#ff5f52</color>
+
     <color name="colorPrimaryText">#212121</color>
+    <color name="colorTextOnS">#ffffff</color>
+    <color name="primaryTextColor">#000000</color>
+
     <color name="colorSecondaryText">#757575</color>
     <color name="colorBlanco">#FFFFFF</color>
     <color name="colorBlancoTrans">#00ffffff</color>
     <color name="colorNegro">#000000</color>
     <color name="colorDivider">#BDBDBD</color>
+    <!--<color name="colorPrimaryLight">#B2DFDB</color>-->
+    <!--<color name="colorPrimary">#009688</color>-->
+    <color name="colorPrimaryTrans">#64009688</color>
+    <!--<color name="colorPrimaryDark">#00796B</color>-->
+    <color name="colorPrimaryDarkTrans">#9600796b</color>
 
 </resources>

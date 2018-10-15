@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PeliculasFragment">
+    tools:context=".PeliculasFragment"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/colorBlanco"
+            android:background="@color/colorPrimaryDark"
             >
 
             <ImageView
@@ -37,30 +38,29 @@
                     android:layout_height="wrap_content"
                     android:text="Favoritos"
                     android:textSize="20sp"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorTextOnS"
                     android:textStyle="bold|italic"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginTop="2dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--/>-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recylcerViewPrimero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDark"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginBottom="10dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--/>-->
 
             </LinearLayout>
 
@@ -75,30 +75,29 @@
                     android:layout_height="wrap_content"
                     android:text="Acción"
                     android:textSize="20sp"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorTextOnS"
                     android:textStyle="bold|italic"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginTop="2dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--/>-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recylcerViewSegundo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDark"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginBottom="10dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--/>-->
 
             </LinearLayout>
 
@@ -113,30 +112,29 @@
                     android:layout_height="wrap_content"
                     android:text="Drama"
                     android:textSize="20sp"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorTextOnS"
                     android:textStyle="bold|italic"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginTop="2dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--/>-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recylcerViewTercero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDark"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginBottom="10dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--/>-->
 
             </LinearLayout>
 
@@ -151,30 +149,29 @@
                     android:layout_height="wrap_content"
                     android:text="Sci-Fi"
                     android:textSize="20sp"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorTextOnS"
                     android:textStyle="bold|italic"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginTop="2dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--/>-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recylcerViewCuarto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDark"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginBottom="10dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--/>-->
 
             </LinearLayout>
 
@@ -189,39 +186,31 @@
                     android:layout_height="wrap_content"
                     android:text="Comedia"
                     android:textSize="20sp"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorTextOnS"
                     android:textStyle="bold|italic"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginTop="2dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--/>-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recylcerViewQuinto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDark"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorNegro"
-                    android:layout_marginBottom="10dp"
-                    />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorNegro"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--/>-->
 
             </LinearLayout>
-            <!--<Button-->
-                <!--android:id="@+id/btnIngresarLogin"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="IR LOGIN"-->
-                <!--/>-->
-
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>
