@@ -133,7 +133,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         } else if (id == R.id.nav_listas) {
 
         } else if (id == R.id.nav_share) {
-
+            Intent intentTrailer = new Intent(MainActivity.this, TrailerActivity.class);
+            startActivity(intentTrailer);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
