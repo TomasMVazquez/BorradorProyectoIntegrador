@@ -32,5 +32,7 @@
     //FACEBOOK
     <string name="facebook_app_id">367842997089334</string>
     <string name="fb_login_protocol_scheme">fb367842997089334</string>
-
+    //TWITTER
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">JQLPkAJTDjirkduV07mxCfRZg</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">jJlFqmRuPcXXjEJ6JWEWoHOPGJ7geZVrF22B8kWrNWS0tZhsKd</string>
 </resources>

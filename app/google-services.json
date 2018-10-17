@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "452121796713",
+    "firebase_url": "https://borradorproyectointegrador.firebaseio.com",
+    "project_id": "borradorproyectointegrador",
+    "storage_bucket": "borradorproyectointegrador.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452121796713:android:233740ef0f241cb3",
+        "android_client_info": {
+          "package_name": "com.example.digital.borradorproyectointegrador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452121796713-64ngdfr2ak6afma7p29ttjh9sgk8hgq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.digital.borradorproyectointegrador",
+            "certificate_hash": "ce7f73ecb9c5877e9567ef7b5a6b8d8ba49fd22c"
+          }
+        },
+        {
+          "client_id": "452121796713-s1ldclh795ds0ate09sibumeqqfm5hn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0C4Qnc23CSvkk8wCu1l4fpcRXbxf7QY0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452121796713-s1ldclh795ds0ate09sibumeqqfm5hn3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
