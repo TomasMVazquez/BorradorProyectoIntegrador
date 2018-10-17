@@ -15,10 +15,12 @@ public class AdaptadorRecyclerPeliculaSerie extends RecyclerView.Adapter {
 
     //Atributo
     private List<PeliculaSerie> peliculaSeries;
+    private AdapterInterface escuchador;
 
     //Constructor
-    public AdaptadorRecyclerPeliculaSerie(List<PeliculaSerie> peliculaSeries) {
+    public AdaptadorRecyclerPeliculaSerie(List<PeliculaSerie> peliculaSeries, AdapterInterface escuchador) {
         this.peliculaSeries = peliculaSeries;
+        this.escuchador = escuchador;
     }
 
     //Metodos de Herencia
@@ -56,6 +58,10 @@ public class AdaptadorRecyclerPeliculaSerie extends RecyclerView.Adapter {
         return peliculaSeries.size();
     }
 
+    public interface AdapterInterface {
+        void irTrailer(PeliculaSerie peliculaSerie);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         //Atributos
@@ -67,6 +73,14 @@ public class AdaptadorRecyclerPeliculaSerie extends RecyclerView.Adapter {
             super(itemView);
             imagen=itemView.findViewById(R.id.cvShowRoom);
             ratingBar=itemView.findViewById(R.id.rbShowRoom);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PeliculaSerie peliculaSerie = peliculaSeries.get(getAdapterPosition());
+                    escuchador.irTrailer(peliculaSerie);
+                }
+            });
         }
 
         //Metodo para bindear Data
@@ -77,4 +91,6 @@ public class AdaptadorRecyclerPeliculaSerie extends RecyclerView.Adapter {
         }
 
     }
+
+
 }

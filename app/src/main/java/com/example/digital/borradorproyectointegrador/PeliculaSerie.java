@@ -1,5 +1,6 @@
 package com.example.digital.borradorproyectointegrador;
 
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 
@@ -18,6 +19,8 @@ public class PeliculaSerie {
     }
 
     //Getter
+
+
     public ImageView getImagen() {
         return imagen;
     }

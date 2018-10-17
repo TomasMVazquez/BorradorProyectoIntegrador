@@ -19,7 +19,7 @@ public class MultiLogIn extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+//        updateUI(currentUser);
     }
 
     @Override

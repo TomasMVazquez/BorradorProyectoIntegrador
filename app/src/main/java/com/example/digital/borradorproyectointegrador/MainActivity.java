@@ -141,4 +141,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
