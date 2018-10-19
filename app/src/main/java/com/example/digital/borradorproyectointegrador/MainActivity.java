@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.itemAccount:
-                Intent intentAccount = new Intent(MainActivity.this, LogIn.class);
+                Intent intentAccount = new Intent(MainActivity.this, MultiLogIn.class);
                 startActivity(intentAccount);
                 Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
                 return true;
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
     @Override
     public void onFragmentInteraction() {
-        Intent intent = new Intent(this,LogIn.class);
+        Intent intent = new Intent(this,MultiLogIn.class);
 
         //Bundle bundle = new Bundle();
         //bundle.putString(MensajeFragment.KEY_MENSAJE, mensaje);
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         if (id == R.id.nav_inicio) {
             // Handle the camera action
         } else if (id == R.id.nav_signin) {
-            Intent intentAccount = new Intent(MainActivity.this, LogIn.class);
+            Intent intentAccount = new Intent(MainActivity.this, MultiLogIn.class);
             startActivity(intentAccount);
         } else if (id == R.id.nav_encuestas) {
 

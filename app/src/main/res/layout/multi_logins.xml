@@ -1,23 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
 
-    <EditText
-        android:id="@+id/editText3"
+    android:background="@color/colorPrimaryDark">
+
+    <include
+        android:id="@+id/toolbarMultiLogin"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:layout_centerInParent="true"
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText3"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:alpha="0.80"
+        android:padding="10dp"
+        >
+
+
+
+
+        <Button
+            android:id="@+id/btnFb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="30dp"
+            android:layout_margin="4dp"
+            android:text="Sign in with Facebook"
+            android:background="@drawable/layers_fb_button_bg"
+            style="@style/ButtonText"
+            />
+        <Button
+            android:id="@+id/btnTwitter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="30dp"
+            android:layout_margin="4dp"
+            android:text="Sign in with Twitter"
+            android:background="@drawable/layers_tw_button_bg"
+            style="@style/ButtonText"
+            />
+
+        <Button
+            android:id="@+id/btnGplus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="30dp"
+            android:layout_margin="4dp"
+            android:text="Sign in with Google+"
+            android:background="@drawable/layers_gp_button_bg"
+            style="@style/ButtonText"
+            />
+        <Button
+            android:id="@+id/btnMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="30dp"
+            android:layout_margin="4dp"
+            android:text="Sign in with Email+"
+            android:background="@drawable/layers_email_button_bg"
+            style="@style/ButtonText"
+            />
+    </LinearLayout>
+
 </RelativeLayout>
