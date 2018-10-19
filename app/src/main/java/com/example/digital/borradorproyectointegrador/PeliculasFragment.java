@@ -60,14 +60,15 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
 //        peliculaSeries.add(new PeliculaSerie(tomorrowland, 5));
 
         List<PeliculaSerie> peliculaSeries = new ArrayList<>();
-        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, R.string.resumen_CARS));
-        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, R.string.resumen_COCO));
-        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, R.string.resumen_STAR_WARS));
-        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, R.string.resumen_TOMORROWLAND));
-        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, R.string.resumen_CARS));
-        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, R.string.resumen_COCO));
-        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, R.string.resumen_STAR_WARS));
-        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, R.string.resumen_TOMORROWLAND));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, "2LeOH9AGJQM", R.string.resumen_CARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, "Ga6RYejo6Hk", R.string.resumen_COCO));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, "Q0CbN8sfihY", R.string.resumen_STAR_WARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, "lWZ7O-RrATY", R.string.resumen_TOMORROWLAND));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, "2LeOH9AGJQM", R.string.resumen_CARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, "Ga6RYejo6Hk", R.string.resumen_COCO));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, "Q0CbN8sfihY", R.string.resumen_STAR_WARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, "lWZ7O-RrATY", R.string.resumen_TOMORROWLAND));
+
 
 
 
@@ -141,6 +142,7 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
 
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putString(TrailerActivity.VIDEO_ID, peliculaSerie.getVideoId());
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculaSerie.getNombre());
         bundle.putString(TrailerActivity.KEY_IMAGE, peliculaSerie.getImagen().toString());
         bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS, peliculaSerie.getCantEstrellas());

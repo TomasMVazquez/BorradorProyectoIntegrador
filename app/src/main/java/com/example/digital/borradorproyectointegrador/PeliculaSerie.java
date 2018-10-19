@@ -11,14 +11,17 @@ public class PeliculaSerie {
     private String nombre;
     private RatingBar ratingBar;
     private Integer cantEstrellas;
+    private String videoId;
     private Integer resumen;
+
 
     //Constructor
 
-    public PeliculaSerie(Integer imagen, String nombre, Integer cantEstrellas, Integer resumen) {
+    public PeliculaSerie(Integer imagen, String nombre, Integer cantEstrellas, String videoId, Integer resumen) {
         this.imagen = imagen;
         this.nombre = nombre;
         this.cantEstrellas = cantEstrellas;
+        this.videoId = videoId;
         this.resumen = resumen;
     }
 
@@ -52,6 +55,10 @@ public class PeliculaSerie {
 
     public Integer getCantEstrellas() {
         return cantEstrellas;
+    }
+
+    public String getVideoId() {
+        return videoId;
     }
 
     //ToString

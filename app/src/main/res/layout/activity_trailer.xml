@@ -23,19 +23,30 @@
 
 
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <MediaController
-                android:id="@+id/videoController"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            >
+            
+            <com.google.android.youtube.player.YouTubePlayerView
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="wrap_content"
+                android:id="@+id/youtubePlayer"
+                android:background="#fff"
+                >
 
-                <VideoView
-                    android:id="@+id/videoTrailer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </MediaController>
+
+            </com.google.android.youtube.player.YouTubePlayerView>
+
+            <!--<MediaController-->
+                <!--android:id="@+id/videoController"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="250dp">-->
+
+                <!--<VideoView-->
+                    <!--android:id="@+id/videoTrailer"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="200dp" />-->
+            <!--</MediaController>-->
 
             <ImageView
                 android:id="@+id/favoritoTrailer"
