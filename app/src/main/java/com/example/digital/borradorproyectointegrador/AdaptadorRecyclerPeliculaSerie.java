@@ -85,7 +85,8 @@ public class AdaptadorRecyclerPeliculaSerie extends RecyclerView.Adapter {
 
         //Metodo para bindear Data
         public  void cargar (PeliculaSerie peliculaSerie){
-            imagen.setImageDrawable(peliculaSerie.getImagen().getDrawable());
+            imagen.setImageResource(peliculaSerie.getImagen());
+//            imagen.setImageDrawable(peliculaSerie.getImagen().getDrawable());
             ratingBar.setRating(peliculaSerie.getCantEstrellas());
             ratingBar.setNumStars(5);
         }

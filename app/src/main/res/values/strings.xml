@@ -33,6 +33,12 @@
     <string name="textViewResumen">Resumen</string>
     <string name="textViewComentarios">Comentarios</string>
 
+    //RESUMEN PELIS
+    <string name="resumen_CARS">A hot-shot race-car named Lightning McQueen gets waylaid in Radiator Springs, where he finds the true meaning of friendship and family.</string>
+    <string name="resumen_COCO">Aspiring musician Miguel, confronted with his family\'s ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.</string>
+    <string name="resumen_TOMORROWLAND">Bound by a shared destiny, a teen bursting with scientific curiosity and a former boy-genius inventor embark on a mission to unearth the secrets of a place somewhere in time and space that exists in their collective memory.</string>
+    <string name="resumen_STAR_WARS">Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.</string>
+
     //FACEBOOK
     <string name="facebook_app_id">367842997089334</string>
     <string name="fb_login_protocol_scheme">fb367842997089334</string>

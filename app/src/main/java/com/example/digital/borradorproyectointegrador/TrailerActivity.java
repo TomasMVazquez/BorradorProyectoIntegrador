@@ -24,6 +24,8 @@ public class TrailerActivity extends AppCompatActivity {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_RATING_BAR = "rating bar";
     public static final String KEY_CANT_ESTRELLAS = "cantEstrellas";
+    public static final String KEY_NOMBRE = "nombre";
+    public static final String KEY_RESUMEN = "resumen";
 
 
 
@@ -54,15 +56,20 @@ public class TrailerActivity extends AppCompatActivity {
         // DATOS
         String imageData = bundle.getString(KEY_IMAGE);
         Integer cantEstrellasData = bundle.getInt(KEY_CANT_ESTRELLAS);
+        String nombre = bundle.getString(KEY_NOMBRE);
+        Integer resumen = bundle.getInt(KEY_RESUMEN);
 
 
         // COMPONENTES
         RatingBar ratingBar = findViewById(R.id.rbShowRoom);
-        TextView textView = findViewById(R.id.textViewTituloTrailer);
+        TextView textViewNombre = findViewById(R.id.textViewTituloTrailer);
+        TextView textViewResumen = findViewById(R.id.textViewResumenDetalle);
+
 
         // Seteo
         ratingBar.setRating(cantEstrellasData);
-        textView.setText(imageData);
+        textViewNombre.setText(nombre);
+        textViewResumen.setText(resumen);
 
 
     }

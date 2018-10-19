@@ -40,24 +40,35 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
         //Recycler view
         //Datos
 
-        ImageView cars = new ImageView(this.getContext());
-        ImageView coco = new ImageView(this.getContext());
-        ImageView starwars = new ImageView(this.getContext());
-        ImageView tomorrowland = new ImageView(this.getContext());
-        cars.setImageResource(R.drawable.cars);
-        coco.setImageResource(R.drawable.coco);
-        starwars.setImageResource(R.drawable.starwars);
-        tomorrowland.setImageResource(R.drawable.tomorrowland);
+//        ImageView cars = new ImageView(this.getContext());
+//        ImageView coco = new ImageView(this.getContext());
+//        ImageView starwars = new ImageView(this.getContext());
+//        ImageView tomorrowland = new ImageView(this.getContext());
+//        cars.setImageResource(R.drawable.cars);
+//        coco.setImageResource(R.drawable.coco);
+//        starwars.setImageResource(R.drawable.starwars);
+//        tomorrowland.setImageResource(R.drawable.tomorrowland);
+//
+//        List<PeliculaSerie> peliculaSeries = new ArrayList<>();
+//        peliculaSeries.add(new PeliculaSerie(cars, 2));
+//        peliculaSeries.add(new PeliculaSerie(coco, 1));
+//        peliculaSeries.add(new PeliculaSerie(starwars, 4));
+//        peliculaSeries.add(new PeliculaSerie(tomorrowland, 5));
+//        peliculaSeries.add(new PeliculaSerie(cars, 2));
+//        peliculaSeries.add(new PeliculaSerie(coco, 1));
+//        peliculaSeries.add(new PeliculaSerie(starwars, 4));
+//        peliculaSeries.add(new PeliculaSerie(tomorrowland, 5));
 
         List<PeliculaSerie> peliculaSeries = new ArrayList<>();
-        peliculaSeries.add(new PeliculaSerie(cars, 2));
-        peliculaSeries.add(new PeliculaSerie(coco, 1));
-        peliculaSeries.add(new PeliculaSerie(starwars, 4));
-        peliculaSeries.add(new PeliculaSerie(tomorrowland, 5));
-        peliculaSeries.add(new PeliculaSerie(cars, 2));
-        peliculaSeries.add(new PeliculaSerie(coco, 1));
-        peliculaSeries.add(new PeliculaSerie(starwars, 4));
-        peliculaSeries.add(new PeliculaSerie(tomorrowland, 5));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, R.string.resumen_CARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, R.string.resumen_COCO));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, R.string.resumen_STAR_WARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, R.string.resumen_TOMORROWLAND));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, R.string.resumen_CARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, R.string.resumen_COCO));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, R.string.resumen_STAR_WARS));
+        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, R.string.resumen_TOMORROWLAND));
+
 
 
         //Lista
@@ -130,8 +141,10 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
 
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putString(TrailerActivity.KEY_NOMBRE, peliculaSerie.getNombre());
         bundle.putString(TrailerActivity.KEY_IMAGE, peliculaSerie.getImagen().toString());
         bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS, peliculaSerie.getCantEstrellas());
+        bundle.putInt(TrailerActivity.KEY_RESUMEN, peliculaSerie.getResumen());
         intent.putExtras(bundle);
         startActivity(intent);
     }
