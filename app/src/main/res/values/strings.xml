@@ -5,8 +5,8 @@
     <string name="hintSearch"> Buscar pelicula o serie</string>
 
     //Navigation View
-    <string name="nav_header_title">Humeantes</string>
-    <string name="nav_header_subtitle">humeantes@android.com</string>
+    <string name="nav_header_title">ScreenHolic</string>
+    <string name="nav_header_subtitle">screenholic@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_header_item1">Inicio</string>
     <string name="nav_header_item2">Sign In</string>
