@@ -151,6 +151,8 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
                 Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.home:
+                finish();
             case R.id.item1:
                 Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
                 return true;
