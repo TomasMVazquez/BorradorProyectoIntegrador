@@ -3,6 +3,8 @@
 
     //Pantalla Main
     <string name="hintSearch"> Buscar pelicula o serie</string>
+    <string name="movie_tab">Peliculas/Series</string>
+    <string name="comunidad_tab">Comentarios</string>
 
     //Navigation View
     <string name="nav_header_title">ScreenHolic</string>
@@ -45,4 +47,7 @@
     //TWITTER
     <string name="com.twitter.sdk.android.CONSUMER_KEY">JQLPkAJTDjirkduV07mxCfRZg</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">jJlFqmRuPcXXjEJ6JWEWoHOPGJ7geZVrF22B8kWrNWS0tZhsKd</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

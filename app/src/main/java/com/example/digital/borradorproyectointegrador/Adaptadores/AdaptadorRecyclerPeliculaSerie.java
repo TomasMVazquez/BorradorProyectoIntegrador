@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador;
+package com.example.digital.borradorproyectointegrador.Adaptadores;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+
+import com.example.digital.borradorproyectointegrador.PeliculaSerie;
+import com.example.digital.borradorproyectointegrador.R;
 
 import java.util.List;
 

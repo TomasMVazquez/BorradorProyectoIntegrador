@@ -1,15 +1,16 @@
 package com.example.digital.borradorproyectointegrador;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +19,14 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.example.digital.borradorproyectointegrador.Adaptadores.MyViewPagerAdapter;
+import com.example.digital.borradorproyectointegrador.Fragments.ComentariosFragment;
+import com.example.digital.borradorproyectointegrador.Fragments.PeliculasFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
@@ -53,15 +57,33 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 //        searchView = findViewById(R.id.itemSearch);
 
 
-
-
         //Llamar al FragmentPeliculas
         PeliculasFragment peliculasFragment = new PeliculasFragment();
+        ComentariosFragment comentariosFragment = new ComentariosFragment();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contenedorMain,peliculasFragment);
-        fragmentTransaction.commit();
+        List<Fragment> fragmentList = new ArrayList<>();
+        fragmentList.add(peliculasFragment);
+        fragmentList.add(comentariosFragment);
+
+        List<String> titulos = new ArrayList<>();
+        titulos.add(getResources().getString(R.string.movie_tab));
+        titulos.add(getResources().getString(R.string.comunidad_tab));
+
+        //ViewPager
+        ViewPager viewPager = findViewById(R.id.viewPager);
+
+        //TabLayout
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+
+        //Asociar al view pager
+        tabLayout.setupWithViewPager(viewPager);
+
+        //Adapter
+        MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList,titulos);
+        viewPager.setAdapter(adapter);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_movie_tab);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_tab);
+
 
     }
 
@@ -141,5 +163,11 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         return true;
     }
 
+    public void cargarFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.viewPager,fragment);
+        fragmentTransaction.commit();
+    }
 
 }
