@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
+import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentariosCompletos;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -65,22 +70,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         }
 
 
-
-
-        //Llamar a la action bar para mostrar
-//        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbarTrailer);
-//        setSupportActionBar(toolbar);
-//        Objects.requireNonNull(getSupportActionBar()).setTitle(null);
-//
-//        if(getSupportActionBar() != null){
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        }
-
-
-
-
-
         // COMUNICACION ENTRE FRAGMENT/ACTIVITY
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -109,6 +98,22 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         /** Initializing YouTube Player View **/
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
         youTubePlayerView.initialize(API_KEY, this);
+
+        //Cargar Comentarios
+            //Datos
+        ComentariosController comentariosController = new ComentariosController();
+
+            //Recycler
+        RecyclerView recyclerViewComentarioTrailer = findViewById(R.id.recyclerComentariosTrailer);
+        recyclerViewComentarioTrailer.setHasFixedSize(true);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerViewComentarioTrailer.setLayoutManager(llm);
+
+        AdaptadorRecyclerComentarioTrailer adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(comentariosController.entregarListaComentariosTrailer(nombre));
+
+        recyclerViewComentarioTrailer.setAdapter(adaptadorRecyclerComentarioTrailer);
+    
     }
 
 
@@ -141,21 +146,21 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 return true;
             case R.id.home:
                 finish();
-            case R.id.item1:
-                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item2:
-                Toast.makeText(this, "Item 2 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.subItem1:
-                Toast.makeText(this, "Sub Item 1 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.subItem2:
-                Toast.makeText(this, "Sub Item 2 Selected", Toast.LENGTH_SHORT).show();
-                return true;
+//            case R.id.item1:
+//                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.item2:
+//                Toast.makeText(this, "Item 2 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.item3:
+//                Toast.makeText(this, "Item 3 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.subItem1:
+//                Toast.makeText(this, "Sub Item 1 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.subItem2:
+//                Toast.makeText(this, "Sub Item 2 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
