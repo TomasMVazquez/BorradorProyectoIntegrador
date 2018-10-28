@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador.Adaptadores;
+package com.example.digital.borradorproyectointegrador.view.Adaptadores;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

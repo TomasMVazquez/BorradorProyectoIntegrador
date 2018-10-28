@@ -1,4 +1,5 @@
-package com.example.digital.borradorproyectointegrador;
+package com.example.digital.borradorproyectointegrador.view;
+import com.example.digital.borradorproyectointegrador.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;

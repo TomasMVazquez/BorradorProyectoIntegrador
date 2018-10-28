@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador.Fragments;
+package com.example.digital.borradorproyectointegrador.view.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.digital.borradorproyectointegrador.Adaptadores.AdaptadorRecyclerPeliculaSerie;
-import com.example.digital.borradorproyectointegrador.PeliculaSerie;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerPeliculaSerie;
+import com.example.digital.borradorproyectointegrador.model.PeliculaSerie;
 import com.example.digital.borradorproyectointegrador.R;
-import com.example.digital.borradorproyectointegrador.TrailerActivity;
+import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
 import java.util.ArrayList;
 import java.util.List;

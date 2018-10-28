@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador;
+package com.example.digital.borradorproyectointegrador.view;
 
 import android.content.Intent;
 import android.os.Build;
@@ -21,9 +21,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.digital.borradorproyectointegrador.Adaptadores.MyViewPagerAdapter;
-import com.example.digital.borradorproyectointegrador.Fragments.ComentariosFragment;
-import com.example.digital.borradorproyectointegrador.Fragments.PeliculasFragment;
+import com.example.digital.borradorproyectointegrador.R;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
+import com.example.digital.borradorproyectointegrador.view.Fragments.ComentariosFragment;
+import com.example.digital.borradorproyectointegrador.view.Fragments.PeliculasFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,21 +107,21 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
                 Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.item1:
-                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item2:
-                Toast.makeText(this, "Item 2 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.subItem1:
-                Toast.makeText(this, "Sub Item 1 Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.subItem2:
-                Toast.makeText(this, "Sub Item 2 Selected", Toast.LENGTH_SHORT).show();
-                return true;
+//            case R.id.item1:
+//                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.item2:
+//                Toast.makeText(this, "Item 2 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.item3:
+//                Toast.makeText(this, "Item 3 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.subItem1:
+//                Toast.makeText(this, "Sub Item 1 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.subItem2:
+//                Toast.makeText(this, "Sub Item 2 Selected", Toast.LENGTH_SHORT).show();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

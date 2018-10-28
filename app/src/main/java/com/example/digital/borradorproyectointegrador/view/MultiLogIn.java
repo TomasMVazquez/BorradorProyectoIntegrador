@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador;
+package com.example.digital.borradorproyectointegrador.view;
 
 import android.content.Intent;
 import android.os.Build;
@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 
+import com.example.digital.borradorproyectointegrador.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

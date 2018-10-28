@@ -15,7 +15,7 @@
     <color name="colorBlanco">#FFFFFF</color>
     <color name="colorBlancoTrans">#00ffffff</color>
     <color name="colorNegro">#000000</color>
-    <color name="colorNegroTransparente">#64000000</color>
+    <color name="colorNegroTransparente">#647e7e7e</color>
     <color name="colorDivider">#BDBDBD</color>
     <!--<color name="colorPrimaryLight">#B2DFDB</color>-->
     <!--<color name="colorPrimary">#009688</color>-->

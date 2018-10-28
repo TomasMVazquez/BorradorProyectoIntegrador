@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador;
+package com.example.digital.borradorproyectointegrador.model;
 
 import android.content.Intent;
 import android.widget.ImageView;
