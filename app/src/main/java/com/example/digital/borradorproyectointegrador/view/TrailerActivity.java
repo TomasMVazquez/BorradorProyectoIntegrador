@@ -42,8 +42,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public static final String API_KEY = "AIzaSyBwKk1MoedjyracfPjgvI7_0zpSpPan5nU";
     public static  String VIDEO_ID = "videoKey";
     private AppCompatDelegate delegate;
-
-
+    
 
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -115,10 +114,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         recyclerViewComentarioTrailer.setAdapter(adaptadorRecyclerComentarioTrailer);
     
     }
-
-
-
-
 
 
     @Override
