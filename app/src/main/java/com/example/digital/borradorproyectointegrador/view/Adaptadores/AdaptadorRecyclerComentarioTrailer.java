@@ -11,17 +11,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.digital.borradorproyectointegrador.R;
-import com.example.digital.borradorproyectointegrador.model.ComentarioCompleto;
-import com.example.digital.borradorproyectointegrador.model.ComentarioTrailer;
+import com.example.digital.borradorproyectointegrador.model.Comentario;
 
 import java.util.List;
 
 public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
 
     //Atributos
-    private List<ComentarioTrailer> comentarioTrailerList;
+    private List<Comentario> comentarioTrailerList;
 
-    public AdaptadorRecyclerComentarioTrailer(List<ComentarioTrailer> comentarioTrailerList) {
+    public AdaptadorRecyclerComentarioTrailer(List<Comentario> comentarioTrailerList) {
         this.comentarioTrailerList = comentarioTrailerList;
     }
 
@@ -43,7 +42,7 @@ public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        ComentarioTrailer comentarioTrailer =comentarioTrailerList.get(position);
+        Comentario comentarioTrailer =comentarioTrailerList.get(position);
         ViewHolderComentTrailer viewHolderComentTrailer = (ViewHolderComentTrailer) holder;
         viewHolderComentTrailer.cargar(comentarioTrailer);
 
@@ -72,7 +71,7 @@ public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
         }
 
         //metodo para cargar data
-        public void cargar(ComentarioTrailer comentarioTrailer){
+        public void cargar(Comentario comentarioTrailer){
             ivImagenUsuarioComentarioTrailer.setImageResource(comentarioTrailer.getIvImagenUsuarioComentario());
             tvUsuarioComentarioTrailer.setText(comentarioTrailer.getTvUsuarioComentario());
             tvComentarioComentarioTrailer.setText(comentarioTrailer.getTvComentarioComentario());

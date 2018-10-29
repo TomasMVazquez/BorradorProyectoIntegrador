@@ -1,17 +1,27 @@
 package com.example.digital.borradorproyectointegrador.model;
 
-public class ComentarioCompleto {
+public class Comentario {
 
     //Atributos
+    private String peliculaComentada;
     private Integer ivImagenPeliculaComentario;
     private Integer ivImagenUsuarioComentario;
     private String tvUsuarioComentario;
     private Integer cantidadEstrellasAPelicula;
     private String tvComentarioComentario;
 
-    //Constructor
-    public ComentarioCompleto(Integer ivImagenPeliculaComentario, Integer ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+    //Constructor Completo
+    public Comentario(String peliculaComentada, Integer ivImagenPeliculaComentario, Integer ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+        this.peliculaComentada = peliculaComentada;
         this.ivImagenPeliculaComentario = ivImagenPeliculaComentario;
+        this.ivImagenUsuarioComentario = ivImagenUsuarioComentario;
+        this.tvUsuarioComentario = tvUsuarioComentario;
+        this.cantidadEstrellasAPelicula = cantidadEstrellasAPelicula;
+        this.tvComentarioComentario = tvComentarioComentario;
+    }
+    //ConstructorTrailer
+    public Comentario(String peliculaComentada, Integer ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+        this.peliculaComentada = peliculaComentada;
         this.ivImagenUsuarioComentario = ivImagenUsuarioComentario;
         this.tvUsuarioComentario = tvUsuarioComentario;
         this.cantidadEstrellasAPelicula = cantidadEstrellasAPelicula;
@@ -19,6 +29,10 @@ public class ComentarioCompleto {
     }
 
     //Getter
+    public String getPeliculaComentada() {
+        return peliculaComentada;
+    }
+
     public Integer getIvImagenPeliculaComentario() {
         return ivImagenPeliculaComentario;
     }
@@ -43,8 +57,9 @@ public class ComentarioCompleto {
 
     @Override
     public String toString() {
-        return "ComentarioCompleto{" +
-                "ivImagenPeliculaComentario=" + ivImagenPeliculaComentario +
+        return "Comentario{" +
+                "peliculaComentada='" + peliculaComentada + '\'' +
+                ", ivImagenPeliculaComentario=" + ivImagenPeliculaComentario +
                 ", ivImagenUsuarioComentario=" + ivImagenUsuarioComentario +
                 ", tvUsuarioComentario='" + tvUsuarioComentario + '\'' +
                 ", cantidadEstrellasAPelicula=" + cantidadEstrellasAPelicula +

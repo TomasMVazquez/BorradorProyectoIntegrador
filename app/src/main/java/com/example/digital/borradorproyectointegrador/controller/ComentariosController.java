@@ -1,35 +1,32 @@
 package com.example.digital.borradorproyectointegrador.controller;
 
-import com.example.digital.borradorproyectointegrador.dao.DAOComentarioTrailer;
-import com.example.digital.borradorproyectointegrador.dao.DAOComentariosCompleto;
-import com.example.digital.borradorproyectointegrador.model.ComentarioCompleto;
-import com.example.digital.borradorproyectointegrador.model.ComentarioTrailer;
-import com.example.digital.borradorproyectointegrador.model.PeliculaSerie;
+import com.example.digital.borradorproyectointegrador.dao.DAOComentario;
+import com.example.digital.borradorproyectointegrador.model.Comentario;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ComentariosController {
 
-    List<ComentarioCompleto> comentarioCompletoList = new ArrayList<>();
-    List<ComentarioTrailer> comentarioTrailerList = new ArrayList<>();
+    List<Comentario> comentarioList = new ArrayList<>();
+    List<Comentario> comentarioTrailerList = new ArrayList<>();
 
-    public List<ComentarioCompleto> entregarListaComentarios(){
+    public List<Comentario> entregarListaComentarios(){
 
-        DAOComentariosCompleto daoComentariosCompleto = new DAOComentariosCompleto();
+        DAOComentario daoComentarios = new DAOComentario();
 
-        comentarioCompletoList = daoComentariosCompleto.dameComentarios();
+        comentarioList = daoComentarios.dameComentarios();
 
-        return comentarioCompletoList;
+        return comentarioList;
     }
 
-    public List<ComentarioTrailer> entregarListaComentariosTrailer(String pelicula){
+    public List<Comentario> entregarListaComentariosTrailer(String pelicula){
 
         comentarioTrailerList.clear();
 
-        DAOComentarioTrailer daoComentarioTrailer = new DAOComentarioTrailer();
+        DAOComentario daoComentarioTrailer = new DAOComentario();
 
-        for (ComentarioTrailer comentarioTrailer : daoComentarioTrailer.dameComentariosTrailer()) {
+        for (Comentario comentarioTrailer : daoComentarioTrailer.dameComentarios()) {
             if (comentarioTrailer.getPeliculaComentada().equals(pelicula)){
                 comentarioTrailerList.add(comentarioTrailer);
             }

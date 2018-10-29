@@ -11,19 +11,19 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.digital.borradorproyectointegrador.R;
-import com.example.digital.borradorproyectointegrador.model.ComentarioCompleto;
+import com.example.digital.borradorproyectointegrador.model.Comentario;
 
 import java.util.List;
 
 public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter {
 
     //atributos
-    private List<ComentarioCompleto> comentarioCompletoList;
+    private List<Comentario> comentarioList;
 
 
     //constructor
-    public AdaptadorRecyclerComentariosCompletos(List<ComentarioCompleto> comentarioCompletoList) {
-        this.comentarioCompletoList = comentarioCompletoList;
+    public AdaptadorRecyclerComentariosCompletos(List<Comentario> comentarioList) {
+        this.comentarioList = comentarioList;
     }
 
     @NonNull
@@ -44,15 +44,15 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        ComentarioCompleto comentarioCompleto = comentarioCompletoList.get(position);
+        Comentario comentario = comentarioList.get(position);
         ViewHolderComentario viewHolderComentario = (ViewHolderComentario) holder;
-        viewHolderComentario.cargar(comentarioCompleto);
+        viewHolderComentario.cargar(comentario);
 
     }
 
     @Override
     public int getItemCount() {
-        return comentarioCompletoList.size();
+        return comentarioList.size();
     }
 
     public class ViewHolderComentario extends RecyclerView.ViewHolder{
@@ -75,12 +75,12 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
         }
 
         //metodo para cargar data
-        public void cargar(ComentarioCompleto comentarioCompleto){
-            ivImagenPeliculaComentario.setImageResource(comentarioCompleto.getIvImagenPeliculaComentario());
-            ivImagenUsuarioComentario.setImageResource(comentarioCompleto.getIvImagenUsuarioComentario());
-            tvUsuarioComentario.setText(comentarioCompleto.getTvUsuarioComentario());
-            tvComentarioComentario.setText(comentarioCompleto.getTvComentarioComentario());
-            rbUsuarioAPeliculaComentario.setRating(comentarioCompleto.getCantidadEstrellasAPelicula());
+        public void cargar(Comentario comentario){
+            ivImagenPeliculaComentario.setImageResource(comentario.getIvImagenPeliculaComentario());
+            ivImagenUsuarioComentario.setImageResource(comentario.getIvImagenUsuarioComentario());
+            tvUsuarioComentario.setText(comentario.getTvUsuarioComentario());
+            tvComentarioComentario.setText(comentario.getTvComentarioComentario());
+            rbUsuarioAPeliculaComentario.setRating(comentario.getCantidadEstrellasAPelicula());
             rbUsuarioAPeliculaComentario.setNumStars(5);
         }
 
