@@ -108,21 +108,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
                 Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
                 return true;
-//            case R.id.item1:
-//                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.item2:
-//                Toast.makeText(this, "Item 2 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.item3:
-//                Toast.makeText(this, "Item 3 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.subItem1:
-//                Toast.makeText(this, "Sub Item 1 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.subItem2:
-//                Toast.makeText(this, "Sub Item 2 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -133,11 +118,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     @Override
     public void onFragmentInteraction() {
         Intent intent = new Intent(this,MultiLogIn.class);
-
-        //Bundle bundle = new Bundle();
-        //bundle.putString(MensajeFragment.KEY_MENSAJE, mensaje);
-        //intent.putExtras(bundle);
-
         startActivity(intent);
     }
 
@@ -148,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         int id = item.getItemId();
 
         if (id == R.id.nav_inicio) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_signin) {
             Intent intentAccount = new Intent(MainActivity.this, MultiLogIn.class);
             startActivity(intentAccount);

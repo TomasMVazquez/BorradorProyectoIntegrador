@@ -8,6 +8,7 @@ public class PeliculaSerie {
 
     //Atributos
     private Integer imagen;
+
     private String nombre;
     private RatingBar ratingBar;
     private Integer cantEstrellas;
@@ -24,14 +25,6 @@ public class PeliculaSerie {
         this.videoId = videoId;
         this.resumen = resumen;
     }
-
-
-//    public PeliculaSerie(ImageView imagen, Integer cantEstrellas) {
-//        this.imagen = imagen;
-//        this.cantEstrellas = cantEstrellas;
-//        //ratingBar.setNumStars(cantEstrellas);
-//    }
-
 
 
     //Getter
