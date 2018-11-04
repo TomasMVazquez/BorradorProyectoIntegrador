@@ -23,7 +23,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:id="@+id/tvCategoriaPrimero"
+                    android:id="@+id/tvSeriesCategoriaPrimero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Favoritos"
@@ -33,7 +33,7 @@
                     />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewPrimero"
+                    android:id="@+id/recylcerViewSeriesPrimero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -46,7 +46,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:id="@+id/tvCategoriaSegundo"
+                    android:id="@+id/tvSeriesCategoriaSegundo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Acción"
@@ -56,7 +56,7 @@
                     />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewSegundo"
+                    android:id="@+id/recylcerViewSeriesSegundo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -69,7 +69,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:id="@+id/tvCategoriaTercero"
+                    android:id="@+id/tvSeriesCategoriaTercero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Drama"
@@ -79,7 +79,7 @@
                     />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewTercero"
+                    android:id="@+id/recylcerViewSeriesTercero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -92,7 +92,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:id="@+id/tvCategoriaCuarto"
+                    android:id="@+id/tvSeriesCategoriaCuarto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Sci-Fi"
@@ -102,7 +102,7 @@
                     />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewCuarto"
+                    android:id="@+id/recylcerViewSeriesCuarto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -115,7 +115,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:id="@+id/tvCategoriaQuinto"
+                    android:id="@+id/tvSeriesCategoriaQuinto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Comedia"
@@ -125,7 +125,7 @@
                     />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewQuinto"
+                    android:id="@+id/recylcerViewSeriesQuinto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -135,7 +135,7 @@
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabFiltroPeli"
+        android:id="@+id/fabFiltroSeries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"

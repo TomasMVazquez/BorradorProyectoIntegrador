@@ -3,7 +3,8 @@
 
     //Pantalla Main
     <string name="hintSearch"> Buscar pelicula o serie</string>
-    <string name="movie_tab">Peliculas/Series</string>
+    <string name="movie_tab">Peliculas</string>
+    <string name="serie_tab">Series</string>
     <string name="comunidad_tab">Comentarios</string>
 
     //Navigation View

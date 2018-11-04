@@ -24,12 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PeliculasFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
 public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeliculaSerie.AdapterInterface,PeliculaAdaptador.AdapterPeliInterface {
 
     private OnFragmentInteractionListener mListener;
@@ -46,17 +40,6 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
         final View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
 
         //Recycler view
-
-//        List<PeliculaSerie> peliculaSeries = new ArrayList<>();
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, "2LeOH9AGJQM", R.string.resumen_CARS));
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, "Ga6RYejo6Hk", R.string.resumen_COCO));
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, "Q0CbN8sfihY", R.string.resumen_STAR_WARS));
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, "lWZ7O-RrATY", R.string.resumen_TOMORROWLAND));
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.cars, "Cars", 3, "2LeOH9AGJQM", R.string.resumen_CARS));
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.coco, "Coco", 1, "Ga6RYejo6Hk", R.string.resumen_COCO));
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.starwars, "Star Wars", 4, "Q0CbN8sfihY", R.string.resumen_STAR_WARS));
-//        peliculaSeries.add(new PeliculaSerie(R.drawable.tomorrowland, "Tomorrowland", 5, "lWZ7O-RrATY", R.string.resumen_TOMORROWLAND));
-
         //Lista
         final RecyclerView recyclerViewPrimero = view.findViewById(R.id.recylcerViewPrimero);
         final RecyclerView recyclerViewSegundo = view.findViewById(R.id.recylcerViewSegundo);

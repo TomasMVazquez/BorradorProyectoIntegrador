@@ -93,11 +93,8 @@ public class PeliculaAdaptador extends RecyclerView.Adapter {
                     .apply(requestOptions)
                     .into(imagen);
 
-            Integer cantEstr = 0;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                cantEstr = Math.toIntExact(Math.round((peliculas.getVote_average() * 5) / 10));
-            }
-
+            long cantEstr = Math.round((peliculas.getVote_average() * 5) / 10);
+            
             ratingBar.setRating(cantEstr);
             ratingBar.setNumStars(5);
 

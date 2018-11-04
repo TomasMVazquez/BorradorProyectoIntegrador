@@ -25,6 +25,7 @@ import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
 import com.example.digital.borradorproyectointegrador.view.Fragments.ComentariosFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.PeliculasFragment;
+import com.example.digital.borradorproyectointegrador.view.Fragments.SeriesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +63,16 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         //Llamar al FragmentPeliculas
         PeliculasFragment peliculasFragment = new PeliculasFragment();
         ComentariosFragment comentariosFragment = new ComentariosFragment();
+        SeriesFragment seriesFragment = new SeriesFragment();
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(peliculasFragment);
+        fragmentList.add(seriesFragment);
         fragmentList.add(comentariosFragment);
 
         List<String> titulos = new ArrayList<>();
         titulos.add(getResources().getString(R.string.movie_tab));
+        titulos.add(getResources().getString(R.string.serie_tab));
         titulos.add(getResources().getString(R.string.comunidad_tab));
 
         //ViewPager
@@ -84,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList,titulos);
         viewPager.setAdapter(adapter);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_movie_tab);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_tab);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_tv_tab);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_group_tab);
 
 
     }

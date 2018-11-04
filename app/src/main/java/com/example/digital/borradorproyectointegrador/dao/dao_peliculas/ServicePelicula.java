@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador.dao.peliculas;
+package com.example.digital.borradorproyectointegrador.dao.dao_peliculas;
 
 import com.example.digital.borradorproyectointegrador.model.pelicula.PeliculaConteiner;
 
