@@ -52,12 +52,34 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
             @Override
             public void finish(List<Peliculas> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewPrimero,Resultado, PeliculasFragment.this);
+            }
+        });
+
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 28, new ResultListener<List<Peliculas>>() {
+            @Override
+            public void finish(List<Peliculas> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,PeliculasFragment.this);
+            }
+        });
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 18, new ResultListener<List<Peliculas>>() {
+            @Override
+            public void finish(List<Peliculas> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,PeliculasFragment.this);
+            }
+        });
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 878, new ResultListener<List<Peliculas>>() {
+            @Override
+            public void finish(List<Peliculas> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,PeliculasFragment.this);
+            }
+        });
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 35, new ResultListener<List<Peliculas>>() {
+            @Override
+            public void finish(List<Peliculas> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewQuinto,Resultado,PeliculasFragment.this);
             }
         });
+
 
 
 

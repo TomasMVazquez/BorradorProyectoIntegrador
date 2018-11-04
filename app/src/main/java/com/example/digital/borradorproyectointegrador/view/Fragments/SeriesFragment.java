@@ -49,13 +49,32 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
             @Override
             public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewPrimero,Resultado, SeriesFragment.this);
+            }
+        });
+        controllerSerie.entregarSerieGeneros(view.getContext(), 28, new ResultListener<List<Serie>>() {
+            @Override
+            public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,SeriesFragment.this);
+            }
+        });
+        controllerSerie.entregarSerieGeneros(view.getContext(), 18, new ResultListener<List<Serie>>() {
+            @Override
+            public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,SeriesFragment.this);
+            }
+        });
+        controllerSerie.entregarSerieGeneros(view.getContext(), 878, new ResultListener<List<Serie>>() {
+            @Override
+            public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,SeriesFragment.this);
+            }
+        });
+        controllerSerie.entregarSerieGeneros(view.getContext(), 35, new ResultListener<List<Serie>>() {
+            @Override
+            public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewQuinto,Resultado,SeriesFragment.this);
             }
         });
-
 
 
         return view;
