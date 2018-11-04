@@ -15,7 +15,7 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabBackground="@color/colorPrimary"
+            app:tabBackground="@color/colorPrimaryTrans"
             app:tabSelectedTextColor="@color/colorAccent"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabMode="fixed"
@@ -25,14 +25,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/movie_tab"
-                    android:icon="@drawable/ic_movie_tab"
+
                     />
 
                 <android.support.design.widget.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/comunidad_tab"
-                    android:icon="@drawable/ic_group_tab"
+
                     />
 
         </android.support.design.widget.TabLayout>

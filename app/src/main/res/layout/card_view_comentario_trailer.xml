@@ -16,9 +16,12 @@
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardCornerRadius="6dp"
-        card_view:cardElevation="6dp">
+        card_view:cardElevation="6dp"
+        android:background="@color/colorPrimaryTrans"
+        >
 
         <LinearLayout
+            android:background="@color/colorPrimaryTrans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -47,11 +50,12 @@
                     card_view:ignore="NestedWeights">
 
                     <TextView
+
                         android:id="@+id/tvUsuarioComentarioTrailer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Usuario"
-                        android:textColor="@color/colorPrimaryText"
+                        android:textColor="@color/tw__solid_white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -75,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Comentario............................................................................Comentario............................................................................Comentario............................................................................Comentario............................................................................"
-                        android:textColor="@color/colorPrimaryText"
+                        android:textColor="@color/tw__solid_white"
                         android:textSize="10sp" />
 
                 </LinearLayout>
@@ -88,6 +92,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_margin="2dp"
+        android:background="@color/colorPrimaryTrans"
         >
 
         <ImageView
