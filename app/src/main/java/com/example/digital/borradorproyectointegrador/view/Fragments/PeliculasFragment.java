@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeliculaSerie.AdapterInterface,PeliculaAdaptador.AdapterPeliInterface {
+public class PeliculasFragment extends Fragment implements PeliculaAdaptador.AdapterPeliInterface {
 
     private OnFragmentInteractionListener mListener;
 
@@ -115,18 +115,18 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
         mListener = null;
     }
 
-    @Override
-    public void irTrailer(PeliculaSerie peliculaSerie) {
-        Intent intent = new Intent(getActivity(), TrailerActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(TrailerActivity.VIDEO_ID, peliculaSerie.getVideoId());
-        bundle.putString(TrailerActivity.KEY_NOMBRE, peliculaSerie.getNombre());
-        bundle.putString(TrailerActivity.KEY_IMAGE, peliculaSerie.getImagen().toString());
-        bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS, peliculaSerie.getCantEstrellas());
-        bundle.putInt(TrailerActivity.KEY_RESUMEN, peliculaSerie.getResumen());
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+//    @Override
+//    public void irTrailer(PeliculaSerie peliculaSerie) {
+//        Intent intent = new Intent(getActivity(), TrailerActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(TrailerActivity.VIDEO_ID, peliculaSerie.getVideoId());
+//        bundle.putString(TrailerActivity.KEY_NOMBRE, peliculaSerie.getNombre());
+//        bundle.putString(TrailerActivity.KEY_IMAGE, peliculaSerie.getImagen().toString());
+//        bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS, peliculaSerie.getCantEstrellas());
+//        bundle.putInt(TrailerActivity.KEY_RESUMEN, peliculaSerie.getResumen());
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//    }
 
     @Override
     public void irTrailer(Peliculas peliculas) {
@@ -136,7 +136,10 @@ public class PeliculasFragment extends Fragment implements AdaptadorRecyclerPeli
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
         //bundle.putString(TrailerActivity.KEY_IMAGE, peliculas.getPoster_path());
         //bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS, peliculas.getVote_average());
-        //bundle.putInt(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
+//        bundle.putInt(TrailerActivity.KEY_RESUMEN, Integer.parseInt(peliculas.getOverview()));
+//        bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
+        bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
+        bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -94,6 +94,7 @@ public class PeliculaAdaptador extends RecyclerView.Adapter {
                     .into(imagen);
 
             long cantEstr = Math.round((peliculas.getVote_average() * 5) / 10);
+
             
             ratingBar.setRating(cantEstr);
             ratingBar.setNumStars(5);

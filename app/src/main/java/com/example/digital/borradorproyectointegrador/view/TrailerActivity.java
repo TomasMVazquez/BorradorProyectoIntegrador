@@ -18,8 +18,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
+import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
+import com.example.digital.borradorproyectointegrador.dao.dao_video.DAOVideo;
+import com.example.digital.borradorproyectointegrador.dao.dao_video.OnGetVideoCallback;
+import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
+import com.example.digital.borradorproyectointegrador.model.videos.Video;
+import com.example.digital.borradorproyectointegrador.model.videos.VideoContainer;
+import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentariosCompletos;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -31,6 +39,7 @@ import com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import java.util.List;
 import java.util.Objects;
 
 public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, AppCompatCallback {
@@ -39,10 +48,13 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public static final String KEY_CANT_ESTRELLAS = "cantEstrellas";
     public static final String KEY_NOMBRE = "nombre";
     public static final String KEY_RESUMEN = "resumen";
+    public static final Integer KEY_ID = null;
     public static final String API_KEY = "AIzaSyBwKk1MoedjyracfPjgvI7_0zpSpPan5nU";
     public static  String VIDEO_ID = "videoKey";
     private AppCompatDelegate delegate;
-    
+    private static DAOVideo daoVideo;
+    private static DAOPelicula daoPelicula;
+
 
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -77,8 +89,14 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         String imageData = bundle.getString(KEY_IMAGE);
         Integer cantEstrellasData = bundle.getInt(KEY_CANT_ESTRELLAS);
         String nombre = bundle.getString(KEY_NOMBRE);
-        Integer resumen = bundle.getInt(KEY_RESUMEN);
+//        String resumen = String.valueOf(bundle.getInt(KEY_RESUMEN));
+        String resumen = bundle.getString(KEY_RESUMEN);
         String videoId = bundle.getString(VIDEO_ID);
+//        Integer id = Integer.valueOf(bundle.getString(String.valueOf(KEY_ID)));
+        Integer id = bundle.getInt(String.valueOf(KEY_ID));
+
+
+
 
 
         // COMPONENTES
@@ -87,11 +105,19 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         TextView textViewResumen = findViewById(R.id.textViewResumenDetalle);
 
 
+
+
+
+
         // Seteo
         ratingBar.setRating(cantEstrellasData);
         textViewNombre.setText(nombre);
-        textViewResumen.setText(resumen);
-        VIDEO_ID = videoId;
+        textViewResumen.setText(resumen + id + VIDEO_ID);
+
+
+
+
+
 
 
         /** Initializing YouTube Player View **/
@@ -112,8 +138,21 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         AdaptadorRecyclerComentarioTrailer adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(comentariosController.entregarListaComentariosTrailer(nombre));
 
         recyclerViewComentarioTrailer.setAdapter(adaptadorRecyclerComentarioTrailer);
+
+
     
     }
+
+
+    private void getVideos(final Peliculas peliculas){
+        daoVideo.traerVideos(peliculas.getId(), new ResultListener<List<Video>>() {
+            @Override
+            public void finish(List<Video> videos) {
+                VIDEO_ID = videos.get(0).getKey();
+            }
+            });
+    }
+
 
 
     @Override
@@ -141,21 +180,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 return true;
             case R.id.home:
                 finish();
-//            case R.id.item1:
-//                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.item2:
-//                Toast.makeText(this, "Item 2 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.item3:
-//                Toast.makeText(this, "Item 3 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.subItem1:
-//                Toast.makeText(this, "Sub Item 1 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.subItem2:
-//                Toast.makeText(this, "Sub Item 2 Selected", Toast.LENGTH_SHORT).show();
-//                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

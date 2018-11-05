@@ -50,6 +50,7 @@
         <!-- Copiar código -->
 
         <activity android:name=".view.TrailerActivity"></activity>
+        <activity android:name=".view.LogIn" />
     </application>
 
 </manifest>

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< Updated upstream
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.Fragments.ComentariosFragment">
 
@@ -27,10 +26,10 @@
         />
 
 </android.support.design.widget.CoordinatorLayout>
-=======
-    tools:context=".view.Fragments.ComentariosFragment"
-    android:id="@+id/recyclerComentarios"
-    android:background="@color/colorPrimaryDarkTrans"
-    >
->>>>>>> Stashed changes
+<!--=======-->
+    <!--tools:context=".view.Fragments.ComentariosFragment"-->
+    <!--android:id="@+id/recyclerComentarios"-->
+    <!--android:background="@color/colorPrimaryDarkTrans"-->
+    <!--&gt;-->
+<!--&gt;>>>>>> Stashed changes-->
 

@@ -87,14 +87,14 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         //Adapter
         MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList,titulos);
         viewPager.setAdapter(adapter);
-<<<<<<< Updated upstream
+
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_movie_tab);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_tv_tab);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_group_tab);
-=======
+
 //        tabLayout.getTabAt(0).setIcon(R.drawable.ic_movie_tab);
 //        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_tab);
->>>>>>> Stashed changes
+
 
 
     }
