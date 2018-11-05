@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         fragmentList.add(comentariosFragment);
 
         List<String> titulos = new ArrayList<>();
-        titulos.add(getResources().getString(R.string.movie_tab));
-        titulos.add(getResources().getString(R.string.serie_tab));
-        titulos.add(getResources().getString(R.string.comunidad_tab));
+        titulos.add("");
+        titulos.add("");
+        titulos.add("");
 
         //ViewPager
         ViewPager viewPager = findViewById(R.id.viewPager);
