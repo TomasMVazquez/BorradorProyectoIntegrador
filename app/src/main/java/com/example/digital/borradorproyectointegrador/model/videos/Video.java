@@ -2,16 +2,10 @@ package com.example.digital.borradorproyectointegrador.model.videos;
 
 
 public class Video {
-    private String id;
     private String key;
 
-    public Video(String id, String key) {
-        this.id = id;
+    public Video(String key) {
         this.key = key;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getKey() {
@@ -21,8 +15,7 @@ public class Video {
     @Override
     public String toString() {
         return "Video{" +
-                "id='" + id + '\'' +
-                ", key='" + key + '\'' +
+                "key='" + key + '\'' +
                 '}';
     }
 }

@@ -10,7 +10,11 @@ import retrofit2.http.Query;
 public interface ServiceVideo {
 
     @GET("movie/{movie_id}/videos")
-    Call<VideoContainer> getVideos();
+    Call<VideoContainer> getVideos(@Path("movie_id") Integer id,
+                                   @Query("api_key") String api_key,
+                                   @Query("language") String language
+
+    );
 //            @Path("movie_id") int id,
 //            @Query("api_key") String apiKEy,
 //            @Query("language") String language

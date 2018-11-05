@@ -13,51 +13,36 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.provider.MediaStore.Video.VideoColumns.LANGUAGE;
-
 public class DAOVideo extends DaoHelper {
 
     private ServiceVideo serviceVideo;
 
 
     public DAOVideo() {
-        super("https://api.themoviedb.org/3/movie/");
+        super("https://api.themoviedb.org/3/");
         serviceVideo = retrofit.create(ServiceVideo.class);
     }
 
-    public void traerVideos(Integer movieId, final ResultListener<List<Video>> listResultListener){
-        Call<VideoContainer> call = serviceVideo.getVideos();
-                call.enqueue(new Callback<VideoContainer>() {
-                    @Override
-                    public void onResponse(Call<VideoContainer> call, Response<VideoContainer> response) {
+    public void traerVideos(Integer movieId, final ResultListener<List<Video>> listResultListener) {
+        Call<VideoContainer> call = serviceVideo.getVideos(movieId, DaoHelper.API_KEY, DaoHelper.LANGUAGE);
+        call.enqueue(new Callback<VideoContainer>() {
+            @Override
+            public void onResponse(Call<VideoContainer> call, Response<VideoContainer> response) {
 
-                        VideoContainer videoContainer = response.body();
+                VideoContainer videoContainer = response.body();
 
-                        List<Video> videos = videoContainer.getResults();
+                List<Video> videos = videoContainer.getResults();
 
-                        listResultListener.finish(videos);
-
-
-//                        if (response.isSuccessful()){
-//                            VideoContainer videoContainer = response.body();
-//                            if (videoContainer != null && videoContainer.getResults() != null){
-//                                callback.onSuccess(videoContainer.getResults());
-//                            } else {
-//                                callback.onError();
-//                            }
-//                        } else {
-//                            callback.onError();
-//                        }
+                listResultListener.finish(videos);
 
 
-                    }
+            }
 
-                    @Override
-                    public void onFailure(Call<VideoContainer> call, Throwable t) {
-                        Log.e("MIERRROR----------", t.toString());
-                    }
-                });
-
+            @Override
+            public void onFailure(Call<VideoContainer> call, Throwable t) {
+                Log.e("MIERRROR----------", t.toString());
+            }
+        });
 
 
     }

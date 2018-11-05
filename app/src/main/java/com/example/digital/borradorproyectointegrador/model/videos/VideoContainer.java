@@ -5,18 +5,13 @@ import java.util.List;
 public class VideoContainer {
     private List<Video> results;
 
-    public VideoContainer(List<Video> results) {
-        this.results = results;
+    public VideoContainer() {
+
     }
 
     public List<Video> getResults() {
         return results;
     }
 
-    @Override
-    public String toString() {
-        return "VideoContainer{" +
-                "results=" + results +
-                '}';
-    }
+
 }

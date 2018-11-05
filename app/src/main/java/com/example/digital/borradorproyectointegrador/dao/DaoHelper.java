@@ -12,6 +12,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DaoHelper {
     protected Retrofit retrofit;
 
+    public static final String API_KEY = "656020b1f06a98f4d73cadd7336e7790";
+    public static final String LANGUAGE = "en-US";
+
     public DaoHelper(String base_url) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
