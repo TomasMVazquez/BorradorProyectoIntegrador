@@ -13,14 +13,10 @@ import android.view.ViewGroup;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
-import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerPeliculaSerie;
-import com.example.digital.borradorproyectointegrador.model.PeliculaSerie;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
-import com.example.digital.borradorproyectointegrador.view.MainActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -115,29 +111,11 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         mListener = null;
     }
 
-//    @Override
-//    public void irTrailer(PeliculaSerie peliculaSerie) {
-//        Intent intent = new Intent(getActivity(), TrailerActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(TrailerActivity.VIDEO_ID, peliculaSerie.getVideoId());
-//        bundle.putString(TrailerActivity.KEY_NOMBRE, peliculaSerie.getNombre());
-//        bundle.putString(TrailerActivity.KEY_IMAGE, peliculaSerie.getImagen().toString());
-//        bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS, peliculaSerie.getCantEstrellas());
-//        bundle.putInt(TrailerActivity.KEY_RESUMEN, peliculaSerie.getResumen());
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//    }
-
     @Override
     public void irTrailer(Peliculas peliculas) {
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
-        //bundle.putString(TrailerActivity.VIDEO_ID, peliculas.getVideoId());
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
-        //bundle.putString(TrailerActivity.KEY_IMAGE, peliculas.getPoster_path());
-        //bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS, peliculas.getVote_average());
-//        bundle.putInt(TrailerActivity.KEY_RESUMEN, Integer.parseInt(peliculas.getOverview()));
-//        bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
         intent.putExtras(bundle);

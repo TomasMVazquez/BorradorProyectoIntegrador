@@ -7,13 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.Fragments.ComentariosFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerComentarios"
-        android:background="@color/colorPrimaryDark"
-        />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabFiltroComentarios"
         android:layout_width="wrap_content"
@@ -25,11 +18,13 @@
         app:fabSize="normal"
         />
 
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerComentarios"
+        android:background="@color/colorPrimaryDark"
+        />
+
 </android.support.design.widget.CoordinatorLayout>
-<!--=======-->
-    <!--tools:context=".view.Fragments.ComentariosFragment"-->
-    <!--android:id="@+id/recyclerComentarios"-->
-    <!--android:background="@color/colorPrimaryDarkTrans"-->
-    <!--&gt;-->
-<!--&gt;>>>>>> Stashed changes-->
 

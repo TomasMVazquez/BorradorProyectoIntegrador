@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.TrailerActivity">
 
 
@@ -10,14 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDarkTrans"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
-        <include
+    <include
             android:id="@+id/toolbarTrailer"
             layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -33,35 +36,6 @@
 
 
             </com.google.android.youtube.player.YouTubePlayerView>
-
-            <!--<MediaController-->
-                <!--android:id="@+id/videoController"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="250dp">-->
-
-                <!--<VideoView-->
-                    <!--android:id="@+id/videoTrailer"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="200dp" />-->
-            <!--</MediaController>-->
-
-            <!-- <ImageView
-                 android:id="@+id/favoritoTrailer"
-                 android:layout_width="36dp"
-                 android:layout_height="36dp"
-                 android:layout_marginLeft="10dp"
-                 android:layout_marginTop="10dp"
-                 android:src="@drawable/ic_favorite_border" />
-
-             <ImageView
-                 android:id="@+id/shareTrailer"
-                 android:layout_width="36dp"
-                 android:layout_height="36dp"
-                 android:layout_gravity="right"
-                 android:layout_marginRight="10dp"
-                 android:layout_marginTop="10dp"
-                 android:src="@drawable/ic_share" />-->
-
          </FrameLayout>
 
          <LinearLayout
@@ -94,47 +68,60 @@
 
          </LinearLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-         <TextView
-             android:layout_marginLeft="5dp"
-             android:layout_marginStart="5dp"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="@string/textViewResumen"
-             android:textColor="@color/colorAccentDark"
-             android:textSize="22sp"
-             android:textStyle="bold" />
-
-         <TextView
-             android:layout_marginLeft="5dp"
-             android:layout_marginStart="5dp"
-             android:id="@+id/textViewResumenDetalle"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:textColor="@color/colorBlanco"
-             tools:text="Rodrigo siempre quiso cantar. Sus padres lo acompañan en su deseo y Rodrigo ingresa en el ambiente de la música tropical como cantante romántico donde su impacto es muy grande debido a su juventud, belleza y magnetismo. En el momento que comienza un ascenso en su carrera, lo sorprende la trágica muerte de su padre y se recluye junto a su familia en Córdoba..." />
-
-         <View
-             android:layout_width="match_parent"
-             android:layout_height="1dp"
-             android:layout_marginBottom="5dp"
-             android:layout_marginTop="5dp"
-             android:background="@color/colorDivider" />
-
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textViewComentarios"
-                android:textColor="@color/colorAccentDark"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerComentariosTrailer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textViewResumen"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/textViewResumenDetalle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlanco"
+                    tools:text="Rodrigo siempre quiso cantar. Sus padres lo acompañan en su deseo y Rodrigo ingresa en el ambiente de la música tropical como cantante romántico donde su impacto es muy grande debido a su juventud, belleza y magnetismo. En el momento que comienza un ascenso en su carrera, lo sorprende la trágica muerte de su padre y se recluye junto a su familia en Córdoba..." />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorDivider" />
+
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textViewComentarios"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerComentariosTrailer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
      </LinearLayout>
 
