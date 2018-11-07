@@ -3,14 +3,18 @@ package com.example.digital.borradorproyectointegrador.view.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.digital.borradorproyectointegrador.controller.ControllerGeneros;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
+import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.R;
@@ -79,6 +83,19 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         });
 
 
+        final FloatingActionButton fabPeli = view.findViewById(R.id.fabFiltroPeli);
+        ControllerGeneros controllerGeneros = new ControllerGeneros();
+        controllerGeneros.entregarGeneros(view.getContext(), new ResultListener<List<Genero>>() {
+            @Override
+            public void finish(final List<Genero> Resultado) {
+                fabPeli.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(view.getContext(), Resultado.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
 
         return view;

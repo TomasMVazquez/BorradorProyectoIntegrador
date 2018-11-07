@@ -6,9 +6,7 @@
     android:background="@color/colorPrimaryTrans"
     android:elevation="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:layout_collapseMode="pin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:layout_scrollFlags="scroll|enterAlways"
+
     >
 
 </android.support.v7.widget.Toolbar>
