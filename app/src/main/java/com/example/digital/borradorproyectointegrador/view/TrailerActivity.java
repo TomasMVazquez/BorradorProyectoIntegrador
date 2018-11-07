@@ -87,7 +87,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         String nombre = bundle.getString(KEY_NOMBRE);
 //        String resumen = String.valueOf(bundle.getInt(KEY_RESUMEN));
         String resumen = bundle.getString(KEY_RESUMEN);
-        String videoId = bundle.getString(VIDEO_ID);
+
 //        Integer id = Integer.valueOf(bundle.getString(String.valueOf(KEY_ID)));
         Integer id = bundle.getInt(String.valueOf(KEY_ID));
 
@@ -101,7 +101,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         // Seteo
         ratingBar.setRating(cantEstrellasData);
         textViewNombre.setText(nombre);
-        textViewResumen.setText(resumen + id + VIDEO_ID);
+        textViewResumen.setText(resumen);
 
 
 

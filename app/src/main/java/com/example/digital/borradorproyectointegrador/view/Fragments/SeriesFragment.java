@@ -2,6 +2,7 @@ package com.example.digital.borradorproyectointegrador.view.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.SerieAdaptador;
+import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
 import java.util.List;
 
@@ -44,6 +46,9 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
         final RecyclerView recyclerViewCuarto = view.findViewById(R.id.recylcerViewSeriesCuarto);
         final RecyclerView recyclerViewQuinto = view.findViewById(R.id.recylcerViewSeriesQuinto);
 
+
+        // Lista de Generos de series: https://api.themoviedb.org/3/genre/tv/list?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US
+
         ControllerSerie controllerSerie = new ControllerSerie();
         controllerSerie.entregarSerie(view.getContext(), new ResultListener<List<Serie>>() {
             @Override
@@ -51,19 +56,19 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
                 cargarRecycler(view.getContext(),recyclerViewPrimero,Resultado, SeriesFragment.this);
             }
         });
-        controllerSerie.entregarSerieGeneros(view.getContext(), 28, new ResultListener<List<Serie>>() {
+        controllerSerie.entregarSerieGeneros(view.getContext(), 10759, new ResultListener<List<Serie>>() {
             @Override
             public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,SeriesFragment.this);
             }
         });
-        controllerSerie.entregarSerieGeneros(view.getContext(), 18, new ResultListener<List<Serie>>() {
+        controllerSerie.entregarSerieGeneros(view.getContext(), 16, new ResultListener<List<Serie>>() {
             @Override
             public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,SeriesFragment.this);
             }
         });
-        controllerSerie.entregarSerieGeneros(view.getContext(), 878, new ResultListener<List<Serie>>() {
+        controllerSerie.entregarSerieGeneros(view.getContext(), 80, new ResultListener<List<Serie>>() {
             @Override
             public void finish(List<Serie> Resultado) {
                 cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,SeriesFragment.this);
@@ -81,8 +86,14 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
     }
 
     @Override
-    public void irTrailer(Serie Serie) {
-
+    public void irTrailer(Serie serie) {
+        Intent intent = new Intent(getActivity(), TrailerActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(TrailerActivity.KEY_NOMBRE, serie.getName());
+        bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), serie.getId());
+        bundle.putString(TrailerActivity.KEY_RESUMEN, serie.getOverview());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void cargarRecycler(Context context, RecyclerView recyclerView, List<Serie> series, SerieAdaptador.AdapterSerieInterface escuchador){

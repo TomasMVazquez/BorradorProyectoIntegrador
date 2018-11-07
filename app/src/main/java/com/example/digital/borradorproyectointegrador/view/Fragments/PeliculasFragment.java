@@ -43,6 +43,8 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         final RecyclerView recyclerViewCuarto = view.findViewById(R.id.recylcerViewCuarto);
         final RecyclerView recyclerViewQuinto = view.findViewById(R.id.recylcerViewQuinto);
 
+        // Lista de Generos de peliculas: https://api.themoviedb.org/3/genre/movie/list?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US
+
         ControllerPelicula controllerPelicula = new ControllerPelicula();
         controllerPelicula.entregarPeliculas(view.getContext(), new ResultListener<List<Peliculas>>() {
             @Override
