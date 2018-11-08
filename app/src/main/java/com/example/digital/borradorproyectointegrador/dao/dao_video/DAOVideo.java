@@ -31,7 +31,10 @@ public class DAOVideo extends DaoHelper {
 
                 VideoContainer videoContainer = response.body();
 
-                List<Video> videos = videoContainer.getResults();
+                List<Video> videos = null;
+                if (videoContainer != null) {
+                    videos = videoContainer.getResults();
+                }
 
                 listResultListener.finish(videos);
 

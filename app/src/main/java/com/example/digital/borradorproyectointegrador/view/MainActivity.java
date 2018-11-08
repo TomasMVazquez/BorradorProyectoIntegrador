@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +35,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
     SearchView searchView;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -42,9 +43,11 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         setContentView(R.layout.activity_main);
 
         //Llamar a la action bar para mostrar
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbarMain);
+        Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setTitle(null);
+        }
 
         //LLamar Navigation View
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
