@@ -28,4 +28,20 @@ public class ControllerGeneros {
 
     }
 
+    public void entregarGenerosTV(Context context, final ResultListener<List<Genero>> listResultListener){
+
+        if (Util.hayInternet(context)) {
+
+            DAOGenero daoGenero = new DAOGenero();
+
+            daoGenero.buscarSeries(new ResultListener<List<Genero>>() {
+                @Override
+                public void finish(List<Genero> Resultado) {
+                    listResultListener.finish(Resultado);
+                }
+            });
+        }
+
+    }
+
 }

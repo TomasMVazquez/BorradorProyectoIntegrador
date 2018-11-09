@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
+import com.example.digital.borradorproyectointegrador.view.Filtrar_Generos;
+import com.example.digital.borradorproyectointegrador.view.MainActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
 import java.util.List;
@@ -99,6 +103,9 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         });
 
 
+        FiltroFragment filtroFragment = new FiltroFragment();
+
+
         final FloatingActionButton fabPeli = view.findViewById(R.id.fabFiltroPeli);
         ControllerGeneros controllerGeneros = new ControllerGeneros();
         controllerGeneros.entregarGeneros(view.getContext(), new ResultListener<List<Genero>>() {
@@ -107,7 +114,9 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                 fabPeli.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(view.getContext(), Resultado.toString(), Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(view.getContext(), Filtrar_Generos.class);
+                        //startActivity(intent);
+
                     }
                 });
             }

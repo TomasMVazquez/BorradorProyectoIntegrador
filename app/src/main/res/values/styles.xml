@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TemaGeneros" parent="Base.Theme.AppCompat.Dialog.FixedSize">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryTrans</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryTrans</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="FacebookLoginButton">
         <item name="android:background">@drawable/facebook</item>
         <item name="android:layout_marginTop">10dp</item>

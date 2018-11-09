@@ -44,4 +44,27 @@ public class DAOGenero extends DaoHelper {
 
     }
 
+    public void buscarSeries(final ResultListener<List<Genero>> listResultListener){
+
+        Call<GeneroConteiner> call = serviceGenres.getGeneroTVContainer();
+
+        call.enqueue(new Callback<GeneroConteiner>() {
+            @Override
+            public void onResponse(Call<GeneroConteiner> call, Response<GeneroConteiner> response) {
+
+                GeneroConteiner generoTVConteiner = response.body();
+
+                List<Genero> generos = generoTVConteiner.getGenres();
+
+                listResultListener.finish(generos);
+
+            }
+
+            @Override
+            public void onFailure(Call<GeneroConteiner> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
