@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.controller.ControllerGeneros;
@@ -53,6 +54,8 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         controllerPelicula.entregarPeliculas(view.getContext(), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
+                TextView tvPrimero=view.findViewById(R.id.tvCategoriaPrimero);
+                tvPrimero.setText("Favoritos");
                 cargarRecycler(view.getContext(),recyclerViewPrimero,Resultado, PeliculasFragment.this);
             }
         });
@@ -60,24 +63,37 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         controllerPelicula.entregarPeliculasGeneros(view.getContext(), 28, new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
+                TextView tvSegundo=view.findViewById(R.id.tvCategoriaSegundo);
+                tvSegundo.setText("Accion");
+
                 cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,PeliculasFragment.this);
             }
         });
         controllerPelicula.entregarPeliculasGeneros(view.getContext(), 18, new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
+                TextView tvTercero =view.findViewById(R.id.tvCategoriaTercero);
+                tvTercero.setText("Drama");
+
                 cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,PeliculasFragment.this);
             }
         });
         controllerPelicula.entregarPeliculasGeneros(view.getContext(), 878, new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
+
+                TextView tvCuarto =view.findViewById(R.id.tvCategoriaCuarto);
+                tvCuarto.setText("Sci-Fi");
+
                 cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,PeliculasFragment.this);
             }
         });
         controllerPelicula.entregarPeliculasGeneros(view.getContext(), 35, new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
+                TextView tvQuinto =view.findViewById(R.id.tvCategoriaQuinto);
+                tvQuinto.setText("Comedia");
+
                 cargarRecycler(view.getContext(),recyclerViewQuinto,Resultado,PeliculasFragment.this);
             }
         });
