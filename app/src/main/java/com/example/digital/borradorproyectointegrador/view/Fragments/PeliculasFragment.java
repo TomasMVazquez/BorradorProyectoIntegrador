@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.controller.ControllerGeneros;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
@@ -22,7 +21,6 @@ import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
-import com.example.digital.borradorproyectointegrador.view.Filtrar_Generos;
 import com.example.digital.borradorproyectointegrador.view.MainActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
@@ -102,30 +100,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             }
         });
 
-
-        FiltroFragment filtroFragment = new FiltroFragment();
-
-
-        final FloatingActionButton fabPeli = view.findViewById(R.id.fabFiltroPeli);
-        ControllerGeneros controllerGeneros = new ControllerGeneros();
-        controllerGeneros.entregarGeneros(view.getContext(), new ResultListener<List<Genero>>() {
-            @Override
-            public void finish(final List<Genero> Resultado) {
-                fabPeli.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Intent intent = new Intent(view.getContext(), Filtrar_Generos.class);
-                        //startActivity(intent);
-
-                    }
-                });
-            }
-        });
-
-
         return view;
-
-
     }
 
     public void cargarRecycler(Context context, RecyclerView recyclerView,List<Peliculas> peliculas, PeliculaAdaptador.AdapterPeliInterface escuchador){
@@ -137,6 +112,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
         recyclerView.setAdapter(peliculaAdaptador);
     }
+
 
     @Override
     public void onAttach(Context context) {

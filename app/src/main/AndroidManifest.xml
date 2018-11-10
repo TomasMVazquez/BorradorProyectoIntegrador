@@ -51,8 +51,6 @@
 
         <activity android:name=".view.TrailerActivity" />
         <activity android:name=".view.LogIn" />
-        <activity android:name=".view.Filtrar_Generos"
-            />
     </application>
 
 </manifest>

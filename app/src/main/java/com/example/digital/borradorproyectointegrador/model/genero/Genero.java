@@ -5,6 +5,7 @@ public class Genero {
     //Atributos
     private Integer id;
     private String name;
+    private boolean selected = false;
 
     //Constructor
     public Genero(Integer id, String name) {
@@ -19,6 +20,14 @@ public class Genero {
 
     public String getName() {
         return name;
+    }
+
+    public boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     //toString

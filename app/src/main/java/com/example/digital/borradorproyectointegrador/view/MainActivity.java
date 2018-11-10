@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,11 +22,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
 import com.example.digital.borradorproyectointegrador.view.Fragments.ComentariosFragment;
+import com.example.digital.borradorproyectointegrador.view.Fragments.FiltroFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.PeliculasFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.SeriesFragment;
 
@@ -60,9 +64,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         navigationView.setNavigationItemSelectedListener(this);
 
         // Llamar el Search View
-//        searchView = findViewById(R.id.itemSearch);
-
-
         //Llamar al FragmentPeliculas
         PeliculasFragment peliculasFragment = new PeliculasFragment();
         ComentariosFragment comentariosFragment = new ComentariosFragment();
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         titulos.add("");
 
         //ViewPager
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        final ViewPager viewPager = findViewById(R.id.viewPager);
 
         //TabLayout
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -95,9 +96,22 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_tv_tab);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_group_tab);
 
-//        tabLayout.getTabAt(0).setIcon(R.drawable.ic_movie_tab);
-//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_tab);
+        //LLAMAR AL FAB BUTTON
+        FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
+        final FiltroFragment filtroFragment = new FiltroFragment();
 
+        fabFiltros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Integer tab  = viewPager.getCurrentItem();
+
+               Bundle bundle = new Bundle();
+               bundle.putInt(FiltroFragment.KEY_TAB,tab);
+               filtroFragment.setArguments(bundle);
+
+               cargarFiltros(filtroFragment);
+            }
+        });
 
 
     }
@@ -163,6 +177,11 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.viewPager,fragment);
         fragmentTransaction.commit();
+    }
+
+    public void cargarFiltros(DialogFragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragment.show(fragmentManager,"filtro");
     }
 
 }

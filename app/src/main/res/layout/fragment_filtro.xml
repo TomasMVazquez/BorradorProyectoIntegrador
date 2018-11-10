@@ -5,18 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Filtrar_Generos"
     android:gravity="center"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
     >
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/aplicarFiltros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="aplicar"
+        android:textSize="18sp"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorBlanco"
+        android:textStyle="bold"
+        android:elevation="6dp"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerFiltros"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    </android.support.v7.widget.RecyclerView>
+
 
 </LinearLayout>
