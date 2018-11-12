@@ -36,7 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener,FiltroFragment.FragmentInterface {
     SearchView searchView;
 
 
@@ -116,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -184,4 +187,17 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         fragment.show(fragmentManager,"filtro");
     }
 
+    public interface MainInterface{
+        public void entregarListaFiltros(List<Integer> seleccionados, Integer tab);
+    }
+
+    @Override
+    public void dameListaFiltro(List<Integer> seleccionados,Integer tab) {
+        Fragment filtroFragment = getSupportFragmentManager().findFragmentByTag("filtro");
+        DialogFragment df = (DialogFragment) filtroFragment;
+        df.dismiss();
+
+        MainInterface mainInterface = (MainInterface) this;
+        mainInterface.entregarListaFiltros(seleccionados, tab);
+    }
 }

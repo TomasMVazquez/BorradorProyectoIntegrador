@@ -16,18 +16,19 @@ import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.view.Fragments.FiltroFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.digital.borradorproyectointegrador.R.color.colorAccent;
 
-public class AdaptadorGeneros extends RecyclerView.Adapter {
+public class AdaptadorFiltros extends RecyclerView.Adapter {
 
     private List<Genero> generoList;
     private Boolean hayLugar = true;
     private contadorFiltros contadorFiltros;
-    private List<Integer> generosSeleccionados;
+    private List<Integer> generosSeleccionados = new ArrayList<>();
 
-    public AdaptadorGeneros(contadorFiltros contadorFiltros, List<Genero> generoList) {
+    public AdaptadorFiltros(contadorFiltros contadorFiltros, List<Genero> generoList) {
         this.generoList = generoList;
         this.contadorFiltros = contadorFiltros;
     }
@@ -67,6 +68,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter {
         public void sumarContadorFiltros();
         public void restarContadorFiltros();
         public List<Integer> listaGeneros();
+        //public void irAlFragment();
     }
 
 

@@ -29,6 +29,7 @@ public class PeliculaAdaptador extends RecyclerView.Adapter {
         this.escuchador = escuchador;
     }
 
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

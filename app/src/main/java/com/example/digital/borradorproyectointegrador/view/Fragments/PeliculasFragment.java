@@ -24,12 +24,14 @@ import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaA
 import com.example.digital.borradorproyectointegrador.view.MainActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class PeliculasFragment extends Fragment implements PeliculaAdaptador.AdapterPeliInterface {
 
     private OnFragmentInteractionListener mListener;
+    private List<Integer> listaFiltros = new ArrayList<>();
 
     public PeliculasFragment() {
         // Required empty public constructor
@@ -42,6 +44,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
 
+
         //Recycler view
         //Lista
         final RecyclerView recyclerViewPrimero = view.findViewById(R.id.recylcerViewPrimero);
@@ -50,7 +53,6 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         final RecyclerView recyclerViewCuarto = view.findViewById(R.id.recylcerViewCuarto);
         final RecyclerView recyclerViewQuinto = view.findViewById(R.id.recylcerViewQuinto);
 
-        // Lista de Generos de peliculas: https://api.themoviedb.org/3/genre/movie/list?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US
 
         ControllerPelicula controllerPelicula = new ControllerPelicula();
         controllerPelicula.entregarPeliculas(view.getContext(), new ResultListener<List<Peliculas>>() {
@@ -62,7 +64,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             }
         });
 
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 28, new ResultListener<List<Peliculas>>() {
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros().get(0), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
                 TextView tvSegundo=view.findViewById(R.id.tvCategoriaSegundo);
@@ -71,7 +73,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                 cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,PeliculasFragment.this);
             }
         });
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 18, new ResultListener<List<Peliculas>>() {
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros().get(1), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
                 TextView tvTercero =view.findViewById(R.id.tvCategoriaTercero);
@@ -80,7 +82,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                 cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,PeliculasFragment.this);
             }
         });
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 878, new ResultListener<List<Peliculas>>() {
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros().get(2), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
 
@@ -90,7 +92,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                 cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,PeliculasFragment.this);
             }
         });
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), 35, new ResultListener<List<Peliculas>>() {
+        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros().get(3), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
                 TextView tvQuinto =view.findViewById(R.id.tvCategoriaQuinto);
@@ -113,6 +115,45 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         recyclerView.setAdapter(peliculaAdaptador);
     }
 
+    public List<Integer> getListaFiltros() {
+        listaFiltros.add(28);
+        listaFiltros.add(18);
+        listaFiltros.add(878);
+        listaFiltros.add(35);
+
+        MainActivity.MainInterface mainInterface = new MainActivity.MainInterface() {
+            @Override
+            public void entregarListaFiltros(List<Integer> seleccionados, Integer tab) {
+                if (tab == 0) {
+                    if (seleccionados.size() < 4) {
+                        switch (seleccionados.size()){
+                            case 1:
+                                listaFiltros.add(28);
+                                listaFiltros.add(18);
+                                listaFiltros.add(878);
+                                break;
+                            case 2:
+                                listaFiltros.add(28);
+                                listaFiltros.add(18);
+                                break;
+                            case 3:
+                                listaFiltros.add(28);
+                                break;
+                        }
+                    } else {
+                        listaFiltros = seleccionados;
+                    }
+                }else {
+                    listaFiltros.add(28);
+                    listaFiltros.add(18);
+                    listaFiltros.add(878);
+                    listaFiltros.add(35);
+                }
+            }
+        };
+
+        return listaFiltros;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -141,6 +182,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction();

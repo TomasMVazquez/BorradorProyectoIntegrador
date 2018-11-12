@@ -10,13 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ControllerGeneros;
 import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
-import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorGeneros;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorFiltros;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +23,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FiltroFragment extends DialogFragment implements AdaptadorGeneros.contadorFiltros {
+public class FiltroFragment extends DialogFragment implements AdaptadorFiltros.contadorFiltros {
 
     public static final String KEY_TAB="tab";
 
-    private AdaptadorGeneros adaptadorGeneros;
+    private AdaptadorFiltros adaptadorFiltros;
     private Integer contadorFiltros = 0;
+    private Integer tabFragment=null;
 
     public FiltroFragment() {
         // Required empty public constructor
@@ -42,10 +42,10 @@ public class FiltroFragment extends DialogFragment implements AdaptadorGeneros.c
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_filtro, container, false);
 
-        adaptadorGeneros = new AdaptadorGeneros(this, new ArrayList<Genero>());
+        adaptadorFiltros = new AdaptadorFiltros(this, new ArrayList<Genero>());
 
         Bundle bundle = getArguments();
-        Integer tab = (Integer) bundle.getInt(KEY_TAB);
+        final Integer tab = (Integer) bundle.getInt(KEY_TAB);
         ControllerGeneros controllerGeneros = new ControllerGeneros();
         contadorFiltros = 0;
         switch (tab){
@@ -53,7 +53,8 @@ public class FiltroFragment extends DialogFragment implements AdaptadorGeneros.c
                 controllerGeneros.entregarGeneros(view.getContext(), new ResultListener<List<Genero>>() {
                     @Override
                     public void finish(List<Genero> Resultado) {
-                        adaptadorGeneros.setGeneroList(Resultado);
+                        adaptadorFiltros.setGeneroList(Resultado);
+                        tabFragment = tab;
                     }
                 });
                 break;
@@ -61,12 +62,14 @@ public class FiltroFragment extends DialogFragment implements AdaptadorGeneros.c
                 controllerGeneros.entregarGenerosTV(view.getContext(), new ResultListener<List<Genero>>() {
                     @Override
                     public void finish(List<Genero> Resultado) {
-                        adaptadorGeneros.setGeneroList(Resultado);
+                        adaptadorFiltros.setGeneroList(Resultado);
+                        tabFragment = tab;
                     }
                 });
                 break;
             case 2:
 
+                tabFragment = tab;
                 break;
         }
 
@@ -76,19 +79,27 @@ public class FiltroFragment extends DialogFragment implements AdaptadorGeneros.c
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(llm);
 
-        recyclerView.setAdapter(adaptadorGeneros);
+        recyclerView.setAdapter(adaptadorFiltros);
 
         Button aplicar = view.findViewById(R.id.aplicarFiltros);
+
 
         aplicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<Integer> seleccionados = listaGeneros();
                 //Implementar llamada al activity para pasar la lista de categorias
+                FragmentInterface fragmentInterface = (FragmentInterface) getContext();
+                fragmentInterface.dameListaFiltro(seleccionados,tabFragment);
+
             }
         });
 
         return view;
+    }
+
+    public interface FragmentInterface{
+        public void dameListaFiltro(List<Integer> seleccionados,Integer tab);
     }
 
     @Override
@@ -96,7 +107,7 @@ public class FiltroFragment extends DialogFragment implements AdaptadorGeneros.c
         contadorFiltros = contadorFiltros + 1;
 
         if (contadorFiltros>=4) {
-            adaptadorGeneros.finLugar();
+            adaptadorFiltros.finLugar();
         }
     }
 
@@ -107,7 +118,7 @@ public class FiltroFragment extends DialogFragment implements AdaptadorGeneros.c
 
     @Override
     public List<Integer> listaGeneros() {
-        return adaptadorGeneros.darListaSeleccionados();
+        return adaptadorFiltros.darListaSeleccionados();
     }
 
 
