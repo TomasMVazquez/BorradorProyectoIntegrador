@@ -1,6 +1,7 @@
 package com.example.digital.borradorproyectointegrador.view.Fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -99,7 +100,7 @@ public class FiltroFragment extends DialogFragment implements AdaptadorFiltros.c
     }
 
     public interface FragmentInterface{
-        public void dameListaFiltro(List<Integer> seleccionados,Integer tab);
+        public void dameListaFiltro(List<Integer> seleccionados, Integer tab);
     }
 
     @Override

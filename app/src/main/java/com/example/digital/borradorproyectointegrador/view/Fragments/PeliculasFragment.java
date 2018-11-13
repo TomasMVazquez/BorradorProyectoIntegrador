@@ -30,6 +30,9 @@ import java.util.List;
 
 public class PeliculasFragment extends Fragment implements PeliculaAdaptador.AdapterPeliInterface {
 
+    public static final String KEY_LISTA_FILTROS = "filtros";
+    public static final String KEY_TAB = "tab";
+
     private OnFragmentInteractionListener mListener;
     private List<Integer> listaFiltros = new ArrayList<>();
 
@@ -43,6 +46,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
+
 
 
         //Recycler view
@@ -116,41 +120,43 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
     }
 
     public List<Integer> getListaFiltros() {
-        listaFiltros.add(28);
-        listaFiltros.add(18);
-        listaFiltros.add(878);
-        listaFiltros.add(35);
+        Bundle bundleFiltros = getArguments();
 
-        MainActivity.MainInterface mainInterface = new MainActivity.MainInterface() {
-            @Override
-            public void entregarListaFiltros(List<Integer> seleccionados, Integer tab) {
-                if (tab == 0) {
-                    if (seleccionados.size() < 4) {
-                        switch (seleccionados.size()){
-                            case 1:
-                                listaFiltros.add(28);
-                                listaFiltros.add(18);
-                                listaFiltros.add(878);
-                                break;
-                            case 2:
-                                listaFiltros.add(28);
-                                listaFiltros.add(18);
-                                break;
-                            case 3:
-                                listaFiltros.add(28);
-                                break;
-                        }
-                    } else {
-                        listaFiltros = seleccionados;
+        if (bundleFiltros!=null){
+            Integer tab = bundleFiltros.getInt(KEY_TAB);
+            List<Integer> seleccionados = bundleFiltros.getIntegerArrayList(KEY_LISTA_FILTROS);
+
+            if (tab == 0) {
+                if (seleccionados.size() < 4) {
+                    switch (seleccionados.size()){
+                        case 1:
+                            listaFiltros.add(28);
+                            listaFiltros.add(18);
+                            listaFiltros.add(878);
+                            break;
+                        case 2:
+                            listaFiltros.add(28);
+                            listaFiltros.add(18);
+                            break;
+                        case 3:
+                            listaFiltros.add(28);
+                            break;
                     }
-                }else {
-                    listaFiltros.add(28);
-                    listaFiltros.add(18);
-                    listaFiltros.add(878);
-                    listaFiltros.add(35);
+                } else {
+                    listaFiltros = seleccionados;
                 }
+            }else {
+                listaFiltros.add(28);
+                listaFiltros.add(18);
+                listaFiltros.add(878);
+                listaFiltros.add(35);
             }
-        };
+        }else {
+            listaFiltros.add(28);
+            listaFiltros.add(18);
+            listaFiltros.add(878);
+            listaFiltros.add(35);
+        }
 
         return listaFiltros;
     }

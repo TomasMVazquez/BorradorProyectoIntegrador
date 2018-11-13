@@ -1,5 +1,6 @@
 package com.example.digital.borradorproyectointegrador.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         NavigationView.OnNavigationItemSelectedListener,FiltroFragment.FragmentInterface {
     SearchView searchView;
 
+    private List<Integer> listaFiltros;
+    private Integer tabFiltros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,12 +195,18 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     }
 
     @Override
-    public void dameListaFiltro(List<Integer> seleccionados,Integer tab) {
+    public void dameListaFiltro(List<Integer> seleccionados, Integer tab) {
         Fragment filtroFragment = getSupportFragmentManager().findFragmentByTag("filtro");
         DialogFragment df = (DialogFragment) filtroFragment;
         df.dismiss();
+        listaFiltros=seleccionados;
+        tabFiltros=tab;
 
-        MainInterface mainInterface = (MainInterface) this;
-        mainInterface.entregarListaFiltros(seleccionados, tab);
+        Bundle bundleFiltros = new Bundle();
+        bundleFiltros.putIntegerArrayList(PeliculasFragment.KEY_LISTA_FILTROS, (ArrayList<Integer>) listaFiltros);
+        bundleFiltros.putInt(PeliculasFragment.KEY_TAB,tabFiltros);
+
+        PeliculasFragment peliculasFragment = new PeliculasFragment();
+        peliculasFragment.setArguments(bundleFiltros);
     }
 }
