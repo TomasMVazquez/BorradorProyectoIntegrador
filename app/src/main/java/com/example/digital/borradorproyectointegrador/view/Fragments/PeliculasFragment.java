@@ -35,6 +35,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
 
     private OnFragmentInteractionListener mListener;
     private List<Integer> listaFiltros = new ArrayList<>();
+    private List<Genero> generoList;
 
     public PeliculasFragment() {
         // Required empty public constructor
@@ -47,7 +48,13 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
 
-
+        ControllerGeneros controllerGeneros = new ControllerGeneros();
+        controllerGeneros.entregarGeneros(view.getContext(), new ResultListener<List<Genero>>() {
+            @Override
+            public void finish(List<Genero> Resultado) {
+                generoList=Resultado;
+            }
+        });
 
         //Recycler view
         //Lista
@@ -72,7 +79,11 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             @Override
             public void finish(List<Peliculas> Resultado) {
                 TextView tvSegundo=view.findViewById(R.id.tvCategoriaSegundo);
-                tvSegundo.setText("Accion");
+                for (Genero genero: generoList){
+                    if (genero.getId()==getListaFiltros().get(0)){
+                        tvSegundo.setText(genero.getName());
+                    }
+                }
 
                 cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,PeliculasFragment.this);
             }
@@ -81,7 +92,11 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             @Override
             public void finish(List<Peliculas> Resultado) {
                 TextView tvTercero =view.findViewById(R.id.tvCategoriaTercero);
-                tvTercero.setText("Drama");
+                for (Genero genero: generoList){
+                    if (genero.getId()==getListaFiltros().get(1)){
+                        tvTercero.setText(genero.getName());
+                    }
+                }
 
                 cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,PeliculasFragment.this);
             }
@@ -89,9 +104,12 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros().get(2), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
-
                 TextView tvCuarto =view.findViewById(R.id.tvCategoriaCuarto);
-                tvCuarto.setText("Sci-Fi");
+                for (Genero genero: generoList){
+                    if (genero.getId()==getListaFiltros().get(2)){
+                        tvCuarto.setText(genero.getName());
+                    }
+                }
 
                 cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,PeliculasFragment.this);
             }
@@ -100,7 +118,11 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             @Override
             public void finish(List<Peliculas> Resultado) {
                 TextView tvQuinto =view.findViewById(R.id.tvCategoriaQuinto);
-                tvQuinto.setText("Comedia");
+                for (Genero genero: generoList){
+                    if (genero.getId()== getListaFiltros().get(3)){
+                        tvQuinto.setText(genero.getName());
+                    }
+                }
 
                 cargarRecycler(view.getContext(),recyclerViewQuinto,Resultado,PeliculasFragment.this);
             }
@@ -132,7 +154,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                         case 1:
                             listaFiltros.add(28);
                             listaFiltros.add(18);
-                            listaFiltros.add(878);
+                            listaFiltros.add(35);
                             break;
                         case 2:
                             listaFiltros.add(28);
@@ -148,13 +170,13 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             }else {
                 listaFiltros.add(28);
                 listaFiltros.add(18);
-                listaFiltros.add(878);
+                listaFiltros.add(12);
                 listaFiltros.add(35);
             }
         }else {
             listaFiltros.add(28);
             listaFiltros.add(18);
-            listaFiltros.add(878);
+            listaFiltros.add(12);
             listaFiltros.add(35);
         }
 

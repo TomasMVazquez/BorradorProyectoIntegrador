@@ -29,6 +29,10 @@ public class PeliculaAdaptador extends RecyclerView.Adapter {
         this.escuchador = escuchador;
     }
 
+    public void setPeliculas(List<Peliculas> peliculas) {
+        this.peliculas = peliculas;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
