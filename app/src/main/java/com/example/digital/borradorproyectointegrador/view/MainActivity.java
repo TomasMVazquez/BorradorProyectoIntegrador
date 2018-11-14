@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
     private List<Integer> listaFiltros;
     private Integer tabFiltros;
+    private MyViewPagerAdapter adapter;
+    private List<Fragment> fragmentList;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,38 +70,10 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Llamar el Search View
-        //Llamar al FragmentPeliculas
-        PeliculasFragment peliculasFragment = new PeliculasFragment();
-        ComentariosFragment comentariosFragment = new ComentariosFragment();
-        SeriesFragment seriesFragment = new SeriesFragment();
 
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(peliculasFragment);
-        fragmentList.add(seriesFragment);
-        fragmentList.add(comentariosFragment);
+        llamarFragments();
+        cargarViewPager();
 
-        List<String> titulos = new ArrayList<>();
-        titulos.add("");
-        titulos.add("");
-        titulos.add("");
-
-        //ViewPager
-        final ViewPager viewPager = findViewById(R.id.viewPager);
-
-        //TabLayout
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-
-        //Asociar al view pager
-        tabLayout.setupWithViewPager(viewPager);
-
-        //Adapter
-        MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList,titulos);
-        viewPager.setAdapter(adapter);
-
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_movie_tab);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_tv_tab);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_group_tab);
 
         //LLAMAR AL FAB BUTTON
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
@@ -119,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
 
     }
-
 
 
     @Override
@@ -181,8 +155,10 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     public void cargarFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.viewPager,fragment);
+        fragmentTransaction.replace(R.id.containerFiltros,fragment);
         fragmentTransaction.commit();
+        //fragmentTransaction.commitNow();
+
     }
 
     public void cargarFiltros(DialogFragment fragment){
@@ -190,9 +166,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         fragment.show(fragmentManager,"filtro");
     }
 
-    public interface MainInterface{
-        public void entregarListaFiltros(List<Integer> seleccionados, Integer tab);
-    }
 
     @Override
     public void dameListaFiltro(List<Integer> seleccionados, Integer tab) {
@@ -206,7 +179,43 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         bundleFiltros.putIntegerArrayList(PeliculasFragment.KEY_LISTA_FILTROS, (ArrayList<Integer>) listaFiltros);
         bundleFiltros.putInt(PeliculasFragment.KEY_TAB,tabFiltros);
 
+        PeliculasFragment peliculasFr = new PeliculasFragment();
+        peliculasFr.setArguments(bundleFiltros);
+        cargarFragment(peliculasFr);
+
+        fragmentList.remove(0);
+        fragmentList.add(0,peliculasFr);
+        cargarViewPager();
+
+    }
+
+    public void cargarViewPager(){
+        //ViewPager
+        viewPager = findViewById(R.id.viewPager);
+        //Adapter
+        adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList);
+        viewPager.setAdapter(adapter);
+        //TabLayout
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+
+        //Asociar al view pager
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_movie_tab);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_tv_tab);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_group_tab);
+
+    }
+
+    public void llamarFragments(){
+        //Llamar al FragmentPeliculas
         PeliculasFragment peliculasFragment = new PeliculasFragment();
-        peliculasFragment.setArguments(bundleFiltros);
+        ComentariosFragment comentariosFragment = new ComentariosFragment();
+        SeriesFragment seriesFragment = new SeriesFragment();
+
+        fragmentList = new ArrayList<>();
+        fragmentList.add(peliculasFragment);
+        fragmentList.add(seriesFragment);
+        fragmentList.add(comentariosFragment);
     }
 }

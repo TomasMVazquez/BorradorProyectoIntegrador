@@ -85,7 +85,6 @@ public class AdaptadorFiltros extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//cardViewCategoria.getCardBackgroundColor().getDefaultColor() == ContextCompat.getColor(v.getContext(), R.color.colorAccent)
 
                     Genero genero = generoList.get(getAdapterPosition());
                     boolean isSelected = genero.getSelected();
