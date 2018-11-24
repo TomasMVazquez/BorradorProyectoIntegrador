@@ -139,13 +139,14 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         } else if (id == R.id.nav_signin) {
             Intent intentAccount = new Intent(MainActivity.this, MultiLogIn.class);
             startActivity(intentAccount);
-        } else if (id == R.id.nav_encuestas) {
-
-        } else if (id == R.id.nav_listas) {
-
-        } else if (id == R.id.nav_share) {
-
         }
+//        } else if (id == R.id.nav_encuestas) {
+//
+//        } else if (id == R.id.nav_listas) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,44 +41,19 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
 
         //Recycler view
         //Lista
-        final RecyclerView recyclerViewPrimero = view.findViewById(R.id.recylcerViewSeriesPrimero);
-        final RecyclerView recyclerViewSegundo = view.findViewById(R.id.recylcerViewSeriesSegundo);
-        final RecyclerView recyclerViewTercero = view.findViewById(R.id.recylcerViewSeriesTercero);
-        final RecyclerView recyclerViewCuarto = view.findViewById(R.id.recylcerViewSeriesCuarto);
-        final RecyclerView recyclerViewQuinto = view.findViewById(R.id.recylcerViewSeriesQuinto);
+        final RecyclerView recyclerViewFav = view.findViewById(R.id.recylcerViewFavoritosSeries);
+        final RecyclerView recyclerViewSeri = view.findViewById(R.id.recylcerViewSeries);
+
 
 
         // Lista de Generos de series: https://api.themoviedb.org/3/genre/tv/list?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US
 
         ControllerSerie controllerSerie = new ControllerSerie();
+
         controllerSerie.entregarSerie(view.getContext(), new ResultListener<List<Serie>>() {
             @Override
             public void finish(List<Serie> Resultado) {
-                cargarRecycler(view.getContext(),recyclerViewPrimero,Resultado, SeriesFragment.this);
-            }
-        });
-        controllerSerie.entregarSerieGeneros(view.getContext(), 10759, new ResultListener<List<Serie>>() {
-            @Override
-            public void finish(List<Serie> Resultado) {
-                cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,SeriesFragment.this);
-            }
-        });
-        controllerSerie.entregarSerieGeneros(view.getContext(), 16, new ResultListener<List<Serie>>() {
-            @Override
-            public void finish(List<Serie> Resultado) {
-                cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,SeriesFragment.this);
-            }
-        });
-        controllerSerie.entregarSerieGeneros(view.getContext(), 80, new ResultListener<List<Serie>>() {
-            @Override
-            public void finish(List<Serie> Resultado) {
-                cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,SeriesFragment.this);
-            }
-        });
-        controllerSerie.entregarSerieGeneros(view.getContext(), 35, new ResultListener<List<Serie>>() {
-            @Override
-            public void finish(List<Serie> Resultado) {
-                cargarRecycler(view.getContext(),recyclerViewQuinto,Resultado,SeriesFragment.this);
+                cargarRecyclerGrid(view.getContext(),recyclerViewSeri,Resultado,SeriesFragment.this);
             }
         });
 
@@ -95,6 +71,19 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+
+    public void cargarRecyclerGrid(Context context, RecyclerView recyclerView,List<Serie> series, SerieAdaptador.AdapterSerieInterface escuchador){
+        recyclerView.setHasFixedSize(true);
+
+        GridLayoutManager glm = new GridLayoutManager(context,3,1,false);
+        //LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(glm);
+
+        SerieAdaptador serieAdaptador = new SerieAdaptador(context,series,escuchador);
+        recyclerView.setAdapter(serieAdaptador);
+    }
+
 
     public void cargarRecycler(Context context, RecyclerView recyclerView, List<Serie> series, SerieAdaptador.AdapterSerieInterface escuchador){
         recyclerView.setHasFixedSize(true);

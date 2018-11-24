@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,90 +50,36 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
 
-        bundleFiltros = getArguments();
-
-        ControllerGeneros controllerGeneros = new ControllerGeneros();
-        controllerGeneros.entregarGeneros(view.getContext(), new ResultListener<List<Genero>>() {
-            @Override
-            public void finish(List<Genero> Resultado) {
-                generoList=Resultado;
-            }
-        });
-
         //Recycler view
         //Lista
-        final RecyclerView recyclerViewPrimero = view.findViewById(R.id.recylcerViewPrimero);
-        final RecyclerView recyclerViewSegundo = view.findViewById(R.id.recylcerViewSegundo);
-        final RecyclerView recyclerViewTercero = view.findViewById(R.id.recylcerViewTercero);
-        final RecyclerView recyclerViewCuarto = view.findViewById(R.id.recylcerViewCuarto);
-        final RecyclerView recyclerViewQuinto = view.findViewById(R.id.recylcerViewQuinto);
-
+        final RecyclerView recyclerViewFav = view.findViewById(R.id.recylcerViewFavoritosPeliculas);
+        final RecyclerView recyclerViewPeli = view.findViewById(R.id.recylcerViewPeliculas);
 
         ControllerPelicula controllerPelicula = new ControllerPelicula();
+
         controllerPelicula.entregarPeliculas(view.getContext(), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
-                TextView tvPrimero=view.findViewById(R.id.tvCategoriaPrimero);
-                tvPrimero.setText("Favoritos");
-                cargarRecycler(view.getContext(),recyclerViewPrimero,Resultado, PeliculasFragment.this);
-            }
-        });
-
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros(bundleFiltros).get(0), new ResultListener<List<Peliculas>>() {
-            @Override
-            public void finish(List<Peliculas> Resultado) {
-                TextView tvSegundo=view.findViewById(R.id.tvCategoriaSegundo);
-                for (Genero genero: generoList){
-                    if (genero.getId()==getListaFiltros(bundleFiltros).get(0)){
-                        tvSegundo.setText(genero.getName());
-                    }
-                }
-
-                cargarRecycler(view.getContext(),recyclerViewSegundo,Resultado,PeliculasFragment.this);
-            }
-        });
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros(bundleFiltros).get(1), new ResultListener<List<Peliculas>>() {
-            @Override
-            public void finish(List<Peliculas> Resultado) {
-                TextView tvTercero =view.findViewById(R.id.tvCategoriaTercero);
-                for (Genero genero: generoList){
-                    if (genero.getId()==getListaFiltros(bundleFiltros).get(1)){
-                        tvTercero.setText(genero.getName());
-                    }
-                }
-
-                cargarRecycler(view.getContext(),recyclerViewTercero,Resultado,PeliculasFragment.this);
-            }
-        });
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros(bundleFiltros).get(2), new ResultListener<List<Peliculas>>() {
-            @Override
-            public void finish(List<Peliculas> Resultado) {
-                TextView tvCuarto =view.findViewById(R.id.tvCategoriaCuarto);
-                for (Genero genero: generoList){
-                    if (genero.getId()==getListaFiltros(bundleFiltros).get(2)){
-                        tvCuarto.setText(genero.getName());
-                    }
-                }
-
-                cargarRecycler(view.getContext(),recyclerViewCuarto,Resultado,PeliculasFragment.this);
-            }
-        });
-        controllerPelicula.entregarPeliculasGeneros(view.getContext(), getListaFiltros(bundleFiltros).get(3), new ResultListener<List<Peliculas>>() {
-            @Override
-            public void finish(List<Peliculas> Resultado) {
-                TextView tvQuinto =view.findViewById(R.id.tvCategoriaQuinto);
-                for (Genero genero: generoList){
-                    if (genero.getId()== getListaFiltros(bundleFiltros).get(3)){
-                        tvQuinto.setText(genero.getName());
-                    }
-                }
-
-                cargarRecycler(view.getContext(),recyclerViewQuinto,Resultado,PeliculasFragment.this);
+                cargarRecyclerGrid(view.getContext(),recyclerViewPeli,Resultado,PeliculasFragment.this);
             }
         });
 
         return view;
     }
+
+
+
+    public void cargarRecyclerGrid(Context context, RecyclerView recyclerView,List<Peliculas> peliculas, PeliculaAdaptador.AdapterPeliInterface escuchador){
+        recyclerView.setHasFixedSize(true);
+
+        GridLayoutManager glm = new GridLayoutManager(context,3,1,false);
+        //LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(glm);
+
+        PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
+        recyclerView.setAdapter(peliculaAdaptador);
+    }
+
 
     public void cargarRecycler(Context context, RecyclerView recyclerView,List<Peliculas> peliculas, PeliculaAdaptador.AdapterPeliInterface escuchador){
         recyclerView.setHasFixedSize(true);

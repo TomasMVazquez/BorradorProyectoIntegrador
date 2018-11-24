@@ -25,7 +25,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:id="@+id/tvCategoriaPrimero"
+                    android:id="@+id/favoritosPelicula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Favoritos"
@@ -36,113 +36,50 @@
                     android:textStyle="bold|italic"
                     />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewPrimero"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/favoritosVacio"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorTextOnS"
+                        android:gravity="center"
+                        />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recylcerViewFavoritosPeliculas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </FrameLayout>
+
+
 
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
+            android:id="@+id/peliculasTodas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/peliculasTodas"
+            android:textSize="20sp"
+            android:textColor="@color/colorTextOnS"
+            android:textStyle="bold|italic"
+            />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recylcerViewPeliculas"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/tvCategoriaSegundo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    tools:text="Acción"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorTextOnS"
-                    android:textStyle="bold|italic"
-                    />
+                android:layout_height="match_parent"
+                />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewSegundo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/tvCategoriaTercero"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    tools:text="Drama"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorTextOnS"
-                    android:textStyle="bold|italic"
-                    />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewTercero"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:id="@+id/tvCategoriaCuarto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Sci-Fi"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorTextOnS"
-                    android:textStyle="bold|italic"
-                    />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewCuarto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/tvCategoriaQuinto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    tools:text="Comedia"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorTextOnS"
-                    android:textStyle="bold|italic"
-                    />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcerViewQuinto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
