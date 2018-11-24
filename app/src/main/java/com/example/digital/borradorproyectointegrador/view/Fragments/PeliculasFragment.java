@@ -36,8 +36,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
 
     private OnFragmentInteractionListener mListener;
     private List<Integer> listaFiltros = new ArrayList<>();
-    private List<Genero> generoList;
-    private Bundle bundleFiltros;
+
 
     public PeliculasFragment() {
         // Required empty public constructor

@@ -24,13 +24,12 @@ import static com.example.digital.borradorproyectointegrador.R.color.colorAccent
 public class AdaptadorFiltros extends RecyclerView.Adapter {
 
     private List<Genero> generoList;
-    private Boolean hayLugar = true;
-    private contadorFiltros contadorFiltros;
-    private List<Integer> generosSeleccionados = new ArrayList<>();
+    private FiltrosInterface filtrosInterface;
 
-    public AdaptadorFiltros(contadorFiltros contadorFiltros, List<Genero> generoList) {
+
+    public AdaptadorFiltros(List<Genero> generoList, FiltrosInterface filtrosInterface) {
         this.generoList = generoList;
-        this.contadorFiltros = contadorFiltros;
+        this.filtrosInterface = filtrosInterface;
     }
 
     public void setGeneroList(List<Genero> generoList) {
@@ -64,11 +63,8 @@ public class AdaptadorFiltros extends RecyclerView.Adapter {
         return generoList.size();
     }
 
-    public interface contadorFiltros{
-        public void sumarContadorFiltros();
-        public void restarContadorFiltros();
-        public List<Integer> listaGeneros();
-        //public void irAlFragment();
+    public interface FiltrosInterface{
+        void mostrarFiltros(Integer integer);
     }
 
 
@@ -88,22 +84,8 @@ public class AdaptadorFiltros extends RecyclerView.Adapter {
 
                     Genero genero = generoList.get(getAdapterPosition());
                     boolean isSelected = genero.getSelected();
-
-                    if (isSelected){
-                        cardViewCategoria.setCardBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBlanco));
-                        contadorFiltros.restarContadorFiltros();
-                        tieneLugar();
-                       genero.setSelected(false);
-                       generosSeleccionados.remove(genero.getId());
-                    }else {
-                        if (revisarLugar()){
-                            cardViewCategoria.setCardBackgroundColor(ContextCompat.getColor(v.getContext(), colorAccent));
-                            genero.setSelected(true);
-                            contadorFiltros.sumarContadorFiltros();
-                            generosSeleccionados.add(genero.getId());
-                        }
-                    }
-
+                    cardViewCategoria.setCardBackgroundColor(ContextCompat.getColor(v.getContext(), colorAccent));
+                    filtrosInterface.mostrarFiltros(genero.getId());
                 }
             });
 
@@ -113,22 +95,6 @@ public class AdaptadorFiltros extends RecyclerView.Adapter {
             generos.setText(genero.getName());
         }
 
-    }
-
-    public boolean revisarLugar(){
-            return hayLugar;
-    }
-
-    public void finLugar(){
-        hayLugar = false;
-    }
-
-    public void tieneLugar(){
-        hayLugar = true;
-    }
-
-    public List<Integer> darListaSeleccionados(){
-        return generosSeleccionados;
     }
 
 }
