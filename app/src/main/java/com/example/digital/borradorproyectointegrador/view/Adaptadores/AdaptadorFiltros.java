@@ -64,7 +64,7 @@ public class AdaptadorFiltros extends RecyclerView.Adapter {
     }
 
     public interface FiltrosInterface{
-        void mostrarFiltros(Integer integer);
+        void mostrarFiltros(Integer integer, String nombre);
     }
 
 
@@ -85,7 +85,7 @@ public class AdaptadorFiltros extends RecyclerView.Adapter {
                     Genero genero = generoList.get(getAdapterPosition());
                     boolean isSelected = genero.getSelected();
                     cardViewCategoria.setCardBackgroundColor(ContextCompat.getColor(v.getContext(), colorAccent));
-                    filtrosInterface.mostrarFiltros(genero.getId());
+                    filtrosInterface.mostrarFiltros(genero.getId(),genero.getName());
                 }
             });
 

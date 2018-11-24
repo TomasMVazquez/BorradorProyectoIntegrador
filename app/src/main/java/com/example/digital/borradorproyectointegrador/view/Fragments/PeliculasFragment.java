@@ -79,7 +79,6 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         recyclerView.setAdapter(peliculaAdaptador);
     }
 
-
     public void cargarRecycler(Context context, RecyclerView recyclerView,List<Peliculas> peliculas, PeliculaAdaptador.AdapterPeliInterface escuchador){
         recyclerView.setHasFixedSize(true);
 
@@ -88,46 +87,6 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
 
         PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
         recyclerView.setAdapter(peliculaAdaptador);
-    }
-
-    public List<Integer> getListaFiltros(Bundle bundleFiltros) {
-        if (bundleFiltros!=null){
-            Integer tab = bundleFiltros.getInt(KEY_TAB);
-            List<Integer> seleccionados = bundleFiltros.getIntegerArrayList(KEY_LISTA_FILTROS);
-
-            if (tab == 0) {
-                if (seleccionados.size() < 4) {
-                    switch (seleccionados.size()){
-                        case 1:
-                            listaFiltros.add(28);
-                            listaFiltros.add(18);
-                            listaFiltros.add(35);
-                            break;
-                        case 2:
-                            listaFiltros.add(28);
-                            listaFiltros.add(18);
-                            break;
-                        case 3:
-                            listaFiltros.add(28);
-                            break;
-                    }
-                } else {
-                    listaFiltros = seleccionados;
-                }
-            }else {
-                listaFiltros.add(28);
-                listaFiltros.add(18);
-                listaFiltros.add(12);
-                listaFiltros.add(35);
-            }
-        }else {
-            listaFiltros.add(28);
-            listaFiltros.add(18);
-            listaFiltros.add(12);
-            listaFiltros.add(35);
-        }
-
-        return listaFiltros;
     }
 
     @Override

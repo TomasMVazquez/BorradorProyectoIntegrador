@@ -27,16 +27,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
+import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
 import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
+import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorFiltros;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.SerieAdaptador;
 import com.example.digital.borradorproyectointegrador.view.Fragments.ComentariosFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.FiltroFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.PeliculasFragment;
@@ -203,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     }
 
     @Override
-    public void dameListaFiltro(Integer filtro, Integer tab) {
+    public void dameListaFiltro(Integer filtro, Integer tab, final String nombre) {
         switch (tab){
             case 0:
                 final RecyclerView recyclerView = findViewById(R.id.recylcerViewPeliculas);
@@ -223,11 +227,33 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
+                        TextView nombreFiltro = findViewById(R.id.peliculasTodas);
+                        nombreFiltro.setText(nombre);
                     }
                 });
                 break;
             case 1:
-
+                final RecyclerView recyclerViewSeries = findViewById(R.id.recylcerViewSeries);
+                ControllerSerie controllerSerie = new ControllerSerie();
+                controllerSerie.entregarSerieGeneros(MainActivity.this, filtro, new ResultListener<List<Serie>>() {
+                    @Override
+                    public void finish(List<Serie> Resultado) {
+                        cargarRecyclerGridSeries(MainActivity.this, recyclerViewSeries, Resultado, new SerieAdaptador.AdapterSerieInterface() {
+                            @Override
+                            public void irTrailer(Serie Serie) {
+                                Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString(TrailerActivity.KEY_NOMBRE, Serie.getName());
+                                bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), Serie.getId());
+                                bundle.putString(TrailerActivity.KEY_RESUMEN, Serie.getOverview());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                        TextView nombreSerieFiltro = findViewById(R.id.SeriesTodas);
+                        nombreSerieFiltro.setText(nombre);
+                    }
+                });
                 break;
             case 2:
 
@@ -235,6 +261,62 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         }
 
     }
+
+    @Override
+    public void mostrarTodos(Integer tab) {
+        switch (tab){
+            case 0:
+                final RecyclerView recyclerView = findViewById(R.id.recylcerViewPeliculas);
+                ControllerPelicula controllerPelicula = new ControllerPelicula();
+                controllerPelicula.entregarPeliculas(MainActivity.this, new ResultListener<List<Peliculas>>() {
+                    @Override
+                    public void finish(List<Peliculas> Resultado) {
+                        cargarRecyclerGrid(MainActivity.this, recyclerView, Resultado, new PeliculaAdaptador.AdapterPeliInterface() {
+                            @Override
+                            public void irTrailer(Peliculas peliculas) {
+                                Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
+                                bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
+                                bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                        TextView nombreFiltro = findViewById(R.id.peliculasTodas);
+                        nombreFiltro.setText(getResources().getString(R.string.peliculasTodas));
+                    }
+                });
+                break;
+            case 1:
+                final RecyclerView recyclerViewSeries = findViewById(R.id.recylcerViewSeries);
+                ControllerSerie controllerSerie = new ControllerSerie();
+                controllerSerie.entregarSerie(MainActivity.this, new ResultListener<List<Serie>>() {
+                    @Override
+                    public void finish(List<Serie> Resultado) {
+                        cargarRecyclerGridSeries(MainActivity.this, recyclerViewSeries, Resultado, new SerieAdaptador.AdapterSerieInterface() {
+                            @Override
+                            public void irTrailer(Serie Serie) {
+                                Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString(TrailerActivity.KEY_NOMBRE, Serie.getName());
+                                bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), Serie.getId());
+                                bundle.putString(TrailerActivity.KEY_RESUMEN, Serie.getOverview());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                        TextView nombreSerieFiltro = findViewById(R.id.SeriesTodas);
+                        nombreSerieFiltro.setText(getResources().getString(R.string.seriesTodas));
+                    }
+                });
+                break;
+            case 2:
+
+                break;
+        }
+    }
+
     public void cargarRecyclerGrid(Context context, RecyclerView recyclerView,List<Peliculas> peliculas, PeliculaAdaptador.AdapterPeliInterface escuchador){
         recyclerView.setHasFixedSize(true);
 
@@ -244,5 +326,15 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
         PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
         recyclerView.setAdapter(peliculaAdaptador);
+    }
+    public void cargarRecyclerGridSeries(Context context, RecyclerView recyclerView,List<Serie> series, SerieAdaptador.AdapterSerieInterface escuchador){
+        recyclerView.setHasFixedSize(true);
+
+        GridLayoutManager glm = new GridLayoutManager(context,3,1,false);
+        //LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(glm);
+
+        SerieAdaptador serieAdaptador = new SerieAdaptador(context,series,escuchador);
+        recyclerView.setAdapter(serieAdaptador);
     }
 }
