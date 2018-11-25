@@ -126,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                 startActivity(intentAccount);
                 Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.itemSearch:
-
-                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
-                return true;
+//            case R.id.itemSearch:
+//
+//                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
