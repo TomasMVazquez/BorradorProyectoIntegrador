@@ -159,10 +159,10 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         switch (item.getItemId()) {
             case R.id.itemAccount:
-                Intent intentAccount = new Intent(TrailerActivity.this, LogIn.class);
+                Intent intentAccount = new Intent(TrailerActivity.this, MultiLogIn.class);
                 startActivity(intentAccount);
-                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
                 return true;
+
 //            case R.id.itemSearch:
 //
 //                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();

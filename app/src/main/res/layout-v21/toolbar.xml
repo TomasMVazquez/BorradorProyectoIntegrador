@@ -6,7 +6,7 @@
     android:background="@color/colorPrimaryTrans"
     android:elevation="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-
+    app:layout_collapseMode="pin"
     >
 
 </android.support.v7.widget.Toolbar>
