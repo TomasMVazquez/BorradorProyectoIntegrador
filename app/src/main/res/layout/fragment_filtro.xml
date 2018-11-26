@@ -5,28 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:layout_gravity="center"
     android:orientation="vertical"
+    android:gravity="center"
     android:background="@color/colorPrimaryDark"
+    android:theme="@style/TemaGeneros"
     >
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/aplicarFiltros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="aplicar"
+        android:text="@string/todosFiltro"
         android:textSize="18sp"
         android:background="@color/colorAccent"
         android:textColor="@color/colorBlanco"
         android:textStyle="bold"
         android:elevation="6dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
         />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_gravity="center_horizontal"
         android:id="@+id/recyclerFiltros"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
 
 
 

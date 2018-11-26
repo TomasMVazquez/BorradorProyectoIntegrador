@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 
 import com.example.digital.borradorproyectointegrador.R;
@@ -24,31 +25,33 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FiltroFragment extends DialogFragment implements AdaptadorFiltros.contadorFiltros {
+public class FiltroFragment extends DialogFragment implements AdaptadorFiltros.FiltrosInterface {
 
     public static final String KEY_TAB="tab";
 
     private AdaptadorFiltros adaptadorFiltros;
-    private Integer contadorFiltros = 0;
+    private FragmentInterface fragmentInterface;
+
     private Integer tabFragment=null;
 
     public FiltroFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_filtro, container, false);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        adaptadorFiltros = new AdaptadorFiltros(this, new ArrayList<Genero>());
+        adaptadorFiltros = new AdaptadorFiltros(new ArrayList<Genero>(),this);
 
         Bundle bundle = getArguments();
         final Integer tab = (Integer) bundle.getInt(KEY_TAB);
+
         ControllerGeneros controllerGeneros = new ControllerGeneros();
-        contadorFiltros = 0;
+
         switch (tab){
             case 0:
                 controllerGeneros.entregarGeneros(view.getContext(), new ResultListener<List<Genero>>() {
@@ -88,39 +91,29 @@ public class FiltroFragment extends DialogFragment implements AdaptadorFiltros.c
         aplicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Integer> seleccionados = listaGeneros();
-                //Implementar llamada al activity para pasar la lista de categorias
+//                List<Integer> seleccionados = listaGeneros();
+//                //Implementar llamada al activity para pasar la lista de categorias
                 FragmentInterface fragmentInterface = (FragmentInterface) getContext();
-                fragmentInterface.dameListaFiltro(seleccionados,tabFragment);
-
+                fragmentInterface.mostrarTodos(tab);
+                getActivity().getSupportFragmentManager().beginTransaction().remove(FiltroFragment.this).commit();
             }
         });
 
         return view;
     }
 
+    @Override
+    public void mostrarFiltros(Integer integer,String nombre) {
+        FragmentInterface fragmentInterface = (FragmentInterface) getActivity();
+        fragmentInterface.dameListaFiltro(integer,tabFragment,nombre);
+        getActivity().getSupportFragmentManager().beginTransaction().remove(FiltroFragment.this).commit();
+    }
+
     public interface FragmentInterface{
-        public void dameListaFiltro(List<Integer> seleccionados, Integer tab);
+        public void dameListaFiltro(Integer filtro, Integer tab, String nombre);
+        public void mostrarTodos(Integer tab);
     }
 
-    @Override
-    public void sumarContadorFiltros() {
-        contadorFiltros = contadorFiltros + 1;
-
-        if (contadorFiltros>=4) {
-            adaptadorFiltros.finLugar();
-        }
-    }
-
-    @Override
-    public void restarContadorFiltros() {
-        contadorFiltros = contadorFiltros - 1;
-    }
-
-    @Override
-    public List<Integer> listaGeneros() {
-        return adaptadorFiltros.darListaSeleccionados();
-    }
 
 
 }

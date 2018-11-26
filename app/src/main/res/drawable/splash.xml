@@ -9,6 +9,6 @@
         >
         <bitmap
             android:gravity="center"
-            android:src="@drawable/old_tv"/>
+            android:src="@drawable/splashfondo"/>
     </item>
 </layer-list>

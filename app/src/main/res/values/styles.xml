@@ -8,11 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TemaGeneros" parent="Base.Theme.AppCompat.Dialog.FixedSize">
+    <style name="TemaGeneros" parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">
         <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimaryTrans</item>
         <item name="colorPrimaryDark">@color/colorPrimaryTrans</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="FacebookLoginButton">
@@ -22,15 +24,6 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <!--<style name="RatingBar" parent="Widget.AppCompat.RatingBar.Small">-->
-        <!--<item name="colorControlNormal">@color/colorAccent</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="colorControlActivated">@color/colorAccent</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppThemeRatingBar" parent="Theme.AppCompat">-->
-        <!--<item name="ratingBarStyle">@style/RatingBar</item>-->
-    <!--</style>-->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -4,9 +4,10 @@ import com.example.digital.borradorproyectointegrador.model.pelicula.PeliculaCon
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface ServicePelicula {
 
-    @GET("movie?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=1")
-    Call<PeliculaConteiner> getPeliculaContainer();
+    @GET("movie?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true")
+    Call<PeliculaConteiner> getPeliculaContainer(@Query("page")String page);
 }

@@ -97,14 +97,10 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         TextView textViewNombre = findViewById(R.id.textViewTituloTrailer);
         TextView textViewResumen = findViewById(R.id.textViewResumenDetalle);
 
-
         // Seteo
         ratingBar.setRating(cantEstrellasData);
         textViewNombre.setText(nombre);
         textViewResumen.setText(resumen);
-
-
-
 
         //Cargar Comentarios
         //Datos
@@ -131,8 +127,18 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
             public void finish(List<Video> videos) {
                 VIDEO_ID = videos.get(0).getKey();
                 /** Initializing YouTube Player View **/
-                YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
-                youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    if (TrailerActivity.this.isDestroyed()){
+                        return;
+                    }else {
+                        YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
+                        youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
+                    }
+                }else {
+                    YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
+                    youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
+                }
+
             }
         });
     }
@@ -157,10 +163,10 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 startActivity(intentAccount);
                 Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.itemSearch:
-
-                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
-                return true;
+//            case R.id.itemSearch:
+//
+//                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
+//                return true;
             case R.id.home:
                 finish();
 
