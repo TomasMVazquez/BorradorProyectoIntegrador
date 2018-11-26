@@ -34,7 +34,7 @@
             android:paddingRight="10dp"
             android:paddingLeft="30dp"
             android:layout_margin="4dp"
-            android:text="Sign in with Facebook"
+            android:text="Login with Facebook"
             android:background="@drawable/layers_fb_button_bg"
             style="@style/ButtonText"
             />
@@ -47,7 +47,7 @@
             android:paddingRight="10dp"
             android:paddingLeft="30dp"
             android:layout_margin="4dp"
-            android:text="Sign in with Twitter"
+            android:text="Login with Twitter"
             android:background="@drawable/layers_tw_button_bg"
             style="@style/ButtonText"
             />
@@ -59,11 +59,12 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingRight="10dp"
-            android:paddingLeft="30dp"
+            android:paddingLeft="50dp"
             android:layout_margin="4dp"
-            android:text="Sign in with Google+"
-            android:background="@drawable/layers_gp_button_bg"
+            android:text="Login with Google"
+            android:background="@drawable/btn_google_signin_dark_normal_hdpi"
             style="@style/ButtonText"
+
             />
         <Button
             android:id="@+id/btnMail"
@@ -74,8 +75,9 @@
             android:paddingRight="10dp"
             android:paddingLeft="30dp"
             android:layout_margin="4dp"
-            android:text="Sign in with Email+"
+            android:text="Login with Email"
             android:background="@drawable/layers_email_button_bg"
+
             style="@style/ButtonText"
             />
     </LinearLayout>
