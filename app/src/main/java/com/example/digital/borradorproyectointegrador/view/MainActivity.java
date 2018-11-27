@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
+
         //Llamar a la action bar para mostrar
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
@@ -84,11 +86,12 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        llamarFragments();
+        llamarFragments(new Bundle());
         cargarViewPager();
 
 
         //LLAMAR AL FAB BUTTON
+/*
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
         final FiltroFragment filtroFragment = new FiltroFragment();
 
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             }
         });
 
-
+*/
     }
 
 
@@ -166,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.containerFiltros,fragment);
         fragmentTransaction.commit();
-        //fragmentTransaction.commitNow();
 
     }
 
@@ -180,7 +182,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         //ViewPager
         viewPager = findViewById(R.id.viewPager);
         //Adapter
-        adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList);
+        //adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList);
+        adapter.setFragmentList(fragmentList);
         viewPager.setAdapter(adapter);
         //TabLayout
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -194,9 +197,11 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
     }
 
-    public void llamarFragments(){
+
+    public void llamarFragments(Bundle bundle){
         //Llamar al FragmentPeliculas
         PeliculasFragment peliculasFragment = new PeliculasFragment();
+        peliculasFragment.setArguments(bundle);
         ComentariosFragment comentariosFragment = new ComentariosFragment();
         SeriesFragment seriesFragment = new SeriesFragment();
 
