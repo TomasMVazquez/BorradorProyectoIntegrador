@@ -1,6 +1,6 @@
 package com.example.digital.borradorproyectointegrador.controller;
 
-import com.example.digital.borradorproyectointegrador.dao.DAOComentario;
+import com.example.digital.borradorproyectointegrador.dao.dao_comentario.DAOComentario;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 
 import java.util.ArrayList;

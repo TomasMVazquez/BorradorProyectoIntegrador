@@ -3,6 +3,7 @@ package com.example.digital.borradorproyectointegrador.model.comentario;
 public class Comentario {
 
     //Atributos
+    private String idComentario;
     private String peliculaComentada;
     private Integer ivImagenPeliculaComentario;
     private Integer ivImagenUsuarioComentario;
@@ -11,7 +12,8 @@ public class Comentario {
     private String tvComentarioComentario;
 
     //Constructor Completo
-    public Comentario(String peliculaComentada, Integer ivImagenPeliculaComentario, Integer ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+    public Comentario(String idComentario,String peliculaComentada, Integer ivImagenPeliculaComentario, Integer ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+        this.idComentario = idComentario;
         this.peliculaComentada = peliculaComentada;
         this.ivImagenPeliculaComentario = ivImagenPeliculaComentario;
         this.ivImagenUsuarioComentario = ivImagenUsuarioComentario;
@@ -29,6 +31,11 @@ public class Comentario {
     }
 
     //Getter
+
+    public String getIdComentario() {
+        return idComentario;
+    }
+
     public String getPeliculaComentada() {
         return peliculaComentada;
     }

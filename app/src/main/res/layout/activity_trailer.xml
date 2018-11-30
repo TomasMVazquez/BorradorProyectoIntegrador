@@ -149,6 +149,7 @@
                         android:background="@color/colorDivider" />
 
                     <TextView
+                        android:id="@+id/comentTitle"
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:layout_width="match_parent"
@@ -168,9 +169,10 @@
                     android:id="@+id/fabAgregarComentario"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_anchor="@id/devider"
-                    android:layout_margin="36dp"
+                    app:layout_anchor="@id/comentTitle"
+                    android:layout_marginRight="36dp"
                     app:layout_anchorGravity="right"
+                    app:fabSize="mini"
                     android:src="@drawable/ic_add_black_24dp"
                     android:elevation="6dp"
                     />
