@@ -7,6 +7,7 @@ import java.util.List;
 public class UsuarioPerfil {
 
     //atributos
+    private String email;
     private String imagenPerfil;
     private String nombre;
     private Integer cantidadCompartidos;
@@ -16,7 +17,8 @@ public class UsuarioPerfil {
     private List<String> idMisComentarios;
 
     //constructor
-    public UsuarioPerfil(String imagenPerfil, String nombre, Integer cantidadCompartidos, Integer cantidadComentarios, List<Integer> peliculasFavoritas, List<Integer> seriesFavoritas, List<String> idMisComentarios) {
+    public UsuarioPerfil(String email,String imagenPerfil, String nombre, Integer cantidadCompartidos, Integer cantidadComentarios, List<Integer> peliculasFavoritas, List<Integer> seriesFavoritas, List<String> idMisComentarios) {
+        this.email=email;
         this.imagenPerfil = imagenPerfil;
         this.nombre = nombre;
         this.cantidadCompartidos = cantidadCompartidos;
@@ -27,6 +29,10 @@ public class UsuarioPerfil {
     }
 
     //Getter
+    public String getEmail() {
+        return email;
+    }
+
     public String getImagenPerfil() {
         return imagenPerfil;
     }

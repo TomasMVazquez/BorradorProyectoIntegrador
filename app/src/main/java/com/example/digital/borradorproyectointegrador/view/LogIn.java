@@ -34,6 +34,7 @@ public class LogIn extends AppCompatActivity {
     private CallbackManager callbackManager;
     private static final String EMAIL = "email";
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -3,6 +3,7 @@ package com.example.digital.borradorproyectointegrador.view;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatCallback;
@@ -26,6 +27,7 @@ import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
 import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
 import com.example.digital.borradorproyectointegrador.dao.dao_video.DAOVideo;
+import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
@@ -37,6 +39,14 @@ import com.google.android.youtube.player.YouTubePlayer.PlaybackEventListener;
 import com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
 import java.util.Objects;
@@ -56,14 +66,63 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     private static DAOVideo daoVideo;
     private static DAOPelicula daoPelicula;
 
-    private Button btnFavorito;
+    public static final int KEY_OUT_LOGIN_FAVORITOS = 201;
+    public static final int KEY_OUT_LOGIN_COMPARTIR = 202;
+    public static final int KEY_OUT_LOGIN_COMENTARIOS = 203;
 
+    private Button btnFavorito;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
+    private FirebaseStorage mStorage;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private DatabaseReference usuarioPerfilDB;
 
     //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //TODO confirmar que funciona
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        if (currentUser!=null) {
+            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
+            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+                    if (usuario.getPeliculasFavoritas().contains(KEY_ID) || usuario.getSeriesFavoritas().contains(KEY_ID)) {
+                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                    }else {
+                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trailer);
+
+        //usuario
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        //Gerente
+        mDatabase = FirebaseDatabase.getInstance();
+        mReference  = mDatabase.getReference();
+
 
         //PARA USAR EL APPCOMPAT JUNTO CON EL DE YOUTUBE
         delegate = AppCompatDelegate.create(this, this);
@@ -152,16 +211,87 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
     public void compartirTrailer(){
-        Toast.makeText(TrailerActivity.this, "Compartir", Toast.LENGTH_SHORT).show();
+        if (currentUser!=null){
+            Toast.makeText(TrailerActivity.this, "Compartir", Toast.LENGTH_SHORT).show();
+            //TODO actualizar esta parte:
+            //Creamos un share de tipo ACTION_SENT
+            Intent share = new Intent(android.content.Intent.ACTION_SEND);
+            //Indicamos que voy a compartir texto
+            share.setType("text/plain");
+            //Le agrego un título
+            share.putExtra(Intent.EXTRA_SUBJECT, "Compartir en Instagram");
+            //Le agrego el texto a compartir (Puede ser un link tambien)
+            share.putExtra(Intent.EXTRA_TEXT, "Hola como estan");
+            //Hacemos un start para que comparta el contenido.
+            startActivity(Intent.createChooser(share, "Share link!"));
+        }else {
+            irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_COMPARTIR);
+        }
     }
 
     public void agregarFavoritos(){
-        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
-        Toast.makeText(TrailerActivity.this, "Agregar Favoritos", Toast.LENGTH_SHORT).show();
+        //TODO confirmar que funciona -->
+        if (currentUser!=null){
+            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
+            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+                    List<Integer> pelis = usuario.getPeliculasFavoritas();
+                    if (usuario.getPeliculasFavoritas().contains(KEY_ID)) {
+                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                        pelis.remove(KEY_ID);
+                    }else {
+                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                        pelis.add(KEY_ID);
+                    }
+                    usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_peliculas_favoritas)).setValue(pelis);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+        }else {
+            irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_FAVORITOS);
+        }
     }
 
     public void agregarComentario(){
-        Toast.makeText(TrailerActivity.this, "Agregar Comentario", Toast.LENGTH_SHORT).show();
+        //TODO actualizar esta parte
+        if (currentUser!=null){
+            Toast.makeText(TrailerActivity.this, "Agregar Comentario", Toast.LENGTH_SHORT).show();
+        }else {
+            irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_COMENTARIOS);
+        }
+    }
+
+    public void irAlLogIn(int llave){
+        Intent intentAccount = new Intent(TrailerActivity.this, MultiLogIn.class);
+        startActivityForResult(intentAccount,llave);
+        //startActivity(intentAccount);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case TrailerActivity.KEY_OUT_LOGIN_FAVORITOS:
+                agregarFavoritos();
+                break;
+            case TrailerActivity.KEY_OUT_LOGIN_COMPARTIR:
+                compartirTrailer();
+                break;
+            case TrailerActivity.KEY_OUT_LOGIN_COMENTARIOS:
+                agregarComentario();
+                break;
+        }
+    }
+
+    public static Intent respuestaLogin(){
+        Intent intent = new Intent();
+        return intent;
     }
 
     private void getVideos(Integer movieId) {

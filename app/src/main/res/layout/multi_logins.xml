@@ -22,9 +22,6 @@
         android:padding="10dp"
         >
 
-
-
-
         <Button
             android:id="@+id/btnFb"
             android:layout_width="match_parent"

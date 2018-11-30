@@ -52,4 +52,14 @@
     <string name="com.twitter.sdk.android.CONSUMER_KEY">JQLPkAJTDjirkduV07mxCfRZg</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">jJlFqmRuPcXXjEJ6JWEWoHOPGJ7geZVrF22B8kWrNWS0tZhsKd</string>
 
+    //FirebaseDataBase
+    <string name="child_usuarios">usuarios_perfiles</string>
+    <string name="child_fotos_usuarios">usuarios_fotos_perfil</string>
+    <string name="child_usuario_perfil_cant_compartidos">cantidadCompartidos</string>
+    <string name="child_usuario_perfil_cant_comentarios">cantidadComentarios</string>
+    <string name="child_usuario_perfil_peliculas_favoritas">peliculasFavoritas</string>
+    <string name="child_usuario_perfil_series_favoritas">seriesFavoritas</string>
+    <string name="child_usuario_perfil_id_comentarios">idMisComentarios</string>
+
+
 </resources>
