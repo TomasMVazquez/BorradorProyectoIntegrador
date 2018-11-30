@@ -1,7 +1,7 @@
 package com.example.digital.borradorproyectointegrador.dao;
 
 import com.example.digital.borradorproyectointegrador.R;
-import com.example.digital.borradorproyectointegrador.model.Comentario;
+import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 
 import java.util.ArrayList;
 import java.util.List;

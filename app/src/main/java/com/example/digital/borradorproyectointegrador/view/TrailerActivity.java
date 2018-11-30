@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
@@ -13,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +56,8 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     private static DAOVideo daoVideo;
     private static DAOPelicula daoPelicula;
 
+    private Button btnFavorito;
+
 
     //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -76,7 +83,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
             delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-
         // COMUNICACION ENTRE FRAGMENT/ACTIVITY
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -90,7 +96,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
 //        Integer id = Integer.valueOf(bundle.getString(String.valueOf(KEY_ID)));
         Integer id = bundle.getInt(String.valueOf(KEY_ID));
-
 
         // COMPONENTES
         RatingBar ratingBar = findViewById(R.id.rbShowRoom);
@@ -117,8 +122,47 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         recyclerViewComentarioTrailer.setAdapter(adaptadorRecyclerComentarioTrailer);
         getVideos(id);
+
+        //FAVORITOS Y COMPARTIR
+        Button btnCompartir = findViewById(R.id.btnCompartir);
+        btnCompartir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                compartirTrailer();
+            }
+        });
+
+        btnFavorito = findViewById(R.id.btnFavorito);
+        btnFavorito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agregarFavoritos();
+            }
+        });
+
+        //Agregar Comentarios
+        FloatingActionButton fabAgregarComentario = findViewById(R.id.fabAgregarComentario);
+        fabAgregarComentario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agregarComentario();
+            }
+        });
+
     }
 
+    public void compartirTrailer(){
+        Toast.makeText(TrailerActivity.this, "Compartir", Toast.LENGTH_SHORT).show();
+    }
+
+    public void agregarFavoritos(){
+        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+        Toast.makeText(TrailerActivity.this, "Agregar Favoritos", Toast.LENGTH_SHORT).show();
+    }
+
+    public void agregarComentario(){
+        Toast.makeText(TrailerActivity.this, "Agregar Comentario", Toast.LENGTH_SHORT).show();
+    }
 
     private void getVideos(Integer movieId) {
         daoVideo = new DAOVideo();
@@ -143,7 +187,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -163,10 +206,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 startActivity(intentAccount);
                 return true;
 
-//            case R.id.itemSearch:
-//
-//                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
-//                return true;
             case R.id.home:
                 finish();
 
@@ -239,7 +278,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         public void onVideoStarted() {
         }
     };
-
 
     @Override
     public void onSupportActionModeStarted(ActionMode mode) {

@@ -1,4 +1,4 @@
-package com.example.digital.borradorproyectointegrador.model;
+package com.example.digital.borradorproyectointegrador.model.comentario;
 
 public class Comentario {
 

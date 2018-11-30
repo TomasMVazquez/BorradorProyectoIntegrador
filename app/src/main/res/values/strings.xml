@@ -11,6 +11,7 @@
     <string name="nav_header_title">ScreenHolic</string>
     <string name="nav_header_subtitle">screenholic@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_mis_favoritos">Mis Favoritos</string>
     <string name="nav_header_item1">Inicio</string>
     <string name="nav_header_item2">Sign In</string>
     <string name="nav_header_item3">Encuestas</string>

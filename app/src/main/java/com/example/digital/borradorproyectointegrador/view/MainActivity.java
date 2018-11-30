@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
 
         //LLAMAR AL FAB BUTTON
-/*
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
         final FiltroFragment filtroFragment = new FiltroFragment();
 
@@ -109,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             }
         });
 
-*/
     }
 
 
@@ -146,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         startActivity(intent);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -177,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         fragment.show(fragmentManager,"filtro");
     }
 
-
     public void cargarViewPager(){
         //ViewPager
         viewPager = findViewById(R.id.viewPager);
@@ -196,7 +192,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_group_tab);
 
     }
-
 
     public void llamarFragments(Bundle bundle){
         //Llamar al FragmentPeliculas

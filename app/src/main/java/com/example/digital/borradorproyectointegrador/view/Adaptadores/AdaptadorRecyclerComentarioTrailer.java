@@ -11,7 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.digital.borradorproyectointegrador.R;
-import com.example.digital.borradorproyectointegrador.model.Comentario;
+import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 
 import java.util.List;
 

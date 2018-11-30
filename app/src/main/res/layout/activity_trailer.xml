@@ -63,70 +63,118 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
                     android:textSize="26sp"
-                    tools:text="ANT-MAN"
+                    tools:text="How the Grinch Stole Christmas"
                     />
 
-                <android.support.v7.widget.AppCompatRatingBar
-                    android:id="@+id/rbShowRoom"
-                    style="?android:attr/ratingBarStyleSmall"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    tools:rating="4" />
+                    android:layout_height="65dp"
+                    android:orientation="vertical"
+                    >
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/rbShowRoom"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:isIndicator="true"
+                        android:layout_marginTop="10dp"
+                        android:numStars="5"
+                        tools:rating="5" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="bottom"
+                        >
+                        <Button
+                            android:id="@+id/btnFavorito"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/ic_favorite_border"
+                            />
+
+                        <Button
+                            android:id="@+id/btnCompartir"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/ic_share"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
-            <LinearLayout
+            <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-
-                <TextView
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
+                android:layout_height="match_parent">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/textViewResumen"
-                    android:textColor="@color/colorAccentDark"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
 
-                <TextView
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:id="@+id/textViewResumenDetalle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlanco"
-                    tools:text="Rodrigo siempre quiso cantar. Sus padres lo acompañan en su deseo y Rodrigo ingresa en el ambiente de la música tropical como cantante romántico donde su impacto es muy grande debido a su juventud, belleza y magnetismo. En el momento que comienza un ascenso en su carrera, lo sorprende la trágica muerte de su padre y se recluye junto a su familia en Córdoba..." />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textViewResumen"
+                        android:textColor="@color/colorAccentDark"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <View
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:id="@+id/textViewResumenDetalle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlanco"
+                        tools:text="Rodrigo siempre quiso cantar. Sus padres lo acompañan en su deseo y Rodrigo ingresa en el ambiente de la música tropical como cantante romántico donde su impacto es muy grande debido a su juventud, belleza y magnetismo. En el momento que comienza un ascenso en su carrera, lo sorprende la trágica muerte de su padre y se recluye junto a su familia en Córdoba..." />
+
+                    <View
+                        android:id="@+id/devider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorDivider" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textViewComentarios"
+                        android:textColor="@color/colorAccentDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerComentariosTrailer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fabAgregarComentario"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorDivider" />
-
-                <TextView
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/textViewComentarios"
-                    android:textColor="@color/colorAccentDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerComentariosTrailer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    app:layout_anchor="@id/devider"
+                    android:layout_margin="36dp"
+                    app:layout_anchorGravity="right"
+                    android:src="@drawable/ic_add_black_24dp"
+                    android:elevation="6dp"
+                    />
+            </android.support.design.widget.CoordinatorLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
  </android.support.design.widget.CoordinatorLayout>
