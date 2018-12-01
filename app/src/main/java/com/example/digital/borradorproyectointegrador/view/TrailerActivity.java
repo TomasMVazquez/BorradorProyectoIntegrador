@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
@@ -31,6 +35,7 @@ import com.example.digital.borradorproyectointegrador.model.usuario_perfil.Usuar
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
+import com.example.digital.borradorproyectointegrador.view.Fragments.AgregarComentarioFragment;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -275,7 +280,19 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
     public void agregarComentario(){
-        //TODO actualizar esta parte
+        //TODO actualizar esta parte ver como cargar fragment para agregar comentario
+//        AgregarComentarioFragment dialogFragment = new AgregarComentarioFragment();
+//        FragmentManager fragmentManager = getFragmentManager();
+//        android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//        //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putBoolean("notAlertDialog", true);
+//        dialogFragment.setArguments(bundle);
+//        fragmentTransaction.addToBackStack(null);
+//
+//        dialogFragment.show(fragmentTransaction, "dialog");
+
         if (currentUser!=null){
             Toast.makeText(TrailerActivity.this, "Agregar Comentario", Toast.LENGTH_SHORT).show();
         }else {
@@ -292,16 +309,20 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case TrailerActivity.KEY_OUT_LOGIN_FAVORITOS:
-                agregarFavoritos();
-                break;
-            case TrailerActivity.KEY_OUT_LOGIN_COMPARTIR:
-                compartirTrailer();
-                break;
-            case TrailerActivity.KEY_OUT_LOGIN_COMENTARIOS:
-                agregarComentario();
-                break;
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case TrailerActivity.KEY_OUT_LOGIN_FAVORITOS:
+                    agregarFavoritos();
+                    break;
+                case TrailerActivity.KEY_OUT_LOGIN_COMPARTIR:
+                    compartirTrailer();
+                    break;
+                case TrailerActivity.KEY_OUT_LOGIN_COMENTARIOS:
+                    agregarComentario();
+                    break;
+            }
+        }else {
+            Toast.makeText(TrailerActivity.this, "Fallo su LogIn", Toast.LENGTH_SHORT).show();
         }
     }
 

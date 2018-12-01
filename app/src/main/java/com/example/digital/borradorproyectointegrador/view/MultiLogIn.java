@@ -110,7 +110,9 @@ public class MultiLogIn extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-
+                Intent volver = TrailerActivity.respuestaLogin();
+                setResult(TrailerActivity.RESULT_CANCELED);
+                finish();
             }
 
             @Override
@@ -133,7 +135,7 @@ public class MultiLogIn extends AppCompatActivity {
 
     public void agregarPerfilABaseDeDatos(String email, String imagen,String nombre){
         DatabaseReference id = mReference.child(getResources().getString(R.string.child_usuarios)).child(email).push();
-        id.setValue(new UsuarioPerfil(email,imagen, nombre,0,0,new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<String>()));
+        id.setValue(new UsuarioPerfil(email,imagen, nombre,0,0,0,new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<String>()));
     }
 
 }

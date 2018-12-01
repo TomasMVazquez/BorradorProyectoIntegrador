@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".view.Fragments.AgregarComentarioFragment"
+    android:background="@color/colorNegro"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryDarkTrans"
+        android:padding="10dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/agregar_rating"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/ratingAgregarComentario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:numStars="5"
+            tools:rating="5"
+            android:isIndicator="true"
+            style="?android:attr/ratingBarStyle"
+            />
+        <View
+            android:id="@+id/deviderPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorDivider" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/agregarComentTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            >
+            <EditText
+                android:id="@+id/agregarComentarioEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_agregar"
+                android:textColorHint="@color/colorDivider"
+                android:inputType="textCapSentences"
+                android:textColor="@color/colorDivider"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="@string/btn_agregar"
+            android:textSize="25sp"
+            android:theme="@style/BotonAgregar"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

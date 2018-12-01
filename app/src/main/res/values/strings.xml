@@ -55,6 +55,7 @@
     //FirebaseDataBase
     <string name="child_usuarios">usuarios_perfiles</string>
     <string name="child_fotos_usuarios">usuarios_fotos_perfil</string>
+    <string name="child_usuario_perfil_cant_me_gusta">cantidadMeGusta</string>
     <string name="child_usuario_perfil_cant_compartidos">cantidadCompartidos</string>
     <string name="child_usuario_perfil_cant_comentarios">cantidadComentarios</string>
     <string name="child_usuario_perfil_peliculas_favoritas">peliculasFavoritas</string>
@@ -64,4 +65,8 @@
     //PerfilUsuario
     <string name="cant_de">Cantidad de </string>
 
+    //AgregarComentario
+    <string name="agregar_rating">Cuantas estrellas le darías:</string>
+    <string name="hint_agregar">Agruegue aquí sus comentarios</string>
+    <string name="btn_agregar">Subir Comentario</string>
 </resources>
