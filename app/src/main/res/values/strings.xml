@@ -61,5 +61,7 @@
     <string name="child_usuario_perfil_series_favoritas">seriesFavoritas</string>
     <string name="child_usuario_perfil_id_comentarios">idMisComentarios</string>
 
+    //PerfilUsuario
+    <string name="cant_de">Cantidad de </string>
 
 </resources>

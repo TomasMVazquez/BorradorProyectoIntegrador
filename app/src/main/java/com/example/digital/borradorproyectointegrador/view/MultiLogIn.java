@@ -1,5 +1,6 @@
 package com.example.digital.borradorproyectointegrador.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +16,11 @@ import android.widget.Button;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,11 +37,13 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class MultiLogIn extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
     private FirebaseUser currentUser;
     private FirebaseStorage mStorage;
+    private CallbackManager callbackManager;
 
     @Override
     public void onStart() {
@@ -52,6 +60,9 @@ public class MultiLogIn extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        mStorage = FirebaseStorage.getInstance();
+        callbackManager = CallbackManager.Factory.create();
+
         //Gerente
         mDatabase = FirebaseDatabase.getInstance();
         mReference  = mDatabase.getReference();
@@ -67,13 +78,13 @@ public class MultiLogIn extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        LoginButton btnFb2 = findViewById(R.id.btnFb2);
+        btnFb2.setReadPermissions("email", "public_profile");
 
         //Esta parte es para que responda el login al intentar cmpartir o algo
-        Button btnFb = findViewById(R.id.btnFb);
-        btnFb.setOnClickListener(new View.OnClickListener() {
+        btnFb2.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onClick(View v) {
-
+            public void onSuccess(LoginResult loginResult) {
                 if (currentUser!= null) {
                     if (mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail()) != null) {
                         Intent volver = TrailerActivity.respuestaLogin();
@@ -96,7 +107,18 @@ public class MultiLogIn extends AppCompatActivity {
                     }
                 }
             }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
         });
+
         //Aca termina la parte que responda el login.....
 
 

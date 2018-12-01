@@ -65,6 +65,7 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
     public void irTrailer(Serie serie) {
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putInt(TrailerActivity.KEY_TIPO,2);
         bundle.putString(TrailerActivity.KEY_NOMBRE, serie.getName());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), serie.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, serie.getOverview());

@@ -110,6 +110,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
     public void irTrailer(Peliculas peliculas) {
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putInt(TrailerActivity.KEY_TIPO,1);
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());

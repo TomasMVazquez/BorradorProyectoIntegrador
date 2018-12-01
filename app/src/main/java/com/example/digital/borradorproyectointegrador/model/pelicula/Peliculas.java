@@ -42,7 +42,6 @@ public class Peliculas {
         return poster_path;
     }
 
-
     public String getOverview() {
         return overview;
     }

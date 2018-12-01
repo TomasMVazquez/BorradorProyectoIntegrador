@@ -37,6 +37,7 @@ import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
+import com.example.digital.borradorproyectointegrador.util.Util;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorFiltros;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
@@ -65,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Util.printHash(this);
 
         adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
 
@@ -125,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             case R.id.itemAccount:
                 Intent intentAccount = new Intent(MainActivity.this, MultiLogIn.class);
                 startActivity(intentAccount);
-                Toast.makeText(this, "Item 1 Selected", Toast.LENGTH_SHORT).show();
                 return true;
 //            case R.id.itemSearch:
 //

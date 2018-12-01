@@ -54,6 +54,8 @@ import java.util.Objects;
 //import android.support.v4.media.VolumeProviderCompatApi21;
 
 public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, AppCompatCallback {
+
+    public static final String KEY_TIPO = "tipo";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_RATING_BAR = "rating bar";
     public static final String KEY_CANT_ESTRELLAS = "cantEstrellas";
@@ -70,6 +72,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public static final int KEY_OUT_LOGIN_COMPARTIR = 202;
     public static final int KEY_OUT_LOGIN_COMENTARIOS = 203;
 
+    private Integer tipo;
     private Button btnFavorito;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -147,6 +150,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         Bundle bundle = intent.getExtras();
 
         // DATOS
+        tipo = bundle.getInt(KEY_TIPO);
         String imageData = bundle.getString(KEY_IMAGE);
         Integer cantEstrellasData = bundle.getInt(KEY_CANT_ESTRELLAS);
         String nombre = bundle.getString(KEY_NOMBRE);
@@ -219,11 +223,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
             //Indicamos que voy a compartir texto
             share.setType("text/plain");
             //Le agrego un título
-            share.putExtra(Intent.EXTRA_SUBJECT, "Compartir en Instagram");
+            share.putExtra(Intent.EXTRA_SUBJECT, "");
             //Le agrego el texto a compartir (Puede ser un link tambien)
-            share.putExtra(Intent.EXTRA_TEXT, "Hola como estan");
+            share.putExtra(Intent.EXTRA_TEXT, "");
             //Hacemos un start para que comparta el contenido.
-            startActivity(Intent.createChooser(share, "Share link!"));
+            startActivity(Intent.createChooser(share, ""));
         }else {
             irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_COMPARTIR);
         }
@@ -237,15 +241,27 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
-                    List<Integer> pelis = usuario.getPeliculasFavoritas();
-                    if (usuario.getPeliculasFavoritas().contains(KEY_ID)) {
-                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
-                        pelis.remove(KEY_ID);
+                    if (tipo==1) {
+                        List<Integer> pelis = usuario.getPeliculasFavoritas();
+                        if (usuario.getPeliculasFavoritas().contains(KEY_ID)) {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                            pelis.remove(KEY_ID);
+                        } else {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                            pelis.add(KEY_ID);
+                        }
+                        usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_peliculas_favoritas)).setValue(pelis);
                     }else {
-                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
-                        pelis.add(KEY_ID);
+                        List<Integer> series = usuario.getSeriesFavoritas();
+                        if (usuario.getSeriesFavoritas().contains(KEY_ID)) {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                            series.remove(KEY_ID);
+                        } else {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                            series.add(KEY_ID);
+                        }
+                        usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_series_favoritas)).setValue(series);
                     }
-                    usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_peliculas_favoritas)).setValue(pelis);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

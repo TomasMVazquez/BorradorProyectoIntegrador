@@ -5,6 +5,7 @@ import java.util.List;
 public class Serie {
 
     //Atributos
+    private Integer tipo = 2;
     private String name;
     private Integer id;
     private String poster_path;
@@ -15,6 +16,7 @@ public class Serie {
 
     //Constructor
     public Serie(String name, Integer id, String poster_path, List<Integer> genre_ids, String overview, String first_air_date, Double vote_average) {
+        this.tipo = 2;
         this.name = name;
         this.id = id;
         this.poster_path = poster_path;
@@ -43,6 +45,10 @@ public class Serie {
 
     public String getOverview() {
         return overview;
+    }
+
+    public Integer getTipo() {
+        return tipo;
     }
 
     public String getFirst_air_date() {
