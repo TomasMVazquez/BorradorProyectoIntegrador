@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
@@ -21,8 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +29,6 @@ import com.example.digital.borradorproyectointegrador.model.usuario_perfil.Usuar
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
-import com.example.digital.borradorproyectointegrador.view.Fragments.AgregarComentarioFragment;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -76,6 +69,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public static final int KEY_OUT_LOGIN_FAVORITOS = 201;
     public static final int KEY_OUT_LOGIN_COMPARTIR = 202;
     public static final int KEY_OUT_LOGIN_COMENTARIOS = 203;
+    public static final int KEY_OUT_AGREGAR_COMENTARIOS = 301;
+
+    public static final String KEY_COMENTARIO = "comentario";
+    public static final String KEY_RATING = "rating";
+
 
     private Integer tipo;
     private Button btnFavorito;
@@ -281,20 +279,8 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     public void agregarComentario(){
         //TODO actualizar esta parte ver como cargar fragment para agregar comentario
-//        AgregarComentarioFragment dialogFragment = new AgregarComentarioFragment();
-//        FragmentManager fragmentManager = getFragmentManager();
-//        android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//        //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putBoolean("notAlertDialog", true);
-//        dialogFragment.setArguments(bundle);
-//        fragmentTransaction.addToBackStack(null);
-//
-//        dialogFragment.show(fragmentTransaction, "dialog");
-
         if (currentUser!=null){
-            Toast.makeText(TrailerActivity.this, "Agregar Comentario", Toast.LENGTH_SHORT).show();
+            irAgregarComentario(TrailerActivity.KEY_OUT_AGREGAR_COMENTARIOS);
         }else {
             irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_COMENTARIOS);
         }
@@ -304,6 +290,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         Intent intentAccount = new Intent(TrailerActivity.this, MultiLogIn.class);
         startActivityForResult(intentAccount,llave);
         //startActivity(intentAccount);
+    }
+
+    public void irAgregarComentario(int llave){
+        Intent intentAccount = new Intent(TrailerActivity.this, AgregarComentarioActivity.class);
+        startActivityForResult(intentAccount,llave);
     }
 
     @Override
@@ -320,6 +311,13 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 case TrailerActivity.KEY_OUT_LOGIN_COMENTARIOS:
                     agregarComentario();
                     break;
+                case TrailerActivity.KEY_OUT_AGREGAR_COMENTARIOS:
+                    //TODO LOGICA PARA AGREGAR COMENTARIO
+                    Bundle bundle = data.getExtras();
+                    String comentario = bundle.getString(KEY_COMENTARIO);
+                    String rating = bundle.getString(KEY_RATING);
+                    Toast.makeText(TrailerActivity.this, comentario + rating, Toast.LENGTH_SHORT).show();
+                    break;
             }
         }else {
             Toast.makeText(TrailerActivity.this, "Fallo su LogIn", Toast.LENGTH_SHORT).show();
@@ -328,6 +326,17 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     public static Intent respuestaLogin(){
         Intent intent = new Intent();
+        return intent;
+    }
+
+    public static Intent respuestaAgregarComentario(String texto,float rating){
+        Intent intent = new Intent();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_COMENTARIO, texto);
+        bundle.putString(KEY_RATING, String.valueOf(rating));
+
+        intent.putExtras(bundle);
         return intent;
     }
 

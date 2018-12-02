@@ -80,7 +80,9 @@
                         android:isIndicator="true"
                         android:layout_marginTop="10dp"
                         android:numStars="5"
-                        tools:rating="5" />
+                        tools:rating="5"
+                        android:theme="@style/RatingBar"
+                        />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

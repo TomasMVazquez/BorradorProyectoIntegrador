@@ -7,6 +7,7 @@
     tools:context=".view.Fragments.AgregarComentarioFragment"
     android:background="@color/colorNegro"
     android:orientation="vertical"
+    android:layout_gravity="center"
     android:padding="10dp"
     >
 
@@ -33,9 +34,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="5"
+            android:stepSize="1.0"
             tools:rating="5"
-            android:isIndicator="true"
+            android:isIndicator="false"
             style="?android:attr/ratingBarStyle"
+            android:theme="@style/RatingBar"
             />
         <View
             android:id="@+id/deviderPerfil"
@@ -57,12 +60,13 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_agregar"
                 android:textColorHint="@color/colorDivider"
-                android:inputType="textCapSentences"
+                android:inputType="textMultiLine"
                 android:textColor="@color/colorDivider"
                 />
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/btnAgregarComentario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
