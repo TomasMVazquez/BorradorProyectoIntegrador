@@ -19,6 +19,8 @@ import com.example.digital.borradorproyectointegrador.model.usuario_perfil.Usuar
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +58,8 @@ public class MultiLogIn extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         setContentView(R.layout.multi_logins);
 
         mAuth = FirebaseAuth.getInstance();
@@ -138,4 +142,9 @@ public class MultiLogIn extends AppCompatActivity {
         id.setValue(new UsuarioPerfil(email,imagen, nombre,0,0,0,new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<String>()));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 }

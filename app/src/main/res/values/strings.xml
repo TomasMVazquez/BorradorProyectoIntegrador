@@ -1,6 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">BorradorProyectoIntegrador</string>
 
+    //TMDB
+    <string name="api_key">656020b1f06a98f4d73cadd7336e7790</string>
+    <string name="language">Es</string>
+    <string name="sort_by">release_date.desc</string>
+
+
     //Pantalla Main
     <string name="hintSearch"> Buscar pelicula o serie</string>
     <string name="movie_tab">Peliculas</string>
@@ -46,8 +52,9 @@
     <string name="todosFiltro"> -- Ver Todos -- </string>
 
     //FACEBOOK
-    <string name="facebook_app_id">367842997089334</string>
-    <string name="fb_login_protocol_scheme">fb367842997089334</string>
+    <string name="facebook_app_id">1110877119088927</string>
+    <string name="fb_login_protocol_scheme">fb1110877119088927</string>
+
     //TWITTER
     <string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">JQLPkAJTDjirkduV07mxCfRZg</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">jJlFqmRuPcXXjEJ6JWEWoHOPGJ7geZVrF22B8kWrNWS0tZhsKd</string>

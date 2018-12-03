@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Util.printHash(this);
+        Util.printHash(this);
 
         adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
 
