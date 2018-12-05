@@ -112,9 +112,9 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     } else {
                         //La idea aca es que cada persona tenga un perfil en la base desde la cual podamos ver sus favoritos y listas
-                        File file = new File(user.getPhotoUrl().getLastPathSegment());
-                        StorageReference storageReference = mStorage.getReferenceFromUrl(user.getPhotoUrl().getLastPathSegment());
-                        final Uri uriTemp = user.getPhotoUrl(); // Uri.fromFile(file);
+                        File file = new File(user.getPhotoUrl().getPath());
+                        final Uri uriTemp = Uri.fromFile(file);
+                        //TODO cargar imagen de usuario al storage
                         /*
                         StorageReference fotoPerfil = raiz.child(getResources().getString(R.string.child_fotos_usuarios)).child(user.getUid());
                         UploadTask uploadTask = fotoPerfil.putFile(Uri.parse(user.getPhotoUrl().getLastPathSegment()));
