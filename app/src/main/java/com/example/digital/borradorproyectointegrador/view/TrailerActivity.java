@@ -91,29 +91,29 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     protected void onStart() {
         super.onStart();
 
-        //TODO confirmar que funciona
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-
-        if (currentUser!=null) {
-            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
-            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
-                    if (usuario.getPeliculasFavoritas().contains(KEY_ID) || usuario.getSeriesFavoritas().contains(KEY_ID)) {
-                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
-                    }else {
-                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
+//        //TODO confirmar que funciona
+//        mAuth = FirebaseAuth.getInstance();
+//        currentUser = mAuth.getCurrentUser();
+//
+//        if (currentUser!=null) {
+//            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
+//            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+//                    if (usuario.getPeliculasFavoritas().contains(KEY_ID) || usuario.getSeriesFavoritas().contains(KEY_ID)) {
+//                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+//                    }else {
+//                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
 
     }
 
