@@ -99,7 +99,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
             case R.id.itemLogout:
                 new AlertDialog.Builder(this)
-                        .setIcon(R.drawable.ic_exit_to_app_black_24dp)
+                        .setIcon(R.drawable.ic_lightbulb_outline_black_24dp)
                         .setTitle("Log Out")
                         .setMessage("Are you sure you want to log out? You will not be able to view your favorites")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -119,7 +119,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
 
 
-            
+
         }
 
 
