@@ -20,7 +20,7 @@ public class ControllerPelicula {
 
             DAOPelicula daoPelicula = new DAOPelicula();
 
-            daoPelicula.buscarPeliculas(new ResultListener<List<Peliculas>>() {
+            daoPelicula.buscarPeliculas(context,new ResultListener<List<Peliculas>>() {
                 @Override
                 public void finish(List<Peliculas> Resultado) {
                     listResultListener.finish(Resultado);
@@ -40,7 +40,7 @@ public class ControllerPelicula {
 
             DAOPelicula daoPelicula = new DAOPelicula();
 
-            daoPelicula.buscarPeliculas(new ResultListener<List<Peliculas>>() {
+            daoPelicula.buscarPeliculas(context,new ResultListener<List<Peliculas>>() {
                 @Override
                 public void finish(List<Peliculas> Resultado) {
                     for (Peliculas peli:Resultado) {

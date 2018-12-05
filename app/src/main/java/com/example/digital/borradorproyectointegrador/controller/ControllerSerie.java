@@ -20,7 +20,7 @@ public class ControllerSerie {
         if (Util.hayInternet(context)){
 
             DAOSerie daoSerie = new DAOSerie();
-            daoSerie.buscarSeries(new ResultListener<List<Serie>>() {
+            daoSerie.buscarSeries(context,new ResultListener<List<Serie>>() {
                 @Override
                 public void finish(List<Serie> Resultado) {
                     listResultListener.finish(Resultado);
@@ -38,7 +38,7 @@ public class ControllerSerie {
 
         if (Util.hayInternet(context)){
             DAOSerie daoSerie = new DAOSerie();
-            daoSerie.buscarSeries(new ResultListener<List<Serie>>() {
+            daoSerie.buscarSeries(context,new ResultListener<List<Serie>>() {
                 @Override
                 public void finish(List<Serie> Resultado) {
                     for (Serie serie:Resultado) {

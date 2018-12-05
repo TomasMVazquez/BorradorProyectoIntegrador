@@ -8,6 +8,6 @@ import retrofit2.http.Query;
 
 public interface ServicePelicula {
 
-    @GET("movie?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true")
-    Call<PeliculaConteiner> getPeliculaContainer(@Query("page")String page);
+    @GET("movie?")
+    Call<PeliculaConteiner> getPeliculaContainer(@Query("api_key")String api,@Query("language")String language,@Query("sort_by")String sort,@Query("include_adult")Boolean adult,@Query("include_video")Boolean video,@Query("page")String page);
 }

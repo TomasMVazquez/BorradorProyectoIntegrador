@@ -36,8 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private LoginButton loginButtonFacebook;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,15 +91,6 @@ public class LoginActivity extends AppCompatActivity {
         };
 
 
-
-
-
-
-
-
-
-
-
         //Esta parte es para que responda el login al intentar cmpartir o algo
 //        btnFb2.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 //            @Override
@@ -155,15 +144,13 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()){
-                            if (!task.isSuccessful()){
+                        if (!task.isSuccessful()) {
+                            if (!task.isSuccessful()) {
                                 Toast.makeText(getApplicationContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
-
-
     }
 
     private void goMainActivity(){

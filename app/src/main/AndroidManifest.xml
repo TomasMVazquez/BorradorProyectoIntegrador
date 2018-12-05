@@ -51,7 +51,6 @@
         <!-- Copiar código -->
 
         <activity android:name=".view.TrailerActivity" />
-        <activity android:name=".view.LogIn" />
         <activity android:name=".view.PerfilUsuarioActivity" />
         <activity
             android:name=".view.AgregarComentarioActivity"

@@ -1,7 +1,9 @@
 package com.example.digital.borradorproyectointegrador.dao.dao_serie;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.dao.DaoHelper;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.model.serie.SerieConteiner;
@@ -24,10 +26,14 @@ public class DAOSerie extends DaoHelper {
         serviceSerie = retrofit.create(ServiceSerie.class);
     }
 
-    public void buscarSeries(final ResultListener<List<Serie>> listResultListener){
+    public void buscarSeries(Context context, final ResultListener<List<Serie>> listResultListener){
+        String api = context.getResources().getString(R.string.api_key);
+        String language = context.getResources().getString(R.string.language);
+        String sort = context.getResources().getString(R.string.sort_by);
+        String timezone = context.getResources().getString(R.string.timezone);
 
         for (int i = 1; i < 5; i++) {
-            Call<SerieConteiner> call = serviceSerie.getSerieConteiner(String.valueOf(i));
+            Call<SerieConteiner> call = serviceSerie.getSerieConteiner(api,language,sort,String.valueOf(i),timezone);
 
             call.enqueue(new Callback<SerieConteiner>() {
                 @Override
