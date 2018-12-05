@@ -1,24 +1,30 @@
 package com.example.digital.borradorproyectointegrador.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 
 import com.example.digital.borradorproyectointegrador.R;
+import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -26,7 +32,14 @@ import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private FirebaseDatabase mDatabase;
+    private FirebaseStorage mStorage;
     private LoginButton loginButtonFacebook;
 
     @Override
@@ -45,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         // Firebase/Facebook Login
         callbackManager = CallbackManager.Factory.create();
         firebaseAuth = firebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+        mStorage = FirebaseStorage.getInstance();
 
         // TOOLBAR
         Toolbar toolbar = findViewById(R.id.toolbarMultiLogin);
@@ -56,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        //
 
         loginButtonFacebook = findViewById(R.id.login_button_facebook);
         loginButtonFacebook.setReadPermissions("email", "public_profile");
@@ -66,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                 // FIREBASE LOGIN
                 handleFacebookAccessToken(loginResult.getAccessToken());
+
             }
 
             @Override
@@ -83,56 +99,44 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                DatabaseReference mReference = mDatabase.getReference();
+                StorageReference raiz = mStorage.getReference();
+
                 if (user != null){
+                    DatabaseReference baseUsuarios = mReference.child(getResources().getString(R.string.child_usuarios));
+
+                    if (baseUsuarios.orderByChild(user.getUid()).equals(user.getUid())) {
+                        Intent volver = TrailerActivity.respuestaLogin();
+                        setResult(TrailerActivity.RESULT_OK);
+                        finish();
+                    } else {
+                        //La idea aca es que cada persona tenga un perfil en la base desde la cual podamos ver sus favoritos y listas
+                        File file = new File(user.getPhotoUrl().getLastPathSegment());
+                        StorageReference storageReference = mStorage.getReferenceFromUrl(user.getPhotoUrl().getLastPathSegment());
+                        final Uri uriTemp = user.getPhotoUrl(); // Uri.fromFile(file);
+                        /*
+                        StorageReference fotoPerfil = raiz.child(getResources().getString(R.string.child_fotos_usuarios)).child(user.getUid());
+                        UploadTask uploadTask = fotoPerfil.putFile(Uri.parse(user.getPhotoUrl().getLastPathSegment()));
+                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                e.printStackTrace();
+                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        */
+                        agregarPerfilABaseDeDatos(user.getUid(),user.getEmail(), uriTemp.getLastPathSegment(), user.getDisplayName());
+                    }
                     goMainActivity();
                 }
             }
         };
-
-
-        //Esta parte es para que responda el login al intentar cmpartir o algo
-//        btnFb2.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                if (currentUser!= null) {
-//                    if (mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail()) != null) {
-//                        Intent volver = TrailerActivity.respuestaLogin();
-//                        setResult(TrailerActivity.RESULT_OK);
-//                        finish();
-//                    } else {
-//                        //La idea aca es que cada persona tenga un perfil en la base desde la cual podamos ver sus favoritos y listas
-//                        final Uri uriTemp = currentUser.getPhotoUrl();
-//                        StorageReference fotoPerfil = raiz.child(getResources().getString(R.string.child_fotos_usuarios)).child(uriTemp.getLastPathSegment());
-//                        UploadTask uploadTask = fotoPerfil.putFile(uriTemp);
-//                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                            @Override
-//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                agregarPerfilABaseDeDatos(currentUser.getEmail(), uriTemp.getLastPathSegment(), currentUser.getDisplayName());
-//                            }
-//                        });
-//                        Intent volver = TrailerActivity.respuestaLogin();
-//                        setResult(TrailerActivity.RESULT_OK);
-//                        finish();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                Intent volver = TrailerActivity.respuestaLogin();
-//                setResult(TrailerActivity.RESULT_CANCELED);
-//                finish();
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//
-//            }
-//        });
-
-        //Aca termina la parte que responda el login.....
-
 
     }
 
@@ -172,10 +176,11 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public void agregarPerfilABaseDeDatos(String email, String imagen,String nombre){
-//        DatabaseReference id = mReference.child(getResources().getString(R.string.child_usuarios)).child(email).push();
-//        id.setValue(new UsuarioPerfil(email,imagen, nombre,0,0,0,new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<String>()));
-//    }
+    public void agregarPerfilABaseDeDatos(String uId,String email, String imagen,String nombre){
+        DatabaseReference mReference = mDatabase.getReference();
+        DatabaseReference id = mReference.child(getResources().getString(R.string.child_usuarios)).child(uId);
+        id.setValue(new UsuarioPerfil(uId,email,imagen, nombre,0,0,0,new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<String>()));
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
