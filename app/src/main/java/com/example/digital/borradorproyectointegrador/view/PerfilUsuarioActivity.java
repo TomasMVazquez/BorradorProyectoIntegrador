@@ -1,7 +1,9 @@
 package com.example.digital.borradorproyectointegrador.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -94,17 +96,32 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 //            finish();
 
         switch (item.getItemId()) {
+
             case R.id.itemLogout:
-                logout();
-                break;
+                new AlertDialog.Builder(this)
+                        .setIcon(R.drawable.ic_exit_to_app_black_24dp)
+                        .setTitle("Log Out")
+                        .setMessage("Are you sure you want to log out? You will not be able to view your favorites")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                logout();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+//            case R.id.itemLogout:
+//                logout();
+//                break;
             default:
                     return false;
 
 
 
-
+            
         }
-        return super.onOptionsItemSelected(item);
+
 
     }
 
