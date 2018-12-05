@@ -45,15 +45,13 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Objects.requireNonNull(getSupportActionBar()).setTitle(null);
-        }
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+
+
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        }
 
         //usuario
         mAuth = FirebaseAuth.getInstance();
@@ -92,20 +90,21 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == android.R.id.home)
-            finish();
+//        if (item.getItemId() == android.R.id.home)
+//            finish();
 
         switch (item.getItemId()) {
             case R.id.itemLogout:
                 logout();
-                return true;
-
-            case R.id.home:
-                goMainActivity();
-                return true;
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                    return false;
+
+
+
+
         }
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -113,18 +112,27 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
         goMainActivity();
+        finish();
     }
 
     private void goMainActivity(){
         Intent intent = new Intent(PerfilUsuarioActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        goMainActivity();
+        finish();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        goMainActivity();
+        finish();
     }
 
     @Override

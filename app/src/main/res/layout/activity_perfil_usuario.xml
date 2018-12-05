@@ -10,23 +10,28 @@
     android:orientation="vertical"
     >
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbarPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:contentScrim="?attr/colorPrimary"
-            >
-            <include
-                android:id="@+id/toolbarPerfil"
-                layout="@layout/toolbar"
-                />
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+    <include
+        android:id="@+id/toolbarPerfil"
+        layout="@layout/toolbar"
+        />
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--android:id="@+id/collapsingToolbarPerfil"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--app:layout_scrollFlags="scroll|enterAlways"-->
+            <!--app:contentScrim="?attr/colorPrimary"-->
+            <!--&gt;-->
+            <!--<include-->
+                <!--android:id="@+id/toolbarPerfil"-->
+                <!--layout="@layout/toolbar"-->
+                <!--/>-->
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
