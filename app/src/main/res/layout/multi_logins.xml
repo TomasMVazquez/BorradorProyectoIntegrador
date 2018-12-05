@@ -23,66 +23,66 @@
         >
 
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/btnFb2"
+            android:id="@+id/login_button_facebook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="25dp"
             />
-        <Button
-            android:id="@+id/btnFb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="30dp"
-            android:layout_margin="4dp"
-            android:text="Login with Facebook"
-            android:background="@drawable/layers_fb_button_bg"
-            style="@style/ButtonText"
-            />
-        <Button
-            android:id="@+id/btnTwitter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="30dp"
-            android:layout_margin="4dp"
-            android:text="Login with Twitter"
-            android:background="@drawable/layers_tw_button_bg"
-            style="@style/ButtonText"
-            />
+        <!--<Button-->
+            <!--android:id="@+id/btnFb"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:paddingLeft="30dp"-->
+            <!--android:layout_margin="4dp"-->
+            <!--android:text="Login with Facebook"-->
+            <!--android:background="@drawable/layers_fb_button_bg"-->
+            <!--style="@style/ButtonText"-->
+            <!--/>-->
+        <!--<Button-->
+            <!--android:id="@+id/btnTwitter"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:paddingLeft="30dp"-->
+            <!--android:layout_margin="4dp"-->
+            <!--android:text="Login with Twitter"-->
+            <!--android:background="@drawable/layers_tw_button_bg"-->
+            <!--style="@style/ButtonText"-->
+            <!--/>-->
 
-        <Button
-            android:id="@+id/btnGplus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="50dp"
-            android:layout_margin="4dp"
-            android:text="Login with Google"
-            android:background="@drawable/btn_google_signin_dark_normal_hdpi"
-            style="@style/ButtonText"
+        <!--<Button-->
+            <!--android:id="@+id/btnGplus"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:paddingLeft="50dp"-->
+            <!--android:layout_margin="4dp"-->
+            <!--android:text="Login with Google"-->
+            <!--android:background="@drawable/btn_google_signin_dark_normal_hdpi"-->
+            <!--style="@style/ButtonText"-->
 
-            />
-        <Button
-            android:id="@+id/btnMail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="30dp"
-            android:layout_margin="4dp"
-            android:text="Login with Email"
-            android:background="@drawable/layers_email_button_bg"
+            <!--/>-->
+        <!--<Button-->
+            <!--android:id="@+id/btnMail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:paddingLeft="30dp"-->
+            <!--android:layout_margin="4dp"-->
+            <!--android:text="Login with Email"-->
+            <!--android:background="@drawable/layers_email_button_bg"-->
 
-            style="@style/ButtonText"
-            />
+            <!--style="@style/ButtonText"-->
+            <!--/>-->
     </LinearLayout>
 
 </RelativeLayout>

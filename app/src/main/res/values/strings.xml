@@ -76,4 +76,5 @@
     <string name="agregar_rating">Cuantas estrellas le darías:</string>
     <string name="hint_agregar">Agruegue aquí sus comentarios</string>
     <string name="btn_agregar">Subir Comentario</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
 </resources>

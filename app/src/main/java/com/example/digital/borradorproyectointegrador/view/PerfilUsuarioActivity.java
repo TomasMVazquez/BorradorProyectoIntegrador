@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.digital.borradorproyectointegrador.R;
+import com.facebook.CallbackManager;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,11 +32,28 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
     private DatabaseReference usuarioPerfilDB;
+    private CallbackManager callbackManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
+
+        // TOOLBAR
+        toolbar = findViewById(R.id.toolbarPerfil);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setTitle(null);
+        }
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         //usuario
         mAuth = FirebaseAuth.getInstance();
@@ -43,16 +62,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mReference  = mDatabase.getReference();
 
-        // TOOLBAR
-        Toolbar toolbar = findViewById(R.id.toolbarPerfil);
-        setSupportActionBar(toolbar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Objects.requireNonNull(getSupportActionBar()).setTitle(null);
-        }
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+
 
         //cargar datos
         CircularImageView perfilImagen = findViewById(R.id.perfilImagen);
@@ -64,10 +74,10 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
         Glide.with(this).load(currentUser.getPhotoUrl()).into(perfilImagen);
         nombrePerfil.setText(currentUser.getDisplayName());
-        usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
-        cantMeGustaPerfil.setText((CharSequence) usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_me_gusta)));
-        cantCompartirPerfil.setText((CharSequence) usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_compartidos)));
-        cantComentariosPerfil.setText((CharSequence) usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_comentarios)));
+//        usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
+//        cantMeGustaPerfil.setText((CharSequence) usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_me_gusta)));
+//        cantCompartirPerfil.setText((CharSequence) usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_compartidos)));
+//        cantComentariosPerfil.setText((CharSequence) usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_comentarios)));
 
         //TODO falta el recycler de comentarios
     }
@@ -75,7 +85,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
+        inflater.inflate(R.menu.toolbar_menu_profile_page, menu);
         return true;
     }
 
@@ -86,17 +96,41 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
             finish();
 
         switch (item.getItemId()) {
-            case R.id.itemAccount:
+            case R.id.itemLogout:
+                logout();
                 return true;
 
             case R.id.home:
-                Intent intentAccount = new Intent(PerfilUsuarioActivity.this, MainActivity.class);
-                startActivity(intentAccount);
+                goMainActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    public void logout(){
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+        goMainActivity();
+    }
+
+    private void goMainActivity(){
+        Intent intent = new Intent(PerfilUsuarioActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }

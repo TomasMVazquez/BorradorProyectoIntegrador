@@ -287,7 +287,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
     public void irAlLogIn(int llave){
-        Intent intentAccount = new Intent(TrailerActivity.this, MultiLogIn.class);
+        Intent intentAccount = new Intent(TrailerActivity.this, LoginActivity.class);
         startActivityForResult(intentAccount,llave);
         //startActivity(intentAccount);
     }
@@ -378,7 +378,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         switch (item.getItemId()) {
             case R.id.itemAccount:
-                Intent intentAccount = new Intent(TrailerActivity.this, MultiLogIn.class);
+                Intent intentAccount = new Intent(TrailerActivity.this, LoginActivity.class);
                 startActivity(intentAccount);
                 return true;
 
@@ -475,5 +475,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+
 }
 

@@ -24,14 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         //facebook
-        <activity android:name=".view.MultiLogIn" />
+        <activity android:name=".view.LoginActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-            <!--tools:replace="android:value" />-->
+            android:value="@string/facebook_app_id" />
+        <!-- tools:replace="android:value" /> -->
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -54,9 +53,9 @@
         <activity android:name=".view.TrailerActivity" />
         <activity android:name=".view.LogIn" />
         <activity android:name=".view.PerfilUsuarioActivity" />
-        <activity android:name=".view.AgregarComentarioActivity"
-            android:theme="@style/AppDialogTheme"
-            />
+        <activity
+            android:name=".view.AgregarComentarioActivity"
+            android:theme="@style/AppDialogTheme" />
     </application>
 
 </manifest>

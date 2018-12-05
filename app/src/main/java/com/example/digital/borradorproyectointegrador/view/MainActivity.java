@@ -3,9 +3,7 @@ package com.example.digital.borradorproyectointegrador.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -28,17 +26,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
-import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;
-import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorFiltros;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.SerieAdaptador;
@@ -46,6 +41,9 @@ import com.example.digital.borradorproyectointegrador.view.Fragments.Comentarios
 import com.example.digital.borradorproyectointegrador.view.Fragments.FiltroFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.PeliculasFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.SeriesFragment;
+import com.facebook.CallbackManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     private MyViewPagerAdapter adapter;
     private List<Fragment> fragmentList;
     private ViewPager viewPager;
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private FirebaseAuth firebaseAuth;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,8 +127,16 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.itemAccount:
-                Intent intentAccount = new Intent(MainActivity.this, MultiLogIn.class);
-                startActivity(intentAccount);
+                // Si hay usuario logueado, va a la pantalla de perfil. Si no, va a la pantalla de Login
+                firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    goPerfilUsuario();
+                    } else {
+                    goLoginScreen();
+                    }
+//                Intent intentAccount = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intentAccount);
                 return true;
 //            case R.id.itemSearch:
 //
@@ -140,9 +149,11 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     }
 
 
+
+
     @Override
     public void onFragmentInteraction() {
-        Intent intent = new Intent(this,MultiLogIn.class);
+        Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
 
@@ -154,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         if (id == R.id.nav_inicio) {
 
         } else if (id == R.id.nav_signin) {
-            Intent intentAccount = new Intent(MainActivity.this, MultiLogIn.class);
+            Intent intentAccount = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intentAccount);
         }
 
@@ -339,4 +350,26 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         SerieAdaptador serieAdaptador = new SerieAdaptador(context,series,escuchador);
         recyclerView.setAdapter(serieAdaptador);
     }
+
+    // LOGIN METHODS
+
+    private void goPerfilUsuario(){
+        Intent intent = new Intent(MainActivity.this, PerfilUsuarioActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void goLoginScreen(){
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
 }
