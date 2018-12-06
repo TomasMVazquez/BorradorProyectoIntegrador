@@ -40,7 +40,7 @@ public class ComentariosFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerViewComentario.setLayoutManager(llm);
 
-        AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(comentariosController.entregarListaComentarios());
+        AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(),comentariosController.entregarListaComentarios());
         recyclerViewComentario.setAdapter(adaptadorRecyclerComentariosCompletos);
 
         return view;

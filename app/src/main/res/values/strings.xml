@@ -69,6 +69,7 @@
     <string name="child_usuario_perfil_peliculas_favoritas">peliculasFavoritas</string>
     <string name="child_usuario_perfil_series_favoritas">seriesFavoritas</string>
     <string name="child_usuario_perfil_id_comentarios">idMisComentarios</string>
+    <string name="child_base_comentarios">todosLosComentarios</string>
 
     //PerfilUsuario
     <string name="cant_de">Cantidad de </string>

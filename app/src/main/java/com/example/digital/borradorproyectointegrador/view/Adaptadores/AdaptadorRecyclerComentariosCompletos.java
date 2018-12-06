@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 
@@ -19,10 +20,10 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
 
     //atributos
     private List<Comentario> comentarioList;
-
+    private Context context;
 
     //constructor
-    public AdaptadorRecyclerComentariosCompletos(List<Comentario> comentarioList) {
+    public AdaptadorRecyclerComentariosCompletos(Context context,List<Comentario> comentarioList) {
         this.comentarioList = comentarioList;
     }
 
@@ -76,8 +77,8 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
 
         //metodo para cargar data
         public void cargar(Comentario comentario){
-            ivImagenPeliculaComentario.setImageResource(comentario.getIvImagenPeliculaComentario());
-            ivImagenUsuarioComentario.setImageResource(comentario.getIvImagenUsuarioComentario());
+//            Glide.with(context).load(comentario.getIvImagenPeliculaComentario()).into(ivImagenPeliculaComentario);
+//            Glide.with(context).load(comentario.getIvImagenUsuarioComentario()).into(ivImagenUsuarioComentario);
             tvUsuarioComentario.setText(comentario.getTvUsuarioComentario());
             tvComentarioComentario.setText(comentario.getTvComentarioComentario());
             rbUsuarioAPeliculaComentario.setRating(comentario.getCantidadEstrellasAPelicula());
