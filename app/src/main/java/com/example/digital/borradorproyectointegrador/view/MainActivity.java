@@ -130,19 +130,20 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         final Integer tab  = viewPager.getCurrentItem();
         final LinearLayout llFav = findViewById(R.id.llFav);
 
-        DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
-        usuarioPerfilDB.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                cargarFavoritos();
-            }
+        if (currentUser!=null) {
+            DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+            usuarioPerfilDB.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    cargarFavoritos();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        }
         //LLAMAR AL FAB BUTTON
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
         final FiltroFragment filtroFragment = new FiltroFragment();
