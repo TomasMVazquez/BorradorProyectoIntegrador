@@ -189,25 +189,47 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     }
 
+    // SHARE NATIVO
     public void compartirTrailer(Integer movieId){
+        // SI EL USUARIO ESTA LOGUEADO, ENTRA
         if (currentUser!=null){
+            // SI EL TIPO ES MOVIE:
+            if (tipo == 1){
+                Toast.makeText(TrailerActivity.this, "Compartir Pelicula", Toast.LENGTH_SHORT).show();
+                //TODO actualizar esta parte:
+                //Creamos un share de tipo ACTION_SENT
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                //Indicamos que voy a compartir texto
+                share.setType("text/plain");
+                //Le agrego un título
+                share.putExtra(Intent.EXTRA_SUBJECT, "Share Link of Movie");
+                //Le agrego el texto a compartir (Puede ser un link tambien)
+                share.putExtra(Intent.EXTRA_TEXT, "https://www.themoviedb.org/movie/" + movieId);
+                //Hacemos un start para que comparta el contenido.
+                startActivity(Intent.createChooser(share, "Share Link!"));
+                // SI EL TIPO ES TV:
+            } else {
+                Toast.makeText(TrailerActivity.this, "Compartir Serie", Toast.LENGTH_SHORT).show();
+                //TODO actualizar esta parte:
+                //Creamos un share de tipo ACTION_SENT
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                //Indicamos que voy a compartir texto
+                share.setType("text/plain");
+                //Le agrego un título
+                share.putExtra(Intent.EXTRA_SUBJECT, "Share Link of TV show");
+                //Le agrego el texto a compartir (Puede ser un link tambien)
+                share.putExtra(Intent.EXTRA_TEXT, "https://www.themoviedb.org/tv/" + movieId);
+                //Hacemos un start para que comparta el contenido.
+                startActivity(Intent.createChooser(share, "Share Link!"));
+            }
 
-            Toast.makeText(TrailerActivity.this, "Compartir", Toast.LENGTH_SHORT).show();
-            //TODO actualizar esta parte:
-            //Creamos un share de tipo ACTION_SENT
-            Intent share = new Intent(android.content.Intent.ACTION_SEND);
-            //Indicamos que voy a compartir texto
-            share.setType("text/plain");
-            //Le agrego un título
-            share.putExtra(Intent.EXTRA_SUBJECT, "Share Link of Movie");
-            //Le agrego el texto a compartir (Puede ser un link tambien)
-            share.putExtra(Intent.EXTRA_TEXT, "https://www.themoviedb.org/movie/" + movieId);
-            //Hacemos un start para que comparta el contenido.
-            startActivity(Intent.createChooser(share, "Share Link!"));
-        }else {
+
+        // SI NO ESTA LOGUEADO, LLEVAR AL SCREEN DE LOGIN:
+        } else {
             irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_COMPARTIR);
         }
     }
+
 
     public void validarSiFavorito(final Integer id){
         if (currentUser!=null) {
