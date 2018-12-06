@@ -91,13 +91,15 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         setContentView(R.layout.activity_main);
 
         //Util.printHash(this);
+        //Gerente
+        mDatabase = FirebaseDatabase.getInstance();
+        mReference  = mDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
         peliculaAdaptador = new PeliculaAdaptador(this,new ArrayList<Peliculas>(),this);
         serieAdaptador = new SerieAdaptador(this,new ArrayList<Serie>(),this);
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
 
         //Llamar a la action bar para mostrar
         Toolbar toolbar = findViewById(R.id.toolbarMain);
@@ -127,7 +129,19 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
         final Integer tab  = viewPager.getCurrentItem();
         final LinearLayout llFav = findViewById(R.id.llFav);
-        cargarFavoritos();
+
+        DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+        usuarioPerfilDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                cargarFavoritos();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //LLAMAR AL FAB BUTTON
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
@@ -149,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
                 if (position == 0){
                     llFav.setVisibility(View.VISIBLE);
                     recyclerViewFav.setAdapter(peliculaAdaptador);
@@ -216,6 +231,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 }
                             });
                         }
+                    }else{
+                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
                     }
                     if (usuario.getSeriesFavoritas()!=null){
                         for (int i = 0; i < usuario.getSeriesFavoritas().size();i++){
@@ -232,6 +249,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 }
                             });
                         }
+                    }else{
+                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
                     }
                 }
                 @Override
