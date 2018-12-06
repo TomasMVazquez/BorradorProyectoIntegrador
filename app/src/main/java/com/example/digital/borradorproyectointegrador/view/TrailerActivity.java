@@ -46,6 +46,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,6 +77,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
 
     private Integer tipo;
+    private Integer id;
     private Button btnFavorito;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -92,28 +94,42 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         super.onStart();
 
 //        //TODO confirmar que funciona
-//        mAuth = FirebaseAuth.getInstance();
-//        currentUser = mAuth.getCurrentUser();
-//
-//        if (currentUser!=null) {
-//            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
-//            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
-//                    if (usuario.getPeliculasFavoritas().contains(KEY_ID) || usuario.getSeriesFavoritas().contains(KEY_ID)) {
-//                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
-//                    }else {
-//                        btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-//        }
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        if (currentUser!=null) {
+            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+                    if (usuario.getPeliculasFavoritas()!=null && usuario.getSeriesFavoritas()!=null){
+                        if (usuario.getPeliculasFavoritas().contains(KEY_ID) || usuario.getSeriesFavoritas().contains(KEY_ID)) {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                        }else {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                        }
+                    }else if (usuario.getPeliculasFavoritas()!=null && usuario.getSeriesFavoritas()==null){
+                        if (usuario.getPeliculasFavoritas().contains(KEY_ID)) {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                        }else {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                        }
+                    }else if (usuario.getPeliculasFavoritas()==null && usuario.getSeriesFavoritas()!=null){
+                        if (usuario.getSeriesFavoritas().contains(KEY_ID)) {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                        }else {
+                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
     }
 
@@ -161,7 +177,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         String resumen = bundle.getString(KEY_RESUMEN);
 
 //        Integer id = Integer.valueOf(bundle.getString(String.valueOf(KEY_ID)));
-        Integer id = bundle.getInt(String.valueOf(KEY_ID));
+        id = bundle.getInt(String.valueOf(KEY_ID));
 
         // COMPONENTES
         RatingBar ratingBar = findViewById(R.id.rbShowRoom);
@@ -239,38 +255,54 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public void agregarFavoritos(){
         //TODO confirmar que funciona -->
         if (currentUser!=null){
-            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
-            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+            usuarioPerfilDB.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
                     if (tipo==1) {
-                        List<Integer> pelis = usuario.getPeliculasFavoritas();
-                        if (usuario.getPeliculasFavoritas().contains(KEY_ID)) {
-                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
-                            pelis.remove(KEY_ID);
-                        } else {
+                        List<Integer> pelis = new ArrayList<>();
+                        if (usuario.getPeliculasFavoritas()!=null){
+                            pelis.addAll(usuario.getPeliculasFavoritas());
+                            if (usuario.getPeliculasFavoritas().contains(KEY_ID)) {
+                                btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                                pelis.remove(KEY_ID);
+                            } else {
+                                btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                                pelis.add(KEY_ID);
+                            }
+                        }else {
                             btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
-                            pelis.add(KEY_ID);
+
+                            pelis.add(id);
                         }
                         usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_peliculas_favoritas)).setValue(pelis);
                     }else {
-                        List<Integer> series = usuario.getSeriesFavoritas();
-                        if (usuario.getSeriesFavoritas().contains(KEY_ID)) {
-                            btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
-                            series.remove(KEY_ID);
-                        } else {
+                        List<Integer> series = new ArrayList<>();
+                        if (usuario.getSeriesFavoritas()!=null){
+                            series.addAll(usuario.getSeriesFavoritas());
+                            if (usuario.getSeriesFavoritas().contains(KEY_ID)) {
+                                btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border));
+                                series.remove(KEY_ID);
+                            } else {
+                                btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+                                series.add(KEY_ID);
+                            }
+                        }else {
                             btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
+
                             series.add(KEY_ID);
                         }
                         usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_series_favoritas)).setValue(series);
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
+
             btnFavorito.setBackground(getResources().getDrawable(R.drawable.ic_favorite));
         }else {
             irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_FAVORITOS);

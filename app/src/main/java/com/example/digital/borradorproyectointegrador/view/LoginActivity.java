@@ -39,7 +39,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -111,27 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                         setResult(TrailerActivity.RESULT_OK);
                         finish();
                     } else {
-                        //La idea aca es que cada persona tenga un perfil en la base desde la cual podamos ver sus favoritos y listas
-                        File file = new File(user.getPhotoUrl().getPath());
-                        final Uri uriTemp = Uri.fromFile(file);
-                        //TODO cargar imagen de usuario al storage
-                        /*
-                        StorageReference fotoPerfil = raiz.child(getResources().getString(R.string.child_fotos_usuarios)).child(user.getUid());
-                        UploadTask uploadTask = fotoPerfil.putFile(Uri.parse(user.getPhotoUrl().getLastPathSegment()));
-                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        */
-                        agregarPerfilABaseDeDatos(user.getUid(),user.getEmail(), uriTemp.getLastPathSegment(), user.getDisplayName());
+                        agregarPerfilABaseDeDatos(user.getUid(),user.getEmail(), user.getPhotoUrl().toString(), user.getDisplayName());
                     }
                     goMainActivity();
                 }
@@ -179,7 +161,12 @@ public class LoginActivity extends AppCompatActivity {
     public void agregarPerfilABaseDeDatos(String uId,String email, String imagen,String nombre){
         DatabaseReference mReference = mDatabase.getReference();
         DatabaseReference id = mReference.child(getResources().getString(R.string.child_usuarios)).child(uId);
-        id.setValue(new UsuarioPerfil(uId,email,imagen, nombre,0,0,0,new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<String>()));
+
+        List<Integer> peliculasFavoritas = new ArrayList<>();
+        List<Integer> seriesFavoritas = new ArrayList<>();
+        List<String> idMisComentarios = new ArrayList<>();
+
+        id.setValue(new UsuarioPerfil(uId,email,imagen, nombre,0,0,0,peliculasFavoritas,seriesFavoritas,idMisComentarios));
     }
 
     @Override
