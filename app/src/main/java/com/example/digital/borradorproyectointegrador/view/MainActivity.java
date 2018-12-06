@@ -51,6 +51,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener, FiltroFragment.FragmentInterface {
+
     SearchView searchView;
 
     private List<Integer> listaFiltros;
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Util.printHash(this);
+        //Util.printHash(this);
 
         adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
 
@@ -89,10 +90,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        llamarFragments(new Bundle());
+        llamarFragments();
         cargarViewPager();
-
 
         //LLAMAR AL FAB BUTTON
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
@@ -148,9 +147,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
     }
 
-
-
-
     @Override
     public void onFragmentInteraction() {
         Intent intent = new Intent(this,LoginActivity.class);
@@ -191,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         //ViewPager
         viewPager = findViewById(R.id.viewPager);
         //Adapter
-        //adapter = new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         adapter.setFragmentList(fragmentList);
         viewPager.setAdapter(adapter);
         //TabLayout
@@ -206,10 +201,9 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
     }
 
-    public void llamarFragments(Bundle bundle){
+    public void llamarFragments(){
         //Llamar al FragmentPeliculas
         PeliculasFragment peliculasFragment = new PeliculasFragment();
-        peliculasFragment.setArguments(bundle);
         ComentariosFragment comentariosFragment = new ComentariosFragment();
         SeriesFragment seriesFragment = new SeriesFragment();
 
@@ -334,7 +328,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         recyclerView.setHasFixedSize(true);
 
         GridLayoutManager glm = new GridLayoutManager(context,3,1,false);
-        //LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(glm);
 
         PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
@@ -344,7 +337,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         recyclerView.setHasFixedSize(true);
 
         GridLayoutManager glm = new GridLayoutManager(context,3,1,false);
-        //LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(glm);
 
         SerieAdaptador serieAdaptador = new SerieAdaptador(context,series,escuchador);
@@ -367,7 +359,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 

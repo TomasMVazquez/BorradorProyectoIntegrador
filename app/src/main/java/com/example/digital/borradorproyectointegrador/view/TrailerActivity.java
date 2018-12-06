@@ -27,6 +27,7 @@ import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
 import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
 import com.example.digital.borradorproyectointegrador.dao.dao_video.DAOVideo;
+import com.example.digital.borradorproyectointegrador.dao.dao_video_tv.DAOVideoTV;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
@@ -67,6 +68,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public static String VIDEO_ID = "videoKey";
     private AppCompatDelegate delegate;
     private static DAOVideo daoVideo;
+    private static DAOVideoTV daoVideoTV;
     private static DAOPelicula daoPelicula;
 
     public static final int KEY_OUT_LOGIN_FAVORITOS = 201;
@@ -364,27 +366,52 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
     private void getVideos(Integer movieId) {
-        daoVideo = new DAOVideo();
-        daoVideo.traerVideos(movieId, new ResultListener<List<Video>>() {
-            @SuppressLint("ObsoleteSdkInt")
-            @Override
-            public void finish(List<Video> videos) {
-                VIDEO_ID = videos.get(0).getKey();
-                /** Initializing YouTube Player View **/
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    if (TrailerActivity.this.isDestroyed()){
-                        return;
+        if (tipo==1){
+            daoVideo = new DAOVideo();
+            daoVideo.traerVideos(movieId, new ResultListener<List<Video>>() {
+                @SuppressLint("ObsoleteSdkInt")
+                @Override
+                public void finish(List<Video> videos) {
+                    VIDEO_ID = videos.get(0).getKey();
+                    /** Initializing YouTube Player View **/
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        if (TrailerActivity.this.isDestroyed()){
+                            return;
+                        }else {
+                            YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
+                            youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
+                        }
                     }else {
                         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
                         youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
                     }
-                }else {
-                    YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
-                    youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
-                }
 
-            }
-        });
+                }
+            });
+        }else{
+            daoVideoTV = new DAOVideoTV();
+            daoVideoTV.traerVideos(movieId, new ResultListener<List<Video>>() {
+                @SuppressLint("ObsoleteSdkInt")
+                @Override
+                public void finish(List<Video> videos) {
+                    VIDEO_ID = videos.get(0).getKey();
+                    /** Initializing YouTube Player View **/
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        if (TrailerActivity.this.isDestroyed()){
+                            return;
+                        }else {
+                            YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
+                            youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
+                        }
+                    }else {
+                        YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtubePlayer);
+                        youTubePlayerView.initialize(API_KEY, TrailerActivity.this);
+                    }
+
+                }
+            });
+        }
+
     }
 
     @Override
