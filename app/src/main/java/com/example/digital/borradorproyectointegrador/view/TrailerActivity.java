@@ -32,6 +32,7 @@ import com.example.digital.borradorproyectointegrador.model.usuario_perfil.Usuar
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
+import com.example.digital.borradorproyectointegrador.view.Fragments.FiltroFragment;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -81,6 +82,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
 
     private Integer tipo;
+    private String nombre;
     private Integer id;
     private Button btnFavorito;
     private FirebaseDatabase mDatabase;
@@ -129,7 +131,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         tipo = bundle.getInt(KEY_TIPO);
         String imageData = bundle.getString(KEY_IMAGE);
         Integer cantEstrellasData = bundle.getInt(KEY_CANT_ESTRELLAS);
-        String nombre = bundle.getString(KEY_NOMBRE);
+        nombre = bundle.getString(KEY_NOMBRE);
         String resumen = bundle.getString(KEY_RESUMEN);
 
         id = bundle.getInt(String.valueOf(KEY_ID));
@@ -156,7 +158,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewComentarioTrailer.setLayoutManager(llm);
 
-        AdaptadorRecyclerComentarioTrailer adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(comentariosController.entregarListaComentariosTrailer(nombre));
+        AdaptadorRecyclerComentarioTrailer adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(this,comentariosController.entregarListaComentariosTrailer(nombre));
 
         recyclerViewComentarioTrailer.setAdapter(adaptadorRecyclerComentarioTrailer);
         getVideos(id);
@@ -343,6 +345,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     public void irAgregarComentario(int llave){
         Intent intentAccount = new Intent(TrailerActivity.this, AgregarComentarioActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(AgregarComentarioActivity.KEY_ID,id);
+        bundle.putInt(AgregarComentarioActivity.KEY_TIPO,tipo);
+        bundle.putString(AgregarComentarioActivity.KEY_TITLE,nombre);
+        intentAccount.putExtras(bundle);
         startActivityForResult(intentAccount,llave);
     }
 

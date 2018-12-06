@@ -1,19 +1,23 @@
 package com.example.digital.borradorproyectointegrador.model.comentario;
 
+import android.net.Uri;
+
 public class Comentario {
 
     //Atributos
-    private String idComentario;
+    private Integer idPelioSerie;
+    private Integer tipo;
     private String peliculaComentada;
-    private Integer ivImagenPeliculaComentario;
-    private Integer ivImagenUsuarioComentario;
+    private String ivImagenPeliculaComentario;
+    private String ivImagenUsuarioComentario;
     private String tvUsuarioComentario;
     private Integer cantidadEstrellasAPelicula;
     private String tvComentarioComentario;
 
     //Constructor Completo
-    public Comentario(String idComentario,String peliculaComentada, Integer ivImagenPeliculaComentario, Integer ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
-        this.idComentario = idComentario;
+    public Comentario(Integer idPelioSerie,Integer tipo,String peliculaComentada, String ivImagenPeliculaComentario, String ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+        this.idPelioSerie = idPelioSerie;
+        this.tipo = tipo;
         this.peliculaComentada = peliculaComentada;
         this.ivImagenPeliculaComentario = ivImagenPeliculaComentario;
         this.ivImagenUsuarioComentario = ivImagenUsuarioComentario;
@@ -22,7 +26,9 @@ public class Comentario {
         this.tvComentarioComentario = tvComentarioComentario;
     }
     //ConstructorTrailer
-    public Comentario(String peliculaComentada, Integer ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+    public Comentario(String peliculaComentada,Integer idPelioSerie,Integer tipo, String ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario) {
+        this.idPelioSerie = idPelioSerie;
+        this.tipo = tipo;
         this.peliculaComentada = peliculaComentada;
         this.ivImagenUsuarioComentario = ivImagenUsuarioComentario;
         this.tvUsuarioComentario = tvUsuarioComentario;
@@ -32,19 +38,24 @@ public class Comentario {
 
     //Getter
 
-    public String getIdComentario() {
-        return idComentario;
+
+    public Integer getIdPelioSerie() {
+        return idPelioSerie;
+    }
+
+    public Integer getTipo() {
+        return tipo;
     }
 
     public String getPeliculaComentada() {
         return peliculaComentada;
     }
 
-    public Integer getIvImagenPeliculaComentario() {
+    public String getIvImagenPeliculaComentario() {
         return ivImagenPeliculaComentario;
     }
 
-    public Integer getIvImagenUsuarioComentario() {
+    public String getIvImagenUsuarioComentario() {
         return ivImagenUsuarioComentario;
     }
 
