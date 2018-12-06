@@ -19,7 +19,11 @@ public class UsuarioPerfil {
     private List<String> idMisComentarios;
 
     //constructor
-    public UsuarioPerfil(String uId,String email,String imagenPerfil, String nombre,Integer cantidadMeGusta ,Integer cantidadCompartidos, Integer cantidadComentarios, List<Integer> peliculasFavoritas, List<Integer> seriesFavoritas, List<String> idMisComentarios) {
+
+    public UsuarioPerfil() {
+    }
+
+    public UsuarioPerfil(String uId, String email, String imagenPerfil, String nombre, Integer cantidadMeGusta , Integer cantidadCompartidos, Integer cantidadComentarios, List<Integer> peliculasFavoritas, List<Integer> seriesFavoritas, List<String> idMisComentarios) {
         this.uId = uId;
         this.email=email;
         this.imagenPerfil = imagenPerfil;
