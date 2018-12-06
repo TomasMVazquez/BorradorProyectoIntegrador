@@ -179,11 +179,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         String resumen = bundle.getString(KEY_RESUMEN);
 
 //        Integer id = Integer.valueOf(bundle.getString(String.valueOf(KEY_ID)));
-<<<<<<< HEAD
-        final Integer id = bundle.getInt(String.valueOf(KEY_ID));
-=======
+//<<<<<<< HEAD
+//        final Integer id = bundle.getInt(String.valueOf(KEY_ID));
+//=======
         id = bundle.getInt(String.valueOf(KEY_ID));
->>>>>>> master
+
 
         // COMPONENTES
         RatingBar ratingBar = findViewById(R.id.rbShowRoom);
