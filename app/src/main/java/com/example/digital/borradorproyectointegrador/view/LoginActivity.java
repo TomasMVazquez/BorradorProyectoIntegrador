@@ -139,6 +139,12 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        goMainActivity();
+        finish();
+    }
+
     private void goMainActivity(){
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -153,8 +159,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() ==android.R.id.home)
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
             onBackPressed();
+        }
         return super.onOptionsItemSelected(item);
     }
 
