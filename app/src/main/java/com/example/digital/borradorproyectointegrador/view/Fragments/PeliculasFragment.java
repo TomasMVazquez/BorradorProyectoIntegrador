@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.digital.borradorproyectointegrador.controller.ControllerGeneros;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
+import com.example.digital.borradorproyectointegrador.controller.ControllerUsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
@@ -24,6 +25,8 @@ import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
 import com.example.digital.borradorproyectointegrador.view.MainActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,8 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
 
     private OnFragmentInteractionListener mListener;
     private List<Integer> listaFiltros = new ArrayList<>();
-
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     public PeliculasFragment() {
         // Required empty public constructor
@@ -48,20 +52,21 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         //Recycler view
         //Lista
-        final RecyclerView recyclerViewFav = view.findViewById(R.id.recylcerViewFavoritosPeliculas);
         final RecyclerView recyclerViewPeli = view.findViewById(R.id.recylcerViewPeliculas);
 
-        ControllerPelicula controllerPelicula = new ControllerPelicula();
-
+        final ControllerPelicula controllerPelicula = new ControllerPelicula();
         controllerPelicula.entregarPeliculas(view.getContext(), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
                 cargarRecyclerGrid(view.getContext(),recyclerViewPeli,Resultado,PeliculasFragment.this);
             }
         });
+
 
         return view;
     }
@@ -72,18 +77,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         recyclerView.setHasFixedSize(true);
 
         GridLayoutManager glm = new GridLayoutManager(context,3,1,false);
-        //LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(glm);
-
-        PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
-        recyclerView.setAdapter(peliculaAdaptador);
-    }
-
-    public void cargarRecycler(Context context, RecyclerView recyclerView,List<Peliculas> peliculas, PeliculaAdaptador.AdapterPeliInterface escuchador){
-        recyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
-        recyclerView.setLayoutManager(llm);
 
         PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
         recyclerView.setAdapter(peliculaAdaptador);

@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
 import com.example.digital.borradorproyectointegrador.dao.dao_serie.DAOSerie;
+import com.example.digital.borradorproyectointegrador.dao.dao_serie.DAOUnaSerie;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
@@ -52,6 +53,21 @@ public class ControllerSerie {
 
         }else {
             Toast.makeText(context, "NO HAY INTERNET", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void entregarUnaSerie(Integer id, Context context, final ResultListener<Serie> resultListener){
+        if (Util.hayInternet(context)){
+
+            DAOUnaSerie daoUnaSerie = new DAOUnaSerie();
+            daoUnaSerie.dameUnaSerie(id, context, new ResultListener<Serie>() {
+                @Override
+                public void finish(Serie Resultado) {
+                    resultListener.finish(Resultado);
+                }
+            });
+
         }
 
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -25,13 +27,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
+import com.example.digital.borradorproyectointegrador.controller.ControllerUsuarioPerfil;
+import com.example.digital.borradorproyectointegrador.controller.ControllerVideo;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
+import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
+import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
@@ -44,13 +52,19 @@ import com.example.digital.borradorproyectointegrador.view.Fragments.SeriesFragm
 import com.facebook.CallbackManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener,
-        NavigationView.OnNavigationItemSelectedListener, FiltroFragment.FragmentInterface {
+        NavigationView.OnNavigationItemSelectedListener, FiltroFragment.FragmentInterface,PeliculaAdaptador.AdapterPeliInterface,SerieAdaptador.AdapterSerieInterface {
 
     SearchView searchView;
 
@@ -62,6 +76,13 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private FirebaseAuth firebaseAuth;
     private CallbackManager callbackManager;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private RecyclerView recyclerViewFav;
+    private PeliculaAdaptador peliculaAdaptador;
+    private SerieAdaptador serieAdaptador;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         //Util.printHash(this);
 
         adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
+        peliculaAdaptador = new PeliculaAdaptador(this,new ArrayList<Peliculas>(),this);
+        serieAdaptador = new SerieAdaptador(this,new ArrayList<Serie>(),this);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         //Llamar a la action bar para mostrar
         Toolbar toolbar = findViewById(R.id.toolbarMain);
@@ -90,8 +116,18 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //recycler
+        recyclerViewFav = findViewById(R.id.recylcerViewFavoritos);
+        recyclerViewFav.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        recyclerViewFav.setLayoutManager(llm);
+
         llamarFragments();
         cargarViewPager();
+
+        final Integer tab  = viewPager.getCurrentItem();
+        final LinearLayout llFav = findViewById(R.id.llFav);
+        cargarFavoritos();
 
         //LLAMAR AL FAB BUTTON
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
@@ -100,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         fabFiltros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Integer tab  = viewPager.getCurrentItem();
 
                Bundle bundle = new Bundle();
                bundle.putInt(FiltroFragment.KEY_TAB,tab);
@@ -111,9 +146,102 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             }
         });
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position == 0){
+                    llFav.setVisibility(View.VISIBLE);
+                    recyclerViewFav.setAdapter(peliculaAdaptador);
+                }else if (position == 1){
+                    llFav.setVisibility(View.VISIBLE);
+                    recyclerViewFav.setAdapter(serieAdaptador);
+                }else {
+                    llFav.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                if (position == 0){
+                    llFav.setVisibility(View.VISIBLE);
+                    recyclerViewFav.setAdapter(peliculaAdaptador);
+                }else if (position == 1){
+                    llFav.setVisibility(View.VISIBLE);
+                    recyclerViewFav.setAdapter(serieAdaptador);
+                }else {
+                    llFav.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
 
+    public void cargarFavoritos(){
+
+        mDatabase = FirebaseDatabase.getInstance();
+        mReference  = mDatabase.getReference();
+
+        if (currentUser!=null){
+            final List<Peliculas> favoritas = new ArrayList<>();
+            final List<Serie> favoritasS = new ArrayList<>();
+            final TextView textSinFav = findViewById(R.id.textSinFav);
+
+            final ControllerPelicula controllerPelicula = new ControllerPelicula();
+            final ControllerSerie controllerSerie = new ControllerSerie();
+            DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+                    if (usuario.getPeliculasFavoritas()!=null){
+                        for (int i = 0; i < usuario.getPeliculasFavoritas().size(); i++) {
+                            controllerPelicula.entregarUnaPelicula(usuario.getPeliculasFavoritas().get(i), MainActivity.this, new ResultListener<Peliculas>() {
+                                @Override
+                                public void finish(Peliculas Resultado) {
+                                    favoritas.add(Resultado);
+                                    peliculaAdaptador.setPeliculas(favoritas);
+                                    if (favoritas.size()>0){
+                                        textSinFav.setText("");
+                                    }else {
+                                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    if (usuario.getSeriesFavoritas()!=null){
+                        for (int i = 0; i < usuario.getSeriesFavoritas().size();i++){
+                            controllerSerie.entregarUnaSerie(usuario.getSeriesFavoritas().get(i), MainActivity.this, new ResultListener<Serie>() {
+                                @Override
+                                public void finish(Serie Resultado) {
+                                    favoritasS.add(Resultado);
+                                    serieAdaptador.setSerieList(favoritasS);
+                                    if (favoritasS.size()>0){
+                                        textSinFav.setText("");
+                                    }else {
+                                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -168,14 +296,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void cargarFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.containerFiltros,fragment);
-        fragmentTransaction.commit();
-
     }
 
     public void cargarFiltros(DialogFragment fragment){
@@ -360,7 +480,31 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
 
+    @Override
+    public void irTrailer(Peliculas peliculas) {
+        Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(TrailerActivity.KEY_TIPO,1);
+        bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
+        bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
+        bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void irTrailer(Serie Serie) {
+        Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(TrailerActivity.KEY_TIPO,2);
+        bundle.putString(TrailerActivity.KEY_NOMBRE, Serie.getName());
+        bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), Serie.getId());
+        bundle.putString(TrailerActivity.KEY_RESUMEN, Serie.getOverview());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

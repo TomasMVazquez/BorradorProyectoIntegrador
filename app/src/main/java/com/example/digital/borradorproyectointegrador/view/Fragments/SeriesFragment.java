@@ -41,12 +41,7 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
 
         //Recycler view
         //Lista
-        final RecyclerView recyclerViewFav = view.findViewById(R.id.recylcerViewFavoritosSeries);
         final RecyclerView recyclerViewSeri = view.findViewById(R.id.recylcerViewSeries);
-
-
-
-        // Lista de Generos de series: https://api.themoviedb.org/3/genre/tv/list?api_key=656020b1f06a98f4d73cadd7336e7790&language=en-US
 
         ControllerSerie controllerSerie = new ControllerSerie();
 

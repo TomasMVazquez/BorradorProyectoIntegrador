@@ -29,6 +29,11 @@ public class SerieAdaptador extends RecyclerView.Adapter {
         this.escuchador = escuchador;
     }
 
+    public void setSerieList(List<Serie> serieList) {
+        this.serieList = serieList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

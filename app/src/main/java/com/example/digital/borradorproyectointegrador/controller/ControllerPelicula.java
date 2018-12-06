@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
+import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOUnaPelicula;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;
@@ -55,6 +56,22 @@ public class ControllerPelicula {
         }else {
             Toast.makeText(context, "NO HAY INTERNET", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void entregarUnaPelicula(Integer id, Context context, final ResultListener<Peliculas> listResultListener){
+
+        if (Util.hayInternet(context)){
+            DAOUnaPelicula daoUnaPelicula = new DAOUnaPelicula();
+            daoUnaPelicula.buscarPeliculas(id, context, new ResultListener<Peliculas>() {
+                @Override
+                public void finish(Peliculas Resultado) {
+                    listResultListener.finish(Resultado);
+                }
+            });
+        }else {
+            Toast.makeText(context, "NO HAY INTERNET", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

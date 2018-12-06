@@ -18,49 +18,6 @@
             android:background="@color/colorPrimaryDarkTrans"
             >
 
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/favoritosPelicula"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Favoritos"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorTextOnS"
-                    android:textStyle="bold|italic"
-                    />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/favoritosVacio"
-                        android:textSize="20sp"
-                        android:textColor="@color/colorTextOnS"
-                        android:gravity="center"
-                        />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recylcerViewFavoritosPeliculas"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
-
-                </FrameLayout>
-
-
-
-            </LinearLayout>
-
             <TextView
             android:id="@+id/peliculasTodas"
             android:layout_width="match_parent"
