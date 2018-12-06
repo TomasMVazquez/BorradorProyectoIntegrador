@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -83,6 +84,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference usuarioPerfilDB;
+    private ShareActionProvider mShareActionProvider;
 
     //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 
@@ -161,7 +163,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         String resumen = bundle.getString(KEY_RESUMEN);
 
 //        Integer id = Integer.valueOf(bundle.getString(String.valueOf(KEY_ID)));
-        Integer id = bundle.getInt(String.valueOf(KEY_ID));
+        final Integer id = bundle.getInt(String.valueOf(KEY_ID));
 
         // COMPONENTES
         RatingBar ratingBar = findViewById(R.id.rbShowRoom);
@@ -194,7 +196,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         btnCompartir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                compartirTrailer();
+                compartirTrailer(id);
             }
         });
 
@@ -217,8 +219,9 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     }
 
-    public void compartirTrailer(){
+    public void compartirTrailer(Integer movieId){
         if (currentUser!=null){
+
             Toast.makeText(TrailerActivity.this, "Compartir", Toast.LENGTH_SHORT).show();
             //TODO actualizar esta parte:
             //Creamos un share de tipo ACTION_SENT
@@ -226,11 +229,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
             //Indicamos que voy a compartir texto
             share.setType("text/plain");
             //Le agrego un título
-            share.putExtra(Intent.EXTRA_SUBJECT, "");
+            share.putExtra(Intent.EXTRA_SUBJECT, "Share Link of Movie");
             //Le agrego el texto a compartir (Puede ser un link tambien)
-            share.putExtra(Intent.EXTRA_TEXT, "");
+            share.putExtra(Intent.EXTRA_TEXT, "https://www.themoviedb.org/movie/" + movieId);
             //Hacemos un start para que comparta el contenido.
-            startActivity(Intent.createChooser(share, ""));
+            startActivity(Intent.createChooser(share, "Share Link!"));
         }else {
             irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_COMPARTIR);
         }
@@ -305,9 +308,9 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 case TrailerActivity.KEY_OUT_LOGIN_FAVORITOS:
                     agregarFavoritos();
                     break;
-                case TrailerActivity.KEY_OUT_LOGIN_COMPARTIR:
-                    compartirTrailer();
-                    break;
+//                case TrailerActivity.KEY_OUT_LOGIN_COMPARTIR:
+//                    compartirTrailer();
+//                    break;
                 case TrailerActivity.KEY_OUT_LOGIN_COMENTARIOS:
                     agregarComentario();
                     break;
