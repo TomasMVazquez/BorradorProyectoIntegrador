@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                     llFav.setVisibility(View.VISIBLE);
                     recyclerViewFav.setAdapter(serieAdaptador);
                 }else {
-                    llFav.setVisibility(View.INVISIBLE);
+                    llFav.setVisibility(View.GONE);
                 }
             }
 
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                     llFav.setVisibility(View.VISIBLE);
                     recyclerViewFav.setAdapter(serieAdaptador);
                 }else {
-                    llFav.setVisibility(View.INVISIBLE);
+                    llFav.setVisibility(View.GONE);
                 }
 
             }
