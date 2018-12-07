@@ -20,7 +20,9 @@
     <!--<color name="colorPrimaryLight">#B2DFDB</color>-->
     <!--<color name="colorPrimary">#009688</color>-->
     <color name="colorPrimaryTrans">#3d3535</color>
+    <color name="colorPrimaryTransSec">#b90f1b36</color>
     <!--<color name="colorPrimaryDark">#00796B</color>-->
     <color name="colorPrimaryDarkTrans">#212121</color>
+    <color name="colorPrimaryDarkTransSec">#96212121</color>
 
 </resources>

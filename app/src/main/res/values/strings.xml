@@ -3,7 +3,7 @@
 
     //TMDB
     <string name="api_key">656020b1f06a98f4d73cadd7336e7790</string>
-    <string name="language">Es</string>
+    <string name="language">es-US</string>
     <string name="sort_by">popularity.desc</string>
     <string name="timezone">America/BuenosAires</string>
     <string name="poster_path">https://image.tmdb.org/t/p/w500</string>

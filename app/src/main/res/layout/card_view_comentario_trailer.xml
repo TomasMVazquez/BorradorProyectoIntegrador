@@ -92,7 +92,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_margin="2dp"
-        android:background="@color/colorPrimaryTrans"
+        android:background="@color/colorPrimaryTransSec"
         >
 
         <ImageView
