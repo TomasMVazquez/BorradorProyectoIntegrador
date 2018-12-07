@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         llamarFragments();
         cargarViewPager();
 
-        final Integer tab  = viewPager.getCurrentItem();
+
         final LinearLayout llFav = findViewById(R.id.llFav);
 
         if (currentUser!=null) {
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         fabFiltros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               Integer tab  = viewPager.getCurrentItem();
                Bundle bundle = new Bundle();
                bundle.putInt(FiltroFragment.KEY_TAB,tab);
                filtroFragment.setArguments(bundle);
