@@ -91,7 +91,7 @@ public class AgregarComentarioActivity extends AppCompatActivity {
         btnAgregarComentario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (valoracion > 0){
+                if (valoracion != null){
 
                     final String texto = agregarComentarioEditText.getText().toString();
 
@@ -137,6 +137,7 @@ public class AgregarComentarioActivity extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(AgregarComentarioActivity.this, "Aún no has puesto cuantas estrellas de darías =)", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
