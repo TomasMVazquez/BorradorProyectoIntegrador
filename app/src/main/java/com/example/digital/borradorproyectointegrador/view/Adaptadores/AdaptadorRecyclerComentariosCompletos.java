@@ -22,10 +22,12 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
     //atributos
     private List<Comentario> comentarioList;
     private Context context;
+    private AdaptadorRecyclerComentarioTrailer.ComentarioInterface comentarioInterface;
 
     //constructor
-    public AdaptadorRecyclerComentariosCompletos(Context context,List<Comentario> comentarioList) {
+    public AdaptadorRecyclerComentariosCompletos(Context context, AdaptadorRecyclerComentarioTrailer.ComentarioInterface comentarioInterface, List<Comentario> comentarioList) {
         this.comentarioList = comentarioList;
+        this.comentarioInterface = comentarioInterface;
     }
 
     public void setComentarioList(List<Comentario> comentarioList) {
@@ -62,6 +64,10 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
         return comentarioList.size();
     }
 
+    public interface ComentarioInterface{
+        public void irPerfil(Comentario comentario);
+    }
+
     public class ViewHolderComentario extends RecyclerView.ViewHolder{
 
         //Atributos
@@ -79,6 +85,15 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
             tvUsuarioComentario = itemView.findViewById(R.id.tvUsuarioComentario);
             rbUsuarioAPeliculaComentario = itemView.findViewById(R.id.rbUsuarioAPeliculaComentario);
             tvComentarioComentario = itemView.findViewById(R.id.tvComentarioComentario);
+
+            tvUsuarioComentario.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Comentario comentario = comentarioList.get(getAdapterPosition());
+                    comentarioInterface.irPerfil(comentario);
+                }
+            });
+
         }
 
         //metodo para cargar data

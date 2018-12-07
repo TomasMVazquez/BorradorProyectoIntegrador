@@ -104,7 +104,7 @@ public class AgregarComentarioActivity extends AppCompatActivity {
                                 DatabaseReference nuevoComentarioDB = comentariosDB.child(id_1);
                                 String photo = currentUser.getPhotoUrl() + "?height=500";
 
-                                nuevoComentarioDB.child(currentUser.getUid()).setValue(new Comentario(idPelioSerie,tipo,title,posterPath,photo,currentUser.getDisplayName(),valoracion,texto));
+                                nuevoComentarioDB.child(currentUser.getUid()).setValue(new Comentario(idPelioSerie,tipo,title,posterPath,photo,currentUser.getDisplayName(),valoracion,texto,currentUser.getUid()));
                                 //usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_id_comentarios)).child(id_1).setValue(new Comentario(title,idPelioSerie,tipo,photo,currentUser.getDisplayName(),valoracion,texto));
 
                                 usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {

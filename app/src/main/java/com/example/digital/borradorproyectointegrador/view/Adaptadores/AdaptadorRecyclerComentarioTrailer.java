@@ -2,6 +2,8 @@ package com.example.digital.borradorproyectointegrador.view.Adaptadores;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
+import com.example.digital.borradorproyectointegrador.view.PerfilUsuarioActivity;
 
 import java.util.List;
 
@@ -24,9 +27,11 @@ public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
     //Atributos
     private List<Comentario> comentarioTrailerList;
     private Context context;
+    private ComentarioInterface comentarioInterface;
 
-    public AdaptadorRecyclerComentarioTrailer(Context context,List<Comentario> comentarioTrailerList) {
+    public AdaptadorRecyclerComentarioTrailer(Context context,ComentarioInterface comentarioInterface,List<Comentario> comentarioTrailerList) {
         this.comentarioTrailerList = comentarioTrailerList;
+        this.comentarioInterface = comentarioInterface;
     }
 
     public void setComentarioTrailerList(List<Comentario> comentarioTrailerList) {
@@ -63,6 +68,9 @@ public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
         return comentarioTrailerList.size();
     }
 
+    public interface ComentarioInterface{
+        public void irPerfil(Comentario comentario);
+    }
 
     public class ViewHolderComentTrailer extends RecyclerView.ViewHolder{
 
@@ -78,6 +86,15 @@ public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
             tvUsuarioComentarioTrailer = itemView.findViewById(R.id.tvUsuarioComentarioTrailer);
             rbUsuarioAPeliculaComentarioTrailer = itemView.findViewById(R.id.rbUsuarioAPeliculaComentarioTrailer);
             tvComentarioComentarioTrailer = itemView.findViewById(R.id.tvComentarioComentarioTrailer);
+
+            tvUsuarioComentarioTrailer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Comentario comentario = comentarioTrailerList.get(getAdapterPosition());
+                    comentarioInterface.irPerfil(comentario);
+                }
+            });
+
         }
 
         //metodo para cargar data

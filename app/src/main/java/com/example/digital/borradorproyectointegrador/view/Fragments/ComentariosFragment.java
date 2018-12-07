@@ -1,6 +1,7 @@
 package com.example.digital.borradorproyectointegrador.view.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,10 @@ import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentariosCompletos;
+import com.example.digital.borradorproyectointegrador.view.PerfilUsuarioActivity;
+import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +39,17 @@ public class ComentariosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_comentarios, container, false);
         //adaptador
-        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(),new ArrayList<Comentario>());
+        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(), new AdaptadorRecyclerComentarioTrailer.ComentarioInterface() {
+            @Override
+            public void irPerfil(Comentario comentario) {
+                String user = comentario.getUserId();
+                Intent intent = new Intent(getActivity(),PerfilUsuarioActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(PerfilUsuarioActivity.KEY_USER,user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        }, new ArrayList<Comentario>());
 
         //datos
         ComentariosController comentariosController = new ComentariosController();

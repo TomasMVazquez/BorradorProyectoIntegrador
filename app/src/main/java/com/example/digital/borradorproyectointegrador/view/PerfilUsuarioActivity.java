@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.digital.borradorproyectointegrador.R;
@@ -21,6 +22,7 @@ import com.example.digital.borradorproyectointegrador.controller.ComentariosCont
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
+import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentariosCompletos;
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
@@ -41,6 +43,8 @@ import java.util.Objects;
 
 public class PerfilUsuarioActivity extends AppCompatActivity {
 
+    public static final String KEY_USER="user";
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseDatabase mDatabase;
@@ -54,7 +58,12 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
 
-        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(this,new ArrayList<Comentario>());
+        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(this, new AdaptadorRecyclerComentarioTrailer.ComentarioInterface() {
+            @Override
+            public void irPerfil(Comentario comentario) {
+                Toast.makeText(PerfilUsuarioActivity.this, "Ya estas en el perfil", Toast.LENGTH_SHORT).show();
+            }
+        }, new ArrayList<Comentario>());
         // TOOLBAR
         toolbar = findViewById(R.id.toolbarPerfil);
         setSupportActionBar(toolbar);
@@ -68,21 +77,28 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         //Gerente
         mDatabase = FirebaseDatabase.getInstance();
         mReference  = mDatabase.getReference();
-        usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
 
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String user = bundle.getString(KEY_USER);
+        String usuarioComentairios = null;
+
+        if (user!=null){
+            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(user);
+            usuarioComentairios = user;
+        }else{
+            usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+            usuarioComentairios = currentUser.getUid();
+        }
 
         //cargar datos
-        CircularImageView perfilImagen = findViewById(R.id.perfilImagen);
-        TextView nombrePerfil = findViewById(R.id.nombrePerfil);
+        final CircularImageView perfilImagen = findViewById(R.id.perfilImagen);
+        final TextView nombrePerfil = findViewById(R.id.nombrePerfil);
         final TextView cantMeGustaPerfil = findViewById(R.id.cantMeGustaPerfil);
         final TextView cantCompartirPerfil = findViewById(R.id.cantCompartirPerfil);
         final TextView cantComentariosPerfil = findViewById(R.id.cantComentariosPerfil);
         RecyclerView recyclerComentariosPerfil = findViewById(R.id.recyclerComentariosPerfil);
-
-        String photo = currentUser.getPhotoUrl() + "?height=500";
-        Glide.with(this).load(photo).into(perfilImagen);
-        nombrePerfil.setText(currentUser.getDisplayName());
-
 
         usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -91,6 +107,10 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                 cantComentariosPerfil.setText(String.valueOf(usuario.getCantidadComentarios()));
                 cantMeGustaPerfil.setText(String.valueOf(usuario.getCantidadMeGusta()));
                 cantCompartirPerfil.setText(String.valueOf(usuario.getCantidadCompartidos()));
+
+                String photo = usuario.getImagenPerfil() + "?height=500";
+                Glide.with(PerfilUsuarioActivity.this).load(photo).into(perfilImagen);
+                nombrePerfil.setText(usuario.getNombre());
             }
 
             @Override
@@ -106,7 +126,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerComentariosPerfil.setLayoutManager(llm);
 
-        comentariosController.entregarMisComentarios(currentUser.getUid(), this, new ResultListener<List<Comentario>>() {
+        comentariosController.entregarMisComentarios(usuarioComentairios, this, new ResultListener<List<Comentario>>() {
             @Override
             public void finish(List<Comentario> Resultado) {
                 adaptadorRecyclerComentariosCompletos.setComentarioList(Resultado);

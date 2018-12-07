@@ -57,7 +57,7 @@ import java.util.Objects;
 
 //import android.support.v4.media.VolumeProviderCompatApi21;
 
-public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, AppCompatCallback {
+public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, AppCompatCallback, AdaptadorRecyclerComentarioTrailer.ComentarioInterface {
 
     public static final String KEY_TIPO = "tipo";
     public static final String KEY_IMAGE = "image";
@@ -104,7 +104,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         setContentView(R.layout.activity_trailer);
 
         //AdaptadorComentario
-        adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(this,new ArrayList<Comentario>());
+        adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(this,this,new ArrayList<Comentario>());
 
         //usuario
         mAuth = FirebaseAuth.getInstance();
@@ -566,5 +566,14 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
 
+    @Override
+    public void irPerfil(Comentario comentario) {
+        String user = comentario.getUserId();
+        Intent intent = new Intent(TrailerActivity.this,PerfilUsuarioActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(PerfilUsuarioActivity.KEY_USER,user);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }
 
