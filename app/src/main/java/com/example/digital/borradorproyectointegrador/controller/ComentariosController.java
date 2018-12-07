@@ -11,8 +11,6 @@ import java.util.List;
 
 public class ComentariosController {
 
-    private List<Comentario> comentarioList = new ArrayList<>();
-
     public void entregarListaComentarios(Context context, final ResultListener<List<Comentario>> listResultListener){
 
         DAOComentario daoComentarios = new DAOComentario();
@@ -27,8 +25,6 @@ public class ComentariosController {
 
     public void entregarListaComentariosTrailer(String pelicula, Context context, final ResultListener<List<Comentario>> listResultListener){
 
-        comentarioList.clear();
-
         DAOComentario daoComentarioTrailer = new DAOComentario();
 
         daoComentarioTrailer.dameComentariosPeli(pelicula, context, new ResultListener<List<Comentario>>() {
@@ -38,6 +34,16 @@ public class ComentariosController {
             }
         });
 
+    }
+
+    public void entregarMisComentarios(String user, Context context, final ResultListener<List<Comentario>> listResultListener){
+        DAOComentario daoComentario = new DAOComentario();
+        daoComentario.dameMisComentarios(user, context, new ResultListener<List<Comentario>>() {
+            @Override
+            public void finish(List<Comentario> Resultado) {
+                listResultListener.finish(Resultado);
+            }
+        });
     }
 
 }
