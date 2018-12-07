@@ -1,6 +1,7 @@
 package com.example.digital.borradorproyectointegrador.view.Fragments;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,6 +63,8 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt(TrailerActivity.KEY_TIPO,2);
+        @SuppressLint({"NewApi", "LocalSuppress"}) Integer cantEstr = Math.toIntExact(Math.round(((serie.getVote_average() * 5) / 10)));
+        bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS,cantEstr);
         bundle.putString(TrailerActivity.KEY_NOMBRE, serie.getName());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), serie.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, serie.getOverview());

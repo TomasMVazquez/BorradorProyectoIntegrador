@@ -1,5 +1,6 @@
 package com.example.digital.borradorproyectointegrador.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -370,6 +371,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                             public void irTrailer(Peliculas peliculas) {
                                 Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
                                 Bundle bundle = new Bundle();
+                                @SuppressLint({"NewApi", "LocalSuppress"}) Integer cantEstr = Math.toIntExact(Math.round(((peliculas.getVote_average() * 5) / 10)));
+                                bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS,cantEstr);
                                 bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
                                 bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
                                 bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
@@ -393,6 +396,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                             public void irTrailer(Serie Serie) {
                                 Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
                                 Bundle bundle = new Bundle();
+                                @SuppressLint({"NewApi", "LocalSuppress"}) Integer cantEstr = Math.toIntExact(Math.round(((Serie.getVote_average() * 5) / 10)));
+                                bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS,cantEstr);
                                 bundle.putString(TrailerActivity.KEY_NOMBRE, Serie.getName());
                                 bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), Serie.getId());
                                 bundle.putString(TrailerActivity.KEY_RESUMEN, Serie.getOverview());
@@ -511,6 +516,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     public void irTrailer(Peliculas peliculas) {
         Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
         Bundle bundle = new Bundle();
+        @SuppressLint({"NewApi", "LocalSuppress"}) Integer cantEstr = Math.toIntExact(Math.round(((peliculas.getVote_average() * 5) / 10)));
+        bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS,cantEstr);
         bundle.putInt(TrailerActivity.KEY_TIPO,1);
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
@@ -524,6 +531,8 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
     public void irTrailer(Serie Serie) {
         Intent intent = new Intent(MainActivity.this, TrailerActivity.class);
         Bundle bundle = new Bundle();
+        @SuppressLint({"NewApi", "LocalSuppress"}) Integer cantEstr = Math.toIntExact(Math.round(((Serie.getVote_average() * 5) / 10)));
+        bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS,cantEstr);
         bundle.putInt(TrailerActivity.KEY_TIPO,2);
         bundle.putString(TrailerActivity.KEY_NOMBRE, Serie.getName());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), Serie.getId());

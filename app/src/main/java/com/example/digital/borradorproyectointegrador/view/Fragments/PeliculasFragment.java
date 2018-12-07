@@ -1,5 +1,6 @@
 package com.example.digital.borradorproyectointegrador.view.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -105,6 +106,8 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
     public void irTrailer(Peliculas peliculas) {
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
+        @SuppressLint({"NewApi", "LocalSuppress"}) Integer cantEstr = Math.toIntExact(Math.round(((peliculas.getVote_average() * 5) / 10)));
+        bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS,cantEstr);
         bundle.putInt(TrailerActivity.KEY_TIPO,1);
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());

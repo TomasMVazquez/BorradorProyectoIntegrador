@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_agregar"
                 android:textColorHint="@color/colorDivider"
-                android:inputType="textMultiLine"
+                android:inputType="textCapSentences|textMultiLine"
                 android:textColor="@color/colorDivider"
                 />
         </android.support.design.widget.TextInputLayout>
