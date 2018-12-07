@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
+import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentariosCompletos;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +43,7 @@ public class ComentariosFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerViewComentario.setLayoutManager(llm);
 
-        AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(),comentariosController.entregarListaComentarios());
+        AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(),new ArrayList<Comentario>());
         recyclerViewComentario.setAdapter(adaptadorRecyclerComentariosCompletos);
 
         return view;

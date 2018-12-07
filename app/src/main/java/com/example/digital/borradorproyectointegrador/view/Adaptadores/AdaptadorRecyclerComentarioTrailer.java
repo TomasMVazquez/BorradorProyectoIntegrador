@@ -1,5 +1,6 @@
 package com.example.digital.borradorproyectointegrador.view.Adaptadores;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
@@ -27,11 +29,16 @@ public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
         this.comentarioTrailerList = comentarioTrailerList;
     }
 
+    public void setComentarioTrailerList(List<Comentario> comentarioTrailerList) {
+        this.comentarioTrailerList = comentarioTrailerList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        Context context = parent.getContext();
+        context = parent.getContext();
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
@@ -74,12 +81,17 @@ public class AdaptadorRecyclerComentarioTrailer extends RecyclerView.Adapter {
         }
 
         //metodo para cargar data
+        @SuppressLint("CheckResult")
         public void cargar(Comentario comentarioTrailer){
+
             RequestOptions requestOptions = new RequestOptions();
-            Glide.with(context)
-                    .load(comentarioTrailer.getIvImagenUsuarioComentario())
-                    .apply(requestOptions)
-                    .into(ivImagenUsuarioComentarioTrailer);
+            requestOptions.placeholder(R.drawable.play_movie_icon_sketch);
+            requestOptions.error(R.drawable.play_movie_icon_sketch);
+
+                Glide.with(context)
+                        .load(comentarioTrailer.getIvImagenUsuarioComentario())
+                        .apply(requestOptions)
+                        .into(ivImagenUsuarioComentarioTrailer);
 
             tvUsuarioComentarioTrailer.setText(comentarioTrailer.getTvUsuarioComentario());
             tvComentarioComentarioTrailer.setText(comentarioTrailer.getTvComentarioComentario());
