@@ -101,7 +101,7 @@ public class DAOComentario {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                 for (DataSnapshot child:dataSnapshot.getChildren()) {
-                    if (String.valueOf(child.getKey()) == user) {
+                    if (String.valueOf(child.getKey()).equals(user)) {
                         comentarioList.add(child.getValue(Comentario.class));
                         listResultListener.finish(comentarioList);
                     }
