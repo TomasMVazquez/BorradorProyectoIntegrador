@@ -28,11 +28,16 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
         this.comentarioList = comentarioList;
     }
 
+    public void setComentarioList(List<Comentario> comentarioList) {
+        this.comentarioList = comentarioList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        Context context = parent.getContext();
+        context = parent.getContext();
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
@@ -80,6 +85,8 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
         public void cargar(Comentario comentario){
 
             RequestOptions requestOptions = new RequestOptions();
+            requestOptions.placeholder(R.drawable.play_movie_icon_sketch);
+            requestOptions.error(R.drawable.play_movie_icon_sketch);
             Glide.with(context)
                     .load(context.getResources().getString(R.string.poster_path) + comentario.getIvImagenPeliculaComentario())
                     .apply(requestOptions)

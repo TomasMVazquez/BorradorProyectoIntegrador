@@ -1,38 +1,49 @@
 package com.example.digital.borradorproyectointegrador.controller;
 
+import android.content.Context;
+
 import com.example.digital.borradorproyectointegrador.dao.dao_comentario.DAOComentario;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
+import com.example.digital.borradorproyectointegrador.util.ResultListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ComentariosController {
 
-    List<Comentario> comentarioList = new ArrayList<>();
-    List<Comentario> comentarioTrailerList = new ArrayList<>();
-
-    public List<Comentario> entregarListaComentarios(){
+    public void entregarListaComentarios(Context context, final ResultListener<List<Comentario>> listResultListener){
 
         DAOComentario daoComentarios = new DAOComentario();
 
-        comentarioList = daoComentarios.dameComentarios();
-
-        return comentarioList;
+        daoComentarios.dameComentarios(context, new ResultListener<List<Comentario>>() {
+            @Override
+            public void finish(List<Comentario> Resultado) {
+                listResultListener.finish(Resultado);
+            }
+        });
     }
 
-    public List<Comentario> entregarListaComentariosTrailer(String pelicula){
-
-        comentarioTrailerList.clear();
+    public void entregarListaComentariosTrailer(String pelicula, Context context, final ResultListener<List<Comentario>> listResultListener){
 
         DAOComentario daoComentarioTrailer = new DAOComentario();
 
-        for (Comentario comentarioTrailer : daoComentarioTrailer.dameComentarios()) {
-            if (comentarioTrailer.getPeliculaComentada().equals(pelicula)){
-                comentarioTrailerList.add(comentarioTrailer);
+        daoComentarioTrailer.dameComentariosPeli(pelicula, context, new ResultListener<List<Comentario>>() {
+            @Override
+            public void finish(List<Comentario> Resultado) {
+                listResultListener.finish(Resultado);
             }
-        }
+        });
 
-        return comentarioTrailerList;
+    }
+
+    public void entregarMisComentarios(String user, Context context, final ResultListener<List<Comentario>> listResultListener){
+        DAOComentario daoComentario = new DAOComentario();
+        daoComentario.dameMisComentarios(user, context, new ResultListener<List<Comentario>>() {
+            @Override
+            public void finish(List<Comentario> Resultado) {
+                listResultListener.finish(Resultado);
+            }
+        });
     }
 
 }

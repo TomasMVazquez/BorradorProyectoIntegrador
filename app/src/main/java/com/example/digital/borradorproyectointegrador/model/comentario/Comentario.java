@@ -36,9 +36,10 @@ public class Comentario {
         this.tvComentarioComentario = tvComentarioComentario;
     }
 
+    public Comentario() {
+    }
+
     //Getter
-
-
     public Integer getIdPelioSerie() {
         return idPelioSerie;
     }

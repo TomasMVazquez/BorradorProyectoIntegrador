@@ -131,8 +131,8 @@ public class AgregarComentarioActivity extends AppCompatActivity {
                         });
 
                     }
-                    Intent data = TrailerActivity.respuestaAgregarComentario(texto,valoracion);
-                    setResult(Activity.RESULT_OK, data);
+                    Intent data = TrailerActivity.respuestaAgregarComentario();
+                    setResult(Activity.RESULT_OK,data);
                     finish();
 
                 }else {

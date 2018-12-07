@@ -28,6 +28,7 @@ import com.example.digital.borradorproyectointegrador.controller.ComentariosCont
 import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
 import com.example.digital.borradorproyectointegrador.dao.dao_video.DAOVideo;
 import com.example.digital.borradorproyectointegrador.dao.dao_video_tv.DAOVideoTV;
+import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
@@ -93,12 +94,16 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     private FirebaseUser currentUser;
     private DatabaseReference usuarioPerfilDB;
     private ShareActionProvider mShareActionProvider;
+    private AdaptadorRecyclerComentarioTrailer adaptadorRecyclerComentarioTrailer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trailer);
+
+        //AdaptadorComentario
+        adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(this,new ArrayList<Comentario>());
 
         //usuario
         mAuth = FirebaseAuth.getInstance();
@@ -152,6 +157,12 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         //Cargar Comentarios
         //Datos
         ComentariosController comentariosController = new ComentariosController();
+        comentariosController.entregarListaComentariosTrailer(String.valueOf(id), this, new ResultListener<List<Comentario>>() {
+            @Override
+            public void finish(List<Comentario> Resultado) {
+                adaptadorRecyclerComentarioTrailer.setComentarioTrailerList(Resultado);
+            }
+        });
 
         //Recycler
         RecyclerView recyclerViewComentarioTrailer = findViewById(R.id.recyclerComentariosTrailer);
@@ -159,8 +170,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewComentarioTrailer.setLayoutManager(llm);
-
-        AdaptadorRecyclerComentarioTrailer adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(this,comentariosController.entregarListaComentariosTrailer(nombre));
 
         recyclerViewComentarioTrailer.setAdapter(adaptadorRecyclerComentarioTrailer);
         getVideos(id);
@@ -233,7 +242,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
             irAlLogIn(TrailerActivity.KEY_OUT_LOGIN_COMPARTIR);
         }
     }
-
 
     public void validarSiFavorito(final Integer id){
         if (currentUser!=null) {
@@ -331,7 +339,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
     public void agregarComentario(){
-        //TODO actualizar esta parte ver como cargar fragment para agregar comentario
         if (currentUser!=null){
             irAgregarComentario(TrailerActivity.KEY_OUT_AGREGAR_COMENTARIOS);
         }else {
@@ -369,11 +376,15 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                     agregarComentario();
                     break;
                 case TrailerActivity.KEY_OUT_AGREGAR_COMENTARIOS:
-                    //TODO LOGICA PARA AGREGAR COMENTARIO
-                    Bundle bundle = data.getExtras();
-                    String comentario = bundle.getString(KEY_COMENTARIO);
-                    String rating = bundle.getString(KEY_RATING);
-                    Toast.makeText(TrailerActivity.this, comentario + rating, Toast.LENGTH_SHORT).show();
+                    ComentariosController comentariosController = new ComentariosController();
+                    comentariosController.entregarListaComentariosTrailer(String.valueOf(id), this, new ResultListener<List<Comentario>>() {
+                        @Override
+                        public void finish(List<Comentario> Resultado) {
+                            adaptadorRecyclerComentarioTrailer.setComentarioTrailerList(Resultado);
+                        }
+                    });
+
+                    Toast.makeText(TrailerActivity.this, "Gracias por Compartir", Toast.LENGTH_SHORT).show();
                     break;
             }
         }else {
@@ -386,14 +397,8 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         return intent;
     }
 
-    public static Intent respuestaAgregarComentario(String texto,float rating){
+    public static Intent respuestaAgregarComentario(){
         Intent intent = new Intent();
-
-        Bundle bundle = new Bundle();
-        bundle.putString(KEY_COMENTARIO, texto);
-        bundle.putString(KEY_RATING, String.valueOf(rating));
-
-        intent.putExtras(bundle);
         return intent;
     }
 

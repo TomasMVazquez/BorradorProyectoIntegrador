@@ -11,7 +11,12 @@ import android.view.ViewGroup;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
+import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
+import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentariosCompletos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,20 +34,27 @@ public class ComentariosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_comentarios, container, false);
+        //adaptador
+        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(),new ArrayList<Comentario>());
 
         //datos
         ComentariosController comentariosController = new ComentariosController();
 
         //Recycler
-        RecyclerView recyclerViewComentario = view.findViewById(R.id.recyclerComentarios);
+        final RecyclerView recyclerViewComentario = view.findViewById(R.id.recyclerComentarios);
         recyclerViewComentario.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerViewComentario.setLayoutManager(llm);
 
-        AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(),comentariosController.entregarListaComentarios());
-        recyclerViewComentario.setAdapter(adaptadorRecyclerComentariosCompletos);
+        comentariosController.entregarListaComentarios(view.getContext(), new ResultListener<List<Comentario>>() {
+            @Override
+            public void finish(List<Comentario> Resultado) {
+                adaptadorRecyclerComentariosCompletos.setComentarioList(Resultado);
+            }
+        });
 
+        recyclerViewComentario.setAdapter(adaptadorRecyclerComentariosCompletos);
         return view;
     }
 
