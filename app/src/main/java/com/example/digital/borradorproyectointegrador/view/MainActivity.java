@@ -36,6 +36,7 @@ import com.example.digital.borradorproyectointegrador.controller.ControllerPelic
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
 import com.example.digital.borradorproyectointegrador.controller.ControllerUsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.controller.ControllerVideo;
+import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
@@ -216,7 +217,9 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                     UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+
                     if (usuario.getPeliculasFavoritas()!=null){
                         for (int i = 0; i < usuario.getPeliculasFavoritas().size(); i++) {
                             controllerPelicula.entregarUnaPelicula(usuario.getPeliculasFavoritas().get(i), MainActivity.this, new ResultListener<Peliculas>() {
@@ -512,6 +515,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
+        bundle.putString(TrailerActivity.KEY_POSTER_PATH,peliculas.getPoster_path());
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -524,6 +528,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         bundle.putString(TrailerActivity.KEY_NOMBRE, Serie.getName());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), Serie.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, Serie.getOverview());
+        bundle.putString(TrailerActivity.KEY_POSTER_PATH,Serie.getPoster_path());
         intent.putExtras(bundle);
         startActivity(intent);
     }

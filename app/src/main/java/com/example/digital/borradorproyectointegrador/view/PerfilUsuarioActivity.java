@@ -72,7 +72,8 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         TextView cantComentariosPerfil = findViewById(R.id.cantComentariosPerfil);
         RecyclerView recyclerComentariosPerfil = findViewById(R.id.recyclerComentariosPerfil);
 
-        Glide.with(this).load(currentUser.getPhotoUrl()).into(perfilImagen);
+        String photo = currentUser.getPhotoUrl() + "?height=500";
+        Glide.with(this).load(photo).into(perfilImagen);
         nombrePerfil.setText(currentUser.getDisplayName());
 //        usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getEmail());
 //        cantMeGustaPerfil.setText((CharSequence) usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_me_gusta)));

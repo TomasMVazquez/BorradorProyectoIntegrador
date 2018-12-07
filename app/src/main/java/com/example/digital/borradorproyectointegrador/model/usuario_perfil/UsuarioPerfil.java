@@ -1,6 +1,7 @@
 package com.example.digital.borradorproyectointegrador.model.usuario_perfil;
 
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 
 import java.util.List;
 
@@ -16,14 +17,14 @@ public class UsuarioPerfil {
     private Integer cantidadComentarios;
     private List<Integer> peliculasFavoritas;
     private List<Integer> seriesFavoritas;
-    private List<String> idMisComentarios;
+    private List<Comentario> idMisComentarios;
 
     //constructor
 
     public UsuarioPerfil() {
     }
 
-    public UsuarioPerfil(String uId, String email, String imagenPerfil, String nombre, Integer cantidadMeGusta , Integer cantidadCompartidos, Integer cantidadComentarios, List<Integer> peliculasFavoritas, List<Integer> seriesFavoritas, List<String> idMisComentarios) {
+    public UsuarioPerfil(String uId, String email, String imagenPerfil, String nombre, Integer cantidadMeGusta , Integer cantidadCompartidos, Integer cantidadComentarios, List<Integer> peliculasFavoritas, List<Integer> seriesFavoritas, List<Comentario> idMisComentarios) {
         this.uId = uId;
         this.email=email;
         this.imagenPerfil = imagenPerfil;
@@ -74,7 +75,7 @@ public class UsuarioPerfil {
         return seriesFavoritas;
     }
 
-    public List<String> getIdMisComentarios() {
+    public List<Comentario> getIdMisComentarios() {
         return idMisComentarios;
     }
 

@@ -23,6 +23,7 @@ import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
+import com.example.digital.borradorproyectointegrador.view.AgregarComentarioActivity;
 import com.example.digital.borradorproyectointegrador.view.MainActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -108,6 +109,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
+        bundle.putString(TrailerActivity.KEY_POSTER_PATH,peliculas.getPoster_path());
         intent.putExtras(bundle);
         startActivity(intent);
     }

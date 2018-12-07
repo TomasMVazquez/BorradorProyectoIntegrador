@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
+import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,16 +25,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AgregarComentarioActivity extends AppCompatActivity {
 
     public static final String KEY_ID="id";
     public static final String KEY_TIPO="tipo";
     public static final String KEY_TITLE="title";
+    public static final String KEY_POSTER_PATH="poster";
 
     private Integer idPelioSerie;
     private String title;
     private Integer valoracion;
     private Integer tipo;
+    private String posterPath;
+    private Integer cantComentarios;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -64,6 +71,7 @@ public class AgregarComentarioActivity extends AppCompatActivity {
         idPelioSerie = bundle.getInt(KEY_ID);
         tipo = bundle.getInt(KEY_TIPO);
         title = bundle.getString(KEY_TITLE);
+        posterPath = bundle.getString(KEY_POSTER_PATH);
 
         //TODO como sacar laimagen
 
@@ -94,8 +102,26 @@ public class AgregarComentarioActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String id_1 = String.valueOf(idPelioSerie);
                                 DatabaseReference nuevoComentarioDB = comentariosDB.child(id_1);
-                                nuevoComentarioDB.child(currentUser.getUid()).setValue(new Comentario(idPelioSerie,tipo,title,"","",currentUser.getDisplayName(),valoracion,texto));
-                                usuarioPerfilDB.child(id_1).setValue(new Comentario(title,idPelioSerie,tipo,"",currentUser.getDisplayName(),valoracion,texto));
+                                String photo = currentUser.getPhotoUrl() + "?height=500";
+
+                                nuevoComentarioDB.child(currentUser.getUid()).setValue(new Comentario(idPelioSerie,tipo,title,posterPath,photo,currentUser.getDisplayName(),valoracion,texto));
+                                //usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_id_comentarios)).child(id_1).setValue(new Comentario(title,idPelioSerie,tipo,photo,currentUser.getDisplayName(),valoracion,texto));
+
+                                usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        UsuarioPerfil usuarioPerfil = dataSnapshot.getValue(UsuarioPerfil.class);
+                                        cantComentarios = usuarioPerfil.getCantidadComentarios();
+                                        cantComentarios = cantComentarios + 1;
+                                        usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_cant_comentarios)).setValue(cantComentarios);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
                             }
 
                             @Override

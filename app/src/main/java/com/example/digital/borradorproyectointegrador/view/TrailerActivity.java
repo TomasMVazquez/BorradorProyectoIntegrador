@@ -79,11 +79,12 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     public static final String KEY_COMENTARIO = "comentario";
     public static final String KEY_RATING = "rating";
-
+    public static final String KEY_POSTER_PATH="poster";
 
     private Integer tipo;
     private String nombre;
     private Integer id;
+    private String poster_path;
     private Button btnFavorito;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -133,6 +134,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         Integer cantEstrellasData = bundle.getInt(KEY_CANT_ESTRELLAS);
         nombre = bundle.getString(KEY_NOMBRE);
         String resumen = bundle.getString(KEY_RESUMEN);
+        poster_path = bundle.getString(KEY_POSTER_PATH);
 
         id = bundle.getInt(String.valueOf(KEY_ID));
         validarSiFavorito(id);
@@ -349,6 +351,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         bundle.putInt(AgregarComentarioActivity.KEY_ID,id);
         bundle.putInt(AgregarComentarioActivity.KEY_TIPO,tipo);
         bundle.putString(AgregarComentarioActivity.KEY_TITLE,nombre);
+        bundle.putString(AgregarComentarioActivity.KEY_POSTER_PATH,poster_path);
         intentAccount.putExtras(bundle);
         startActivityForResult(intentAccount,llave);
     }

@@ -92,7 +92,7 @@ public class PeliculaAdaptador extends RecyclerView.Adapter {
 
             RequestOptions requestOptions = new RequestOptions();
             Glide.with(context)
-                    .load("https://image.tmdb.org/t/p/w500" + peliculas.getPoster_path())
+                    .load(context.getResources().getString(R.string.poster_path) + peliculas.getPoster_path())
                     .apply(requestOptions)
                     .into(imagen);
 

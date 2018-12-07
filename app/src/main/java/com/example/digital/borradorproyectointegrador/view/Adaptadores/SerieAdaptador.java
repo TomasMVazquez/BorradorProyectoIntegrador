@@ -88,7 +88,7 @@ public class SerieAdaptador extends RecyclerView.Adapter {
         public void cargar(Serie serie,Context context){
             RequestOptions requestOptions = new RequestOptions();
             Glide.with(context)
-                    .load("https://image.tmdb.org/t/p/w500" + serie.getPoster_path())
+                    .load(context.getResources().getString(R.string.poster_path) + serie.getPoster_path())
                     .apply(requestOptions)
                     .into(imagen);
 

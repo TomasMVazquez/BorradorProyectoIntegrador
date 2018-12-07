@@ -6,6 +6,7 @@
     <string name="language">Es</string>
     <string name="sort_by">popularity.desc</string>
     <string name="timezone">America/BuenosAires</string>
+    <string name="poster_path">https://image.tmdb.org/t/p/w500</string>
 
 
     //Pantalla Main

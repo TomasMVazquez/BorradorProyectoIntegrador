@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 
 import com.example.digital.borradorproyectointegrador.R;
+import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -186,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
 
         List<Integer> peliculasFavoritas = new ArrayList<>();
         List<Integer> seriesFavoritas = new ArrayList<>();
-        List<String> idMisComentarios = new ArrayList<>();
+        List<Comentario> idMisComentarios = new ArrayList<>();
 
         id.setValue(new UsuarioPerfil(uId,email,imagen, nombre,0,0,0,peliculasFavoritas,seriesFavoritas,idMisComentarios));
     }

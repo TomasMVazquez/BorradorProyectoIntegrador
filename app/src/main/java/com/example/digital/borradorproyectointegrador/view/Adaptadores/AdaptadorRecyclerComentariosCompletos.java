@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 
@@ -77,8 +78,18 @@ public class AdaptadorRecyclerComentariosCompletos extends RecyclerView.Adapter 
 
         //metodo para cargar data
         public void cargar(Comentario comentario){
-//            Glide.with(context).load(comentario.getIvImagenPeliculaComentario()).into(ivImagenPeliculaComentario);
-//            Glide.with(context).load(comentario.getIvImagenUsuarioComentario()).into(ivImagenUsuarioComentario);
+
+            RequestOptions requestOptions = new RequestOptions();
+            Glide.with(context)
+                    .load(context.getResources().getString(R.string.poster_path) + comentario.getIvImagenPeliculaComentario())
+                    .apply(requestOptions)
+                    .into(ivImagenPeliculaComentario);
+
+            Glide.with(context)
+                    .load(comentario.getIvImagenUsuarioComentario())
+                    .apply(requestOptions)
+                    .into(ivImagenUsuarioComentario);
+
             tvUsuarioComentario.setText(comentario.getTvUsuarioComentario());
             tvComentarioComentario.setText(comentario.getTvComentarioComentario());
             rbUsuarioAPeliculaComentario.setRating(comentario.getCantidadEstrellasAPelicula());

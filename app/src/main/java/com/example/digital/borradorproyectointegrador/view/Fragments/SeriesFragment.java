@@ -20,6 +20,7 @@ import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.SerieAdaptador;
+import com.example.digital.borradorproyectointegrador.view.AgregarComentarioActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 
 import java.util.List;
@@ -64,6 +65,7 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
         bundle.putString(TrailerActivity.KEY_NOMBRE, serie.getName());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), serie.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, serie.getOverview());
+        bundle.putString(TrailerActivity.KEY_POSTER_PATH,serie.getPoster_path());
         intent.putExtras(bundle);
         startActivity(intent);
     }
