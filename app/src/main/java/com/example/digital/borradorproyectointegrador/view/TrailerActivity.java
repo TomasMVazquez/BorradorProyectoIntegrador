@@ -383,7 +383,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                             adaptadorRecyclerComentarioTrailer.setComentarioTrailerList(Resultado);
                         }
                     });
-                    
+
                     Toast.makeText(TrailerActivity.this, "Gracias por Compartir", Toast.LENGTH_SHORT).show();
                     break;
             }

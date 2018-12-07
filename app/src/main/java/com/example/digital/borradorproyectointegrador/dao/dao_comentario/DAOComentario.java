@@ -2,10 +2,12 @@ package com.example.digital.borradorproyectointegrador.dao.dao_comentario;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,15 +45,57 @@ public class DAOComentario {
         });
     }
 
-    public void dameComentarios(Context context, final ResultListener<List<Comentario>> listResultListener){
+    public void dameComentarios(final Context context, final ResultListener<List<Comentario>> listResultListener){
         //Gerente
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mReference = mDatabase.getReference();
         DatabaseReference comentariosDB = mReference.child(context.getResources().getString(R.string.child_base_comentarios));
 
         final List<Comentario> comentarioList = new ArrayList<>();
+        final List<String> ids = new ArrayList<>();
 
-        listResultListener.finish(comentarioList);
+        comentariosDB.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                for (DataSnapshot child:dataSnapshot.getChildren()) {
+                    comentarioList.add(child.getValue(Comentario.class));
+                    listResultListener.finish(comentarioList);
+//                    ids.add(child.getKey());
+                }
+//                for (String pelicula:ids) {
+//                    dameComentariosPeli(pelicula, context, new ResultListener<List<Comentario>>() {
+//                        @Override
+//                        public void finish(List<Comentario> Resultado) {
+//                            comentarioList.addAll(Resultado);
+//                            listResultListener.finish(comentarioList);
+//                        }
+//                    });
+//                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
 }
