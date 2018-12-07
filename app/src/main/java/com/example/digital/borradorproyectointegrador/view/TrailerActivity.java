@@ -84,6 +84,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     private Integer tipo;
     private String nombre;
+    private String resumen;
     private Integer id;
     private String poster_path;
     private Button btnFavorito;
@@ -138,7 +139,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         String imageData = bundle.getString(KEY_IMAGE);
         Integer cantEstrellasData = bundle.getInt(KEY_CANT_ESTRELLAS);
         nombre = bundle.getString(KEY_NOMBRE);
-        String resumen = bundle.getString(KEY_RESUMEN);
+        resumen = bundle.getString(KEY_RESUMEN);
         poster_path = bundle.getString(KEY_POSTER_PATH);
 
         id = bundle.getInt(String.valueOf(KEY_ID));

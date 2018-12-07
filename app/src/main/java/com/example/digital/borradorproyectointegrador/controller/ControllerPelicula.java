@@ -20,7 +20,6 @@ public class ControllerPelicula {
         if (Util.hayInternet(context)){
 
             DAOPelicula daoPelicula = new DAOPelicula();
-
             daoPelicula.buscarPeliculas(context,new ResultListener<List<Peliculas>>() {
                 @Override
                 public void finish(List<Peliculas> Resultado) {
@@ -40,7 +39,6 @@ public class ControllerPelicula {
         if (Util.hayInternet(context)){
 
             DAOPelicula daoPelicula = new DAOPelicula();
-
             daoPelicula.buscarPeliculas(context,new ResultListener<List<Peliculas>>() {
                 @Override
                 public void finish(List<Peliculas> Resultado) {
