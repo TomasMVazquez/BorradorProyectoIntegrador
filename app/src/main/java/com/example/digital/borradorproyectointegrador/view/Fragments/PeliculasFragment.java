@@ -3,7 +3,9 @@ package com.example.digital.borradorproyectointegrador.view.Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -106,9 +108,9 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
     public void irTrailer(Peliculas peliculas) {
         Intent intent = new Intent(getActivity(), TrailerActivity.class);
         Bundle bundle = new Bundle();
-        @SuppressLint({"NewApi", "LocalSuppress"}) Integer cantEstr = Math.toIntExact(Math.round(((peliculas.getVote_average() * 5) / 10)));
+        Integer cantEstr = Math.getExponent(Math.round(((peliculas.getVote_average() * 5) / 10)));
         bundle.putInt(TrailerActivity.KEY_CANT_ESTRELLAS,cantEstr);
-        bundle.putInt(TrailerActivity.KEY_TIPO,1);
+        bundle.putInt(TrailerActivity.KEY_TIPO,0);
         bundle.putString(TrailerActivity.KEY_NOMBRE, peliculas.getTitle());
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());

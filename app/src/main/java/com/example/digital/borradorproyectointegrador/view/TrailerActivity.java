@@ -208,7 +208,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         // SI EL USUARIO ESTA LOGUEADO, ENTRA
         if (currentUser!=null){
             // SI EL TIPO ES MOVIE:
-            if (tipo == 1){
+            if (tipo == 0){
                 Toast.makeText(TrailerActivity.this, "Compartir Pelicula", Toast.LENGTH_SHORT).show();
                 //TODO actualizar esta parte:
                 //Creamos un share de tipo ACTION_SENT
@@ -287,7 +287,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
-                    if (tipo==1) {
+                    if (tipo==0) {
                         List<Integer> pelis = new ArrayList<>();
                         if (usuario.getPeliculasFavoritas()!=null){
                             for (Integer peli:usuario.getPeliculasFavoritas()) {
@@ -404,7 +404,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
     private void getVideos(Integer movieId) {
-        if (tipo==1){
+        if (tipo==0){
             daoVideo = new DAOVideo();
             daoVideo.traerVideos(movieId, new ResultListener<List<Video>>() {
                 @SuppressLint("ObsoleteSdkInt")
