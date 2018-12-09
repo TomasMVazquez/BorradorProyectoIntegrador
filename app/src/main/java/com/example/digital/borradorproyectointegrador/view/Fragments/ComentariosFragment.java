@@ -3,6 +3,7 @@ package com.example.digital.borradorproyectointegrador.view.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,8 +23,11 @@ import com.example.digital.borradorproyectointegrador.view.PerfilUsuarioActivity
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +72,7 @@ public class ComentariosFragment extends Fragment {
 
             @Override
             public void botonesComentario(Integer boton, FirebaseUser user, Comentario comentario) {
-                DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(comentario.getUserId());
+                final DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(comentario.getUserId()).child(getResources().getString(R.string.child_usuario_perfil_cant_me_gusta));
                 DatabaseReference comentariosDB = mReference.child(getResources().getString(R.string.child_base_comentarios));
                 switch (boton){
                     case 0: //BOTON ME GUSTA
@@ -79,6 +83,17 @@ public class ComentariosFragment extends Fragment {
                         }
                         comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(sumarUno);
                         Toast.makeText(getContext(), "Gracias por participar!", Toast.LENGTH_SHORT).show();
+                        usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                usuarioPerfilDB.setValue(Integer.valueOf(String.valueOf(dataSnapshot.getValue()))+1);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                         break;
                     case 1: //BOTON NO ME GUSTA
                         if (comentario.getTvCantMeGusta()!=null) {
@@ -88,6 +103,17 @@ public class ComentariosFragment extends Fragment {
                         }
                         comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(restarUno);
                         Toast.makeText(getContext(), "Gracias por participar!", Toast.LENGTH_SHORT).show();
+                        usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                usuarioPerfilDB.setValue(Integer.valueOf(String.valueOf(dataSnapshot.getValue()))-1);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                         break;
                     case 2: //BOTON COMPARTIR
 

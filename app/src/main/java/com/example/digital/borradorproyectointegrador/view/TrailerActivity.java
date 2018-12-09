@@ -569,7 +569,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     @Override
     public void botonesComentario(Integer boton, FirebaseUser user, Comentario comentario) {
-        DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(comentario.getUserId());
+        final DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(comentario.getUserId()).child(getResources().getString(R.string.child_usuario_perfil_cant_me_gusta));
         DatabaseReference comentariosDB = mReference.child(getResources().getString(R.string.child_base_comentarios));
         Integer sumarUno;
         Integer restarUno;
@@ -582,6 +582,17 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 }
                 comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(sumarUno);
                 Toast.makeText(TrailerActivity.this, "Gracias por participar!", Toast.LENGTH_SHORT).show();
+                usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        usuarioPerfilDB.setValue(Integer.valueOf(String.valueOf(dataSnapshot.getValue()))+1);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 break;
             case 1: //BOTON NO ME GUSTA
                 if (comentario.getTvCantMeGusta()!=null) {
@@ -591,6 +602,17 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
                 }
                 comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(restarUno);
                 Toast.makeText(TrailerActivity.this, "Gracias por participar!", Toast.LENGTH_SHORT).show();
+                usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        usuarioPerfilDB.setValue(Integer.valueOf(String.valueOf(dataSnapshot.getValue()))-1);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 break;
             case 2: //BOTON COMPARTIR
 
