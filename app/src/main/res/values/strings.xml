@@ -71,8 +71,6 @@
     <string name="child_usuario_perfil_series_favoritas">seriesFavoritas</string>
     <string name="child_usuario_perfil_id_comentarios">idMisComentarios</string>
     <string name="child_base_comentarios">todosLosComentarios</string>
-    
-
 
     //PerfilUsuario
     <string name="cant_de">Cantidad de </string>
@@ -82,4 +80,10 @@
     <string name="hint_agregar">Agruegue aquí sus comentarios</string>
     <string name="btn_agregar">Subir Comentario</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
+
+    //Compartir Comentarios
+    <string name="toast_inicio">Compartir comentario</string>
+    <string name="compartir_comentario_titulo">Comentario sobre</string>
+    <string name="compartir_comentario_quien">comentó</string>
+
 </resources>

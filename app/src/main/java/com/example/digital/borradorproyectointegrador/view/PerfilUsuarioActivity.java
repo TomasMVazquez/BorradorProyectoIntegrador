@@ -121,7 +121,20 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                         });
                         break;
                     case 2: //BOTON COMPARTIR
+                        String titulo = getResources().getString(R.string.compartir_comentario_titulo) + " " + comentario.getPeliculaComentada() + ": ";
+                        String mensaje = titulo + " " + comentario.getTvUsuarioComentario() + " " + getResources().getString(R.string.compartir_comentario_quien) + " " + comentario.getTvComentarioComentario();
 
+                        Toast.makeText(PerfilUsuarioActivity.this, getResources().getString(R.string.toast_inicio), Toast.LENGTH_SHORT).show();
+                        //Creamos un share de tipo ACTION_SENT
+                        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                        //Indicamos que voy a compartir texto
+                        share.setType("text/plain");
+                        //Le agrego un título
+                        share.putExtra(Intent.EXTRA_SUBJECT, titulo);
+                        //Le agrego el texto a compartir (Puede ser un link tambien)
+                        share.putExtra(Intent.EXTRA_TEXT, mensaje);
+                        //Hacemos un start para que comparta el contenido.
+                        startActivity(Intent.createChooser(share, getResources().getString(R.string.toast_inicio)));
                         break;
                 }
                 recargarRecycler(comentario.getUserId());
