@@ -43,57 +43,67 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.sothree.slidinguppanel.SlidingUpPanelLayout
+                xmlns:sothree="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sliding_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                sothree:umanoPanelHeight="250dp"
+                sothree:umanoShadowHeight="4dp"
+                sothree:umanoScrollableView="@id/viewPager"
+                >
+
                 <LinearLayout
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:id="@+id/llFav"
                     >
+                    <TextView
+                        android:id="@+id/favoritos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Favoritos"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorTextOnS"
+                        android:textStyle="bold|italic"
+                        />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
                         <TextView
-                            android:id="@+id/favoritos"
+                            android:id="@+id/textSinFav"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Favoritos"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/favoritosVacio"
                             android:textSize="20sp"
                             android:textColor="@color/colorTextOnS"
-                            android:textStyle="bold|italic"
+                            android:gravity="center"
                             />
 
-                        <FrameLayout
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recylcerViewFavoritos"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            />
 
-                                <TextView
-                                    android:id="@+id/textSinFav"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:text="@string/favoritosVacio"
-                                    android:textSize="20sp"
-                                    android:textColor="@color/colorTextOnS"
-                                    android:gravity="center"
-                                    />
-
-                                <android.support.v7.widget.RecyclerView
-                                    android:id="@+id/recylcerViewFavoritos"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    />
-
-                        </FrameLayout>
-
-
-
+                    </FrameLayout>
                 </LinearLayout>
 
                 <android.support.v4.view.ViewPager
-                    android:layout_below="@+id/llFav"
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
+            </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fabFiltro"
