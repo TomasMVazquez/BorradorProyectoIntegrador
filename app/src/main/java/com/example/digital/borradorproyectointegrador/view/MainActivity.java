@@ -164,6 +164,9 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         });
 
         final TextView nombre = findViewById(R.id.titulo);
+        final SlidingPaneLayout slidingPaneLayout = findViewById(R.id.sliding_layout);
+        final LinearLayout sliding_linear = findViewById(R.id.sliding_linear);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -178,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                     nombre.setText(getResources().getString(R.string.seriesTodas));
                 }else {
                     llFav.setVisibility(View.GONE);
-                    nombre.setVisibility(View.GONE);
+                    nombre.setText(getResources().getString(R.string.textViewComentarios));
                 }
             }
 
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                     nombre.setText(getResources().getString(R.string.seriesTodas));
                 }else {
                     llFav.setVisibility(View.GONE);
-                    nombre.setVisibility(View.GONE);
+                    nombre.setText(getResources().getString(R.string.textViewComentarios));
                 }
 
             }
