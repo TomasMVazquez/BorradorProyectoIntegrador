@@ -57,20 +57,6 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
-
-        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(this, new AdaptadorRecyclerComentarioTrailer.ComentarioInterface() {
-            @Override
-            public void irPerfil(Comentario comentario) {
-                Toast.makeText(PerfilUsuarioActivity.this, "Ya estas en el perfil", Toast.LENGTH_SHORT).show();
-            }
-        }, new ArrayList<Comentario>());
-        // TOOLBAR
-        toolbar = findViewById(R.id.toolbarPerfil);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Profile");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         //usuario
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -78,6 +64,39 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mReference  = mDatabase.getReference();
 
+        //adaptador
+        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(currentUser, this, new AdaptadorRecyclerComentariosCompletos.ComentarioInterface() {
+            @Override
+            public void irPerfil(Comentario comentario) {
+                Toast.makeText(PerfilUsuarioActivity.this, "Ya estas en el perfil", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void botonesComentario(Integer boton, FirebaseUser user, Comentario comentario) {
+                DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(comentario.getUserId());
+                DatabaseReference comentariosDB = mReference.child(getResources().getString(R.string.child_base_comentarios));
+                switch (boton){
+                    case 0: //BOTON ME GUSTA
+                        Integer sumarUno = comentario.getTvCantMeGusta() + 1;
+                        comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(sumarUno);
+                        break;
+                    case 1: //BOTON NO ME GUSTA
+                        Integer restarUno = comentario.getTvCantMeGusta() - 1;
+                        comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(restarUno);
+                        break;
+                    case 2: //BOTON COMPARTIR
+
+                        break;
+                }
+            }
+        }, new ArrayList<Comentario>());
+
+
+        // TOOLBAR
+        toolbar = findViewById(R.id.toolbarPerfil);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
@@ -18,6 +20,10 @@ import com.example.digital.borradorproyectointegrador.view.Adaptadores.Adaptador
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentariosCompletos;
 import com.example.digital.borradorproyectointegrador.view.PerfilUsuarioActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +33,9 @@ import java.util.List;
  */
 public class ComentariosFragment extends Fragment {
 
+    private Integer sumarUno;
+    private Integer restarUno;
+    private AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos;
 
     public ComentariosFragment() {
         // Required empty public constructor
@@ -38,8 +47,15 @@ public class ComentariosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_comentarios, container, false);
+        //usuario
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //Gerente
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference mReference  = mDatabase.getReference();
+
         //adaptador
-        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(view.getContext(), new AdaptadorRecyclerComentarioTrailer.ComentarioInterface() {
+        adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(currentUser, view.getContext(), new AdaptadorRecyclerComentariosCompletos.ComentarioInterface() {
             @Override
             public void irPerfil(Comentario comentario) {
                 String user = comentario.getUserId();
@@ -49,10 +65,38 @@ public class ComentariosFragment extends Fragment {
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
+
+            @Override
+            public void botonesComentario(Integer boton, FirebaseUser user, Comentario comentario) {
+                DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(comentario.getUserId());
+                DatabaseReference comentariosDB = mReference.child(getResources().getString(R.string.child_base_comentarios));
+                switch (boton){
+                    case 0: //BOTON ME GUSTA
+                        if (comentario.getTvCantMeGusta()!=null) {
+                            sumarUno = comentario.getTvCantMeGusta() + 1;
+                        }else {
+                            sumarUno = 1;
+                        }
+                        comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(sumarUno);
+                        Toast.makeText(getContext(), "Gracias por sumar!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1: //BOTON NO ME GUSTA
+                        if (comentario.getTvCantMeGusta()!=null) {
+                            restarUno = comentario.getTvCantMeGusta() - 1;
+                        }else {
+                            restarUno = -1;
+                        }
+                        comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(restarUno);
+                        Toast.makeText(getContext(), "Gracias por participar!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2: //BOTON COMPARTIR
+
+                        break;
+                }
+                recargarRecycler();
+            }
         }, new ArrayList<Comentario>());
 
-        //datos
-        ComentariosController comentariosController = new ComentariosController();
 
         //Recycler
         final RecyclerView recyclerViewComentario = view.findViewById(R.id.recyclerComentarios);
@@ -61,15 +105,23 @@ public class ComentariosFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerViewComentario.setLayoutManager(llm);
 
-        comentariosController.entregarListaComentarios(view.getContext(), new ResultListener<List<Comentario>>() {
+        recargarRecycler();
+
+
+        recyclerViewComentario.setAdapter(adaptadorRecyclerComentariosCompletos);
+        return view;
+    }
+
+    public void recargarRecycler(){
+
+        //datos
+        ComentariosController comentariosController = new ComentariosController();
+        comentariosController.entregarListaComentarios(getContext(), new ResultListener<List<Comentario>>() {
             @Override
             public void finish(List<Comentario> Resultado) {
                 adaptadorRecyclerComentariosCompletos.setComentarioList(Resultado);
             }
         });
-
-        recyclerViewComentario.setAdapter(adaptadorRecyclerComentariosCompletos);
-        return view;
     }
 
 }

@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,11 +102,10 @@ public class AgregarComentarioActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String id_1 = String.valueOf(idPelioSerie);
-                                DatabaseReference nuevoComentarioDB = comentariosDB.child(id_1);
-                                String photo = currentUser.getPhotoUrl() + "?height=500";
+                                final DatabaseReference nuevoComentarioDB = comentariosDB.child(id_1);
+                                final String photo = currentUser.getPhotoUrl() + "?height=500";
 
                                 nuevoComentarioDB.child(currentUser.getUid()).setValue(new Comentario(idPelioSerie,tipo,title,posterPath,photo,currentUser.getDisplayName(),valoracion,texto,currentUser.getUid()));
-                                //usuarioPerfilDB.child(getResources().getString(R.string.child_usuario_perfil_id_comentarios)).child(id_1).setValue(new Comentario(title,idPelioSerie,tipo,photo,currentUser.getDisplayName(),valoracion,texto));
 
                                 usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override

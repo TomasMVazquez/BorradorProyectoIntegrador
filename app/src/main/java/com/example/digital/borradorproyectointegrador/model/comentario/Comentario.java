@@ -14,6 +14,8 @@ public class Comentario {
     private Integer cantidadEstrellasAPelicula;
     private String tvComentarioComentario;
     private String userId;
+    private Integer tvCantMeGusta;
+
 
     //Constructor Completo
     public Comentario(Integer idPelioSerie,Integer tipo,String peliculaComentada, String ivImagenPeliculaComentario, String ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario, String userId) {
@@ -26,6 +28,7 @@ public class Comentario {
         this.cantidadEstrellasAPelicula = cantidadEstrellasAPelicula;
         this.tvComentarioComentario = tvComentarioComentario;
         this.userId = userId;
+        this.tvCantMeGusta = 0;
     }
     //ConstructorTrailer
     public Comentario(String peliculaComentada,Integer idPelioSerie,Integer tipo, String ivImagenUsuarioComentario, String tvUsuarioComentario, Integer cantidadEstrellasAPelicula, String tvComentarioComentario,String userId) {
@@ -37,12 +40,17 @@ public class Comentario {
         this.cantidadEstrellasAPelicula = cantidadEstrellasAPelicula;
         this.tvComentarioComentario = tvComentarioComentario;
         this.userId = userId;
+        this.tvCantMeGusta = 0;
     }
 
     public Comentario() {
     }
 
     //Getter
+
+    public Integer getTvCantMeGusta() {
+        return tvCantMeGusta;
+    }
 
     public String getUserId() {
         return userId;
