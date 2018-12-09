@@ -106,7 +106,7 @@
         >
 
         <ImageView
-            android:id="@+id/ivMeGustaComentario"
+            android:id="@+id/ivMeGustaComentarioT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_like"
@@ -115,7 +115,7 @@
             android:tint="@color/colorBlanco"
             />
         <ImageView
-            android:id="@+id/ivCompartirComentario"
+            android:id="@+id/ivCompartirComentarioT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_share"
@@ -124,7 +124,7 @@
             android:layout_alignParentEnd="true"
             />
         <ImageView
-            android:id="@+id/ivNoMeGustaComentario"
+            android:id="@+id/ivNoMeGustaComentarioT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_thumb_down_black_24dp"

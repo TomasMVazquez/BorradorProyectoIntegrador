@@ -53,6 +53,10 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private Toolbar toolbar;
 
+    private Integer sumarUno;
+    private Integer restarUno;
+    private AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +69,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         mReference  = mDatabase.getReference();
 
         //adaptador
-        final AdaptadorRecyclerComentariosCompletos adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(currentUser, this, new AdaptadorRecyclerComentariosCompletos.ComentarioInterface() {
+        adaptadorRecyclerComentariosCompletos = new AdaptadorRecyclerComentariosCompletos(currentUser, this, new AdaptadorRecyclerComentariosCompletos.ComentarioInterface() {
             @Override
             public void irPerfil(Comentario comentario) {
                 Toast.makeText(PerfilUsuarioActivity.this, "Ya estas en el perfil", Toast.LENGTH_SHORT).show();
@@ -77,17 +81,28 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                 DatabaseReference comentariosDB = mReference.child(getResources().getString(R.string.child_base_comentarios));
                 switch (boton){
                     case 0: //BOTON ME GUSTA
-                        Integer sumarUno = comentario.getTvCantMeGusta() + 1;
+                        if (comentario.getTvCantMeGusta()!=null) {
+                            sumarUno = comentario.getTvCantMeGusta() + 1;
+                        }else {
+                            sumarUno = 1;
+                        }
                         comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(sumarUno);
+                        Toast.makeText(PerfilUsuarioActivity.this, "Gracias por participar!", Toast.LENGTH_SHORT).show();
                         break;
                     case 1: //BOTON NO ME GUSTA
-                        Integer restarUno = comentario.getTvCantMeGusta() - 1;
+                        if (comentario.getTvCantMeGusta()!=null) {
+                            restarUno = comentario.getTvCantMeGusta() - 1;
+                        }else {
+                            restarUno = -1;
+                        }
                         comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(restarUno);
+                        Toast.makeText(PerfilUsuarioActivity.this, "Gracias por participar!", Toast.LENGTH_SHORT).show();
                         break;
                     case 2: //BOTON COMPARTIR
 
                         break;
                 }
+                recargarRecycler();
             }
         }, new ArrayList<Comentario>());
 
@@ -105,10 +120,8 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
         if (user!=null){
             usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(user);
-            usuarioComentairios = user;
         }else{
             usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
-            usuarioComentairios = currentUser.getUid();
         }
 
         //cargar datos
@@ -139,21 +152,23 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         });
 
         //recycler de comentarios
-        ComentariosController comentariosController = new ComentariosController();
         recyclerComentariosPerfil.setHasFixedSize(true);
-
         LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerComentariosPerfil.setLayoutManager(llm);
+        recyclerComentariosPerfil.setAdapter(adaptadorRecyclerComentariosCompletos);
+        recargarRecycler();
+    }
 
-        comentariosController.entregarMisComentarios(usuarioComentairios, this, new ResultListener<List<Comentario>>() {
+    public void recargarRecycler(){
+
+        //datos
+        ComentariosController comentariosController = new ComentariosController();
+        comentariosController.entregarListaComentarios(PerfilUsuarioActivity.this, new ResultListener<List<Comentario>>() {
             @Override
             public void finish(List<Comentario> Resultado) {
                 adaptadorRecyclerComentariosCompletos.setComentarioList(Resultado);
             }
         });
-
-        recyclerComentariosPerfil.setAdapter(adaptadorRecyclerComentariosCompletos);
-
     }
 
     @Override

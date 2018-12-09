@@ -103,9 +103,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trailer);
 
-        //AdaptadorComentario
-        adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(this,this,new ArrayList<Comentario>());
-
         //usuario
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -113,6 +110,8 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         mDatabase = FirebaseDatabase.getInstance();
         mReference  = mDatabase.getReference();
 
+        //AdaptadorComentario
+        adaptadorRecyclerComentarioTrailer = new AdaptadorRecyclerComentarioTrailer(currentUser,this,this,new ArrayList<Comentario>());
 
         //PARA USAR EL APPCOMPAT JUNTO CON EL DE YOUTUBE
         delegate = AppCompatDelegate.create(this, this);
@@ -156,15 +155,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         textViewResumen.setText(resumen);
 
         //Cargar Comentarios
-        //Datos
-        ComentariosController comentariosController = new ComentariosController();
-        comentariosController.entregarListaComentariosTrailer(String.valueOf(id), this, new ResultListener<List<Comentario>>() {
-            @Override
-            public void finish(List<Comentario> Resultado) {
-                adaptadorRecyclerComentarioTrailer.setComentarioTrailerList(Resultado);
-            }
-        });
-
         //Recycler
         RecyclerView recyclerViewComentarioTrailer = findViewById(R.id.recyclerComentariosTrailer);
         recyclerViewComentarioTrailer.setHasFixedSize(true);
@@ -173,6 +163,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         recyclerViewComentarioTrailer.setLayoutManager(llm);
 
         recyclerViewComentarioTrailer.setAdapter(adaptadorRecyclerComentarioTrailer);
+        recargarRecycler();
         getVideos(id);
 
         //FAVORITOS Y COMPARTIR
@@ -574,6 +565,50 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         bundle.putString(PerfilUsuarioActivity.KEY_USER,user);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void botonesComentario(Integer boton, FirebaseUser user, Comentario comentario) {
+        DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(comentario.getUserId());
+        DatabaseReference comentariosDB = mReference.child(getResources().getString(R.string.child_base_comentarios));
+        Integer sumarUno;
+        Integer restarUno;
+        switch (boton){
+            case 0: //BOTON ME GUSTA
+                if (comentario.getTvCantMeGusta()!=null) {
+                    sumarUno = comentario.getTvCantMeGusta() + 1;
+                }else {
+                    sumarUno = 1;
+                }
+                comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(sumarUno);
+                Toast.makeText(TrailerActivity.this, "Gracias por participar!", Toast.LENGTH_SHORT).show();
+                break;
+            case 1: //BOTON NO ME GUSTA
+                if (comentario.getTvCantMeGusta()!=null) {
+                    restarUno = comentario.getTvCantMeGusta() - 1;
+                }else {
+                    restarUno = -1;
+                }
+                comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(restarUno);
+                Toast.makeText(TrailerActivity.this, "Gracias por participar!", Toast.LENGTH_SHORT).show();
+                break;
+            case 2: //BOTON COMPARTIR
+
+                break;
+        }
+        recargarRecycler();
+    }
+
+    public void recargarRecycler(){
+        //Datos
+        ComentariosController comentariosController = new ComentariosController();
+        comentariosController.entregarListaComentariosTrailer(String.valueOf(id), this, new ResultListener<List<Comentario>>() {
+            @Override
+            public void finish(List<Comentario> Resultado) {
+                adaptadorRecyclerComentarioTrailer.setComentarioTrailerList(Resultado);
+            }
+        });
+
     }
 }
 

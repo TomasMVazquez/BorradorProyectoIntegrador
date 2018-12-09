@@ -78,7 +78,7 @@ public class ComentariosFragment extends Fragment {
                             sumarUno = 1;
                         }
                         comentariosDB.child(comentario.getIdPelioSerie().toString()).child(comentario.getUserId()).child("tvCantMeGusta").setValue(sumarUno);
-                        Toast.makeText(getContext(), "Gracias por sumar!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Gracias por participar!", Toast.LENGTH_SHORT).show();
                         break;
                     case 1: //BOTON NO ME GUSTA
                         if (comentario.getTvCantMeGusta()!=null) {
