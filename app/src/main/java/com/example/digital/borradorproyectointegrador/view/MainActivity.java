@@ -112,13 +112,13 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         }
 
         //LLamar Navigation View
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //recycler
@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             }
         });
 
+        final TextView nombre = findViewById(R.id.titulo);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -170,11 +171,14 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                 if (position == 0){
                     llFav.setVisibility(View.VISIBLE);
                     recyclerViewFav.setAdapter(peliculaAdaptador);
+                    nombre.setText(getResources().getString(R.string.peliculasTodas));
                 }else if (position == 1){
                     llFav.setVisibility(View.VISIBLE);
                     recyclerViewFav.setAdapter(serieAdaptador);
+                    nombre.setText(getResources().getString(R.string.seriesTodas));
                 }else {
                     llFav.setVisibility(View.GONE);
+                    nombre.setVisibility(View.GONE);
                 }
             }
 
@@ -184,11 +188,14 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                 if (position == 0){
                     llFav.setVisibility(View.VISIBLE);
                     recyclerViewFav.setAdapter(peliculaAdaptador);
+                    nombre.setText(getResources().getString(R.string.peliculasTodas));
                 }else if (position == 1){
                     llFav.setVisibility(View.VISIBLE);
                     recyclerViewFav.setAdapter(serieAdaptador);
+                    nombre.setText(getResources().getString(R.string.seriesTodas));
                 }else {
                     llFav.setVisibility(View.GONE);
+                    nombre.setVisibility(View.GONE);
                 }
 
             }
@@ -363,6 +370,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             case 0:
                 final RecyclerView recyclerView = findViewById(R.id.recylcerViewPeliculas);
                 ControllerPelicula controllerPelicula = new ControllerPelicula();
+
                 controllerPelicula.entregarPeliculasGeneros(MainActivity.this, filtro, new ResultListener<List<Peliculas>>() {
                     @Override
                     public void finish(List<Peliculas> Resultado) {
@@ -381,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreFiltro = findViewById(R.id.peliculasTodas);
+                        TextView nombreFiltro = findViewById(R.id.titulo);
                         nombreFiltro.setText(nombre);
                     }
                 });
@@ -407,13 +415,14 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreSerieFiltro = findViewById(R.id.SeriesTodas);
-                        nombreSerieFiltro.setText(nombre);
+                        TextView nombreFiltro = findViewById(R.id.titulo);
+                        nombreFiltro.setText(nombre);
                     }
                 });
                 break;
             case 2:
-
+                TextView nombreFiltro = findViewById(R.id.titulo);
+                nombreFiltro.setVisibility(View.GONE);
                 break;
         }
 
@@ -440,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreFiltro = findViewById(R.id.peliculasTodas);
+                        TextView nombreFiltro = findViewById(R.id.titulo);
                         nombreFiltro.setText(getResources().getString(R.string.peliculasTodas));
                     }
                 });
@@ -463,13 +472,14 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreSerieFiltro = findViewById(R.id.SeriesTodas);
+                        TextView nombreSerieFiltro = findViewById(R.id.titulo);
                         nombreSerieFiltro.setText(getResources().getString(R.string.seriesTodas));
                     }
                 });
                 break;
             case 2:
-
+                TextView nombreFiltro = findViewById(R.id.titulo);
+                nombreFiltro.setVisibility(View.GONE);
                 break;
         }
     }

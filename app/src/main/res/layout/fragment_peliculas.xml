@@ -18,19 +18,6 @@
             android:background="@color/colorPrimaryDarkTrans"
             >
 
-            <TextView
-            android:id="@+id/peliculasTodas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:text="@string/peliculasTodas"
-            android:textSize="20sp"
-            android:textColor="@color/colorTextOnS"
-            android:textStyle="bold|italic"
-            />
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recylcerViewPeliculas"
                 android:layout_width="match_parent"

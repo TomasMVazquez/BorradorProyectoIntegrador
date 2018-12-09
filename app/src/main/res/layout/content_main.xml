@@ -52,6 +52,7 @@
                 sothree:umanoPanelHeight="250dp"
                 sothree:umanoShadowHeight="4dp"
                 sothree:umanoScrollableView="@id/viewPager"
+                sothree:umanoDragView="@id/titulo"
                 >
 
                 <LinearLayout
@@ -97,11 +98,30 @@
                     </FrameLayout>
                 </LinearLayout>
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewPager"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    />
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/titulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        tools:text="@string/peliculasTodas"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorTextOnS"
+                        android:textStyle="bold|italic"
+                        />
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                </LinearLayout>
+
             </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
 
