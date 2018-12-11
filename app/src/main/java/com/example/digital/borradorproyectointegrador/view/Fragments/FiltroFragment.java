@@ -30,7 +30,6 @@ public class FiltroFragment extends DialogFragment implements AdaptadorFiltros.F
     public static final String KEY_TAB="tab";
 
     private AdaptadorFiltros adaptadorFiltros;
-    private FragmentInterface fragmentInterface;
 
     private Integer tabFragment=null;
 

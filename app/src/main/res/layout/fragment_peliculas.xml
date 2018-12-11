@@ -4,12 +4,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.Fragments.PeliculasFragment">
+    tools:context=".view.Fragments.PeliculasFragment"
+    android:background="@color/colorPrimaryDarkTrans"
+    >
 
 
-    <ScrollView
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout_pelicula"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="250dp"
+        sothree:umanoShadowHeight="4dp"
+        sothree:umanoDragView="@id/tituloPeliculas"
+        >
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/llFav"
+            >
+            <TextView
+                android:id="@+id/favoritosP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/favoritos"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:textSize="20sp"
+                android:textColor="@color/colorTextOnS"
+                android:textStyle="bold|italic"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textSinFavP"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/favoritosVacio"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorTextOnS"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recylcerViewFavoritosP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    />
+
+            </FrameLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,6 +70,18 @@
             android:orientation="vertical"
             android:background="@color/colorPrimaryDarkTrans"
             >
+            <TextView
+                android:id="@+id/tituloPeliculas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="@string/peliculasTodas"
+                android:textSize="20sp"
+                android:textColor="@color/colorTextOnS"
+                android:textStyle="bold|italic"
+                />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recylcerViewPeliculas"
@@ -25,6 +90,5 @@
                 />
 
         </LinearLayout>
-    </ScrollView>
-
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </android.support.design.widget.CoordinatorLayout>

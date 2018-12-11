@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -20,9 +21,12 @@ import android.widget.TextView;
 
 import com.example.digital.borradorproyectointegrador.controller.ControllerGeneros;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
+import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
 import com.example.digital.borradorproyectointegrador.controller.ControllerUsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
+import com.example.digital.borradorproyectointegrador.model.serie.Serie;
+import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
@@ -31,6 +35,11 @@ import com.example.digital.borradorproyectointegrador.view.MainActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +47,8 @@ import java.util.List;
 
 public class PeliculasFragment extends Fragment implements PeliculaAdaptador.AdapterPeliInterface {
 
-    public static final String KEY_LISTA_FILTROS = "filtros";
-    public static final String KEY_TAB = "tab";
-
-    private OnFragmentInteractionListener mListener;
-    private List<Integer> listaFiltros = new ArrayList<>();
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    private PeliculaAdaptador peliculaAdaptador;
+    private ControllerPelicula controllerPelicula;
 
     public PeliculasFragment() {
         // Required empty public constructor
@@ -56,14 +60,28 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_peliculas, container, false);
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        //Usuarios
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mReference = mDatabase.getReference();
 
-        //Recycler view
+        //Adaptador Peliculas
+        peliculaAdaptador = new PeliculaAdaptador(view.getContext(),new ArrayList<Peliculas>(),this);
+
+        //recycler favoritos
+        RecyclerView recyclerViewFav = view.findViewById(R.id.recylcerViewFavoritosP);
+        recyclerViewFav.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerViewFav.setLayoutManager(llm);
+        recyclerViewFav.setAdapter(peliculaAdaptador);
+
+        //Recycler view de Peliculas
         //Lista
         final RecyclerView recyclerViewPeli = view.findViewById(R.id.recylcerViewPeliculas);
+        //Controller
+        controllerPelicula = new ControllerPelicula();
 
-        final ControllerPelicula controllerPelicula = new ControllerPelicula();
         controllerPelicula.entregarPeliculas(view.getContext(), new ResultListener<List<Peliculas>>() {
             @Override
             public void finish(List<Peliculas> Resultado) {
@@ -71,11 +89,46 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             }
         });
 
+        //Favoritos
 
+        if (currentUser !=null){
+            final List<Peliculas> favoritas = new ArrayList<>();
+            final TextView textSinFav = view.findViewById(R.id.textSinFavP);
+
+            DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+
+                    if (usuario.getPeliculasFavoritas()!=null){
+                        for (int i = 0; i < usuario.getPeliculasFavoritas().size(); i++) {
+                            controllerPelicula.entregarUnaPelicula(usuario.getPeliculasFavoritas().get(i), view.getContext(), new ResultListener<Peliculas>() {
+                                @Override
+                                public void finish(Peliculas Resultado) {
+                                    favoritas.add(Resultado);
+                                    peliculaAdaptador.setPeliculas(favoritas);
+                                    if (favoritas.size()>0){
+                                        textSinFav.setText("");
+                                    }else {
+                                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                                    }
+                                }
+                            });
+                        }
+                    }else{
+                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
+        }
         return view;
     }
-
-
 
     public void cargarRecyclerGrid(Context context, RecyclerView recyclerView,List<Peliculas> peliculas, PeliculaAdaptador.AdapterPeliInterface escuchador){
         recyclerView.setHasFixedSize(true);
@@ -85,23 +138,6 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
 
         PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(context,peliculas,escuchador);
         recyclerView.setAdapter(peliculaAdaptador);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -118,11 +154,5 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction();
-    }
-
 
 }

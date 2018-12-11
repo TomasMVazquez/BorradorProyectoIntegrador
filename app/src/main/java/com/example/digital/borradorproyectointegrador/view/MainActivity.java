@@ -66,26 +66,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements PeliculasFragment.OnFragmentInteractionListener,
-        NavigationView.OnNavigationItemSelectedListener, FiltroFragment.FragmentInterface,PeliculaAdaptador.AdapterPeliInterface,SerieAdaptador.AdapterSerieInterface {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        FiltroFragment.FragmentInterface,PeliculaAdaptador.AdapterPeliInterface,SerieAdaptador.AdapterSerieInterface {
 
-    SearchView searchView;
-
-    private List<Integer> listaFiltros;
-    private Integer tabFiltros;
     private MyViewPagerAdapter adapter;
     private List<Fragment> fragmentList;
     private ViewPager viewPager;
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
-    private FirebaseAuth firebaseAuth;
-    private CallbackManager callbackManager;
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
-    private RecyclerView recyclerViewFav;
-    private PeliculaAdaptador peliculaAdaptador;
-    private SerieAdaptador serieAdaptador;
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,14 +82,15 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
         //Util.printHash(this);
         //Gerente
-        mDatabase = FirebaseDatabase.getInstance();
-        mReference  = mDatabase.getReference();
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mReference = mDatabase.getReference();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        //adaptadores
         adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
-        peliculaAdaptador = new PeliculaAdaptador(this,new ArrayList<Peliculas>(),this);
-        serieAdaptador = new SerieAdaptador(this,new ArrayList<Serie>(),this);
+        PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(this, new ArrayList<Peliculas>(), this);
+        SerieAdaptador serieAdaptador = new SerieAdaptador(this, new ArrayList<Serie>(), this);
 
         //Llamar a la action bar para mostrar
         Toolbar toolbar = findViewById(R.id.toolbarMain);
@@ -121,31 +109,10 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //recycler
-        recyclerViewFav = findViewById(R.id.recylcerViewFavoritos);
-        recyclerViewFav.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        recyclerViewFav.setLayoutManager(llm);
-
+        //cargar Main
         llamarFragments();
         cargarViewPager();
 
-        final LinearLayout llFav = findViewById(R.id.llFav);
-
-        if (currentUser!=null) {
-            DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
-            usuarioPerfilDB.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    cargarFavoritos();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
         //LLAMAR AL FAB BUTTON
         FloatingActionButton fabFiltros = findViewById(R.id.fabFiltro);
         final FiltroFragment filtroFragment = new FiltroFragment();
@@ -163,25 +130,16 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             }
         });
 
-        final TextView nombre = findViewById(R.id.titulo);
-        final SlidingPaneLayout slidingPaneLayout = findViewById(R.id.sliding_layout);
-        final LinearLayout sliding_linear = findViewById(R.id.sliding_linear);
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
                 if (position == 0){
-                    llFav.setVisibility(View.VISIBLE);
-                    recyclerViewFav.setAdapter(peliculaAdaptador);
-                    nombre.setText(getResources().getString(R.string.peliculasTodas));
+
                 }else if (position == 1){
-                    llFav.setVisibility(View.VISIBLE);
-                    recyclerViewFav.setAdapter(serieAdaptador);
-                    nombre.setText(getResources().getString(R.string.seriesTodas));
+
                 }else {
-                    llFav.setVisibility(View.GONE);
-                    nombre.setText(getResources().getString(R.string.textViewComentarios));
+
                 }
             }
 
@@ -189,16 +147,11 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
             public void onPageSelected(int position) {
 
                 if (position == 0){
-                    llFav.setVisibility(View.VISIBLE);
-                    recyclerViewFav.setAdapter(peliculaAdaptador);
-                    nombre.setText(getResources().getString(R.string.peliculasTodas));
+
                 }else if (position == 1){
-                    llFav.setVisibility(View.VISIBLE);
-                    recyclerViewFav.setAdapter(serieAdaptador);
-                    nombre.setText(getResources().getString(R.string.seriesTodas));
+
                 }else {
-                    llFav.setVisibility(View.GONE);
-                    nombre.setText(getResources().getString(R.string.textViewComentarios));
+
                 }
 
             }
@@ -208,72 +161,6 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
 
             }
         });
-
-    }
-
-
-    public void cargarFavoritos(){
-
-        mDatabase = FirebaseDatabase.getInstance();
-        mReference  = mDatabase.getReference();
-
-        if (currentUser!=null){
-            final List<Peliculas> favoritas = new ArrayList<>();
-            final List<Serie> favoritasS = new ArrayList<>();
-            final TextView textSinFav = findViewById(R.id.textSinFav);
-
-            final ControllerPelicula controllerPelicula = new ControllerPelicula();
-            final ControllerSerie controllerSerie = new ControllerSerie();
-            DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
-            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
-
-                    if (usuario.getPeliculasFavoritas()!=null){
-                        for (int i = 0; i < usuario.getPeliculasFavoritas().size(); i++) {
-                            controllerPelicula.entregarUnaPelicula(usuario.getPeliculasFavoritas().get(i), MainActivity.this, new ResultListener<Peliculas>() {
-                                @Override
-                                public void finish(Peliculas Resultado) {
-                                    favoritas.add(Resultado);
-                                    peliculaAdaptador.setPeliculas(favoritas);
-                                    if (favoritas.size()>0){
-                                        textSinFav.setText("");
-                                    }else {
-                                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
-                                    }
-                                }
-                            });
-                        }
-                    }else{
-                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
-                    }
-                    if (usuario.getSeriesFavoritas()!=null){
-                        for (int i = 0; i < usuario.getSeriesFavoritas().size();i++){
-                            controllerSerie.entregarUnaSerie(usuario.getSeriesFavoritas().get(i), MainActivity.this, new ResultListener<Serie>() {
-                                @Override
-                                public void finish(Serie Resultado) {
-                                    favoritasS.add(Resultado);
-                                    serieAdaptador.setSerieList(favoritasS);
-                                    if (favoritasS.size()>0){
-                                        textSinFav.setText("");
-                                    }else {
-                                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
-                                    }
-                                }
-                            });
-                        }
-                    }else{
-                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-
-        }
 
     }
 
@@ -289,31 +176,20 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         switch (item.getItemId()){
             case R.id.itemAccount:
                 // Si hay usuario logueado, va a la pantalla de perfil. Si no, va a la pantalla de Login
-                firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null){
                     goPerfilUsuario();
                     } else {
                     goLoginScreen();
                     }
-//                Intent intentAccount = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(intentAccount);
                 return true;
-//            case R.id.itemSearch:
-//
-//                Toast.makeText(this, "Item Search Selected", Toast.LENGTH_SHORT).show();
-//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
     }
 
-    @Override
-    public void onFragmentInteraction() {
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -365,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
         fragmentList.add(peliculasFragment);
         fragmentList.add(seriesFragment);
         fragmentList.add(comentariosFragment);
+
     }
 
     @Override
@@ -392,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreFiltro = findViewById(R.id.titulo);
+                        TextView nombreFiltro = findViewById(R.id.tituloPeliculas);
                         nombreFiltro.setText(nombre);
                     }
                 });
@@ -418,14 +295,13 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreFiltro = findViewById(R.id.titulo);
+                        TextView nombreFiltro = findViewById(R.id.tituloSerie);
                         nombreFiltro.setText(nombre);
                     }
                 });
                 break;
             case 2:
-                TextView nombreFiltro = findViewById(R.id.titulo);
-                nombreFiltro.setVisibility(View.GONE);
+
                 break;
         }
 
@@ -452,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreFiltro = findViewById(R.id.titulo);
+                        TextView nombreFiltro = findViewById(R.id.tituloPeliculas);
                         nombreFiltro.setText(getResources().getString(R.string.peliculasTodas));
                     }
                 });
@@ -475,14 +351,13 @@ public class MainActivity extends AppCompatActivity implements PeliculasFragment
                                 startActivity(intent);
                             }
                         });
-                        TextView nombreSerieFiltro = findViewById(R.id.titulo);
+                        TextView nombreSerieFiltro = findViewById(R.id.tituloSerie);
                         nombreSerieFiltro.setText(getResources().getString(R.string.seriesTodas));
                     }
                 });
                 break;
             case 2:
-                TextView nombreFiltro = findViewById(R.id.titulo);
-                nombreFiltro.setVisibility(View.GONE);
+
                 break;
         }
     }

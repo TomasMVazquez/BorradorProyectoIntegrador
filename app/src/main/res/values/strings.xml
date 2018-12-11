@@ -49,6 +49,7 @@
     <string name="peliculasTodas">Peliculas</string>
     <string name="seriesTodas">Series</string>
     <string name="favoritosVacio">Aún no tienes Favoritos</string>
+    <string name="favoritos">Favoritos</string>
 
     //Filtros
     <string name="todosFiltro"> -- Ver Todos -- </string>

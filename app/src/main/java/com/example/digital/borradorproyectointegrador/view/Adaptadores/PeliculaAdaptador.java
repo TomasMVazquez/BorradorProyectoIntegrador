@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
+import com.google.firebase.auth.FirebaseUser;
 
 
 import java.util.List;
