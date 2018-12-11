@@ -1,50 +1,36 @@
 package com.example.digital.borradorproyectointegrador.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
-import com.example.digital.borradorproyectointegrador.controller.ControllerUsuarioPerfil;
-import com.example.digital.borradorproyectointegrador.controller.ControllerVideo;
-import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
-import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
-import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
-import com.example.digital.borradorproyectointegrador.util.Util;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.MyViewPagerAdapter;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.SerieAdaptador;
@@ -52,15 +38,8 @@ import com.example.digital.borradorproyectointegrador.view.Fragments.Comentarios
 import com.example.digital.borradorproyectointegrador.view.Fragments.FiltroFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.PeliculasFragment;
 import com.example.digital.borradorproyectointegrador.view.Fragments.SeriesFragment;
-import com.facebook.CallbackManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,16 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         //Util.printHash(this);
-        //Gerente
-        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference mReference = mDatabase.getReference();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         //adaptadores
         adapter = new MyViewPagerAdapter(getSupportFragmentManager(),new ArrayList<Fragment>());
-        PeliculaAdaptador peliculaAdaptador = new PeliculaAdaptador(this, new ArrayList<Peliculas>(), this);
-        SerieAdaptador serieAdaptador = new SerieAdaptador(this, new ArrayList<Serie>(), this);
 
         //Llamar a la action bar para mostrar
         Toolbar toolbar = findViewById(R.id.toolbarMain);
@@ -130,37 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                if (position == 0){
-
-                }else if (position == 1){
-
-                }else {
-
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                if (position == 0){
-
-                }else if (position == 1){
-
-                }else {
-
-                }
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
     }
 
@@ -203,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intentAccount);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -382,7 +323,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // LOGIN METHODS
-
     private void goPerfilUsuario(){
         Intent intent = new Intent(MainActivity.this, PerfilUsuarioActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

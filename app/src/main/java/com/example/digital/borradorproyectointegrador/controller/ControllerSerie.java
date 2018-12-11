@@ -3,10 +3,8 @@ package com.example.digital.borradorproyectointegrador.controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
 import com.example.digital.borradorproyectointegrador.dao.dao_serie.DAOSerie;
 import com.example.digital.borradorproyectointegrador.dao.dao_serie.DAOUnaSerie;
-import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;

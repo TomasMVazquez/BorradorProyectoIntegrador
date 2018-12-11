@@ -1,7 +1,6 @@
 package com.example.digital.borradorproyectointegrador.view.Fragments;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +15,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.digital.borradorproyectointegrador.R;
-import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
-import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
-import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.SerieAdaptador;
-import com.example.digital.borradorproyectointegrador.view.AgregarComentarioActivity;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,7 +40,6 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
     public SeriesFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,11 +133,8 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
 
     public void cargarRecyclerGrid(Context context, RecyclerView recyclerView,List<Serie> series, SerieAdaptador.AdapterSerieInterface escuchador){
         recyclerView.setHasFixedSize(true);
-
         GridLayoutManager glm = new GridLayoutManager(context,3,1,false);
-        //LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(glm);
-
         SerieAdaptador serieAdaptador = new SerieAdaptador(context,series,escuchador);
         recyclerView.setAdapter(serieAdaptador);
     }
