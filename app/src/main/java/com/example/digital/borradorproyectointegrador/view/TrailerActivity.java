@@ -15,6 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -153,8 +155,22 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         // Seteo
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
-        delegate.getSupportActionBar().setTitle("Titulo");
-        delegate.getSupportActionBar().setSubtitle(nombre);
+//        delegate.getSupportActionBar().setTitle("Titulo");
+//        delegate.getSupportActionBar().setSubtitle(nombre);
+        delegate.getSupportActionBar().setDisplayShowCustomEnabled(true);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.title_view, null);
+
+        ((TextView)view.findViewById(R.id.title)).setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        ((TextView)view.findViewById(R.id.title)).setFocusable(true);
+        ((TextView)view.findViewById(R.id.title)).setFocusableInTouchMode(true);
+        ((TextView)view.findViewById(R.id.title)).requestFocus();
+        ((TextView)view.findViewById(R.id.title)).setSingleLine(true);
+        ((TextView)view.findViewById(R.id.title)).setSelected(true);
+        ((TextView)view.findViewById(R.id.title)).setMarqueeRepeatLimit(-1);
+        ((TextView)view.findViewById(R.id.title)).setText(nombre);
+
+        delegate.getSupportActionBar().setCustomView(view);
         ratingBar.setRating(cantEstrellasData);
         textViewNombre.setText(nombre);
         textViewResumen.setText(resumen);

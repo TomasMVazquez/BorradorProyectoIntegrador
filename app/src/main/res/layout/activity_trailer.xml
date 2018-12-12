@@ -21,13 +21,7 @@
             app:contentScrim="?attr/colorPrimary"
             >
             
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimaryTrans"
-                tools:text="Lord of the Rings"
-                android:textColor="@color/tw__solid_white"
-                />
+
             
             <include
                 android:id="@+id/toolbarTrailer"
