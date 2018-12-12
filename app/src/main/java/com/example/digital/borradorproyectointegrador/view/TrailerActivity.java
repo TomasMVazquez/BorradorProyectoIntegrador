@@ -149,7 +149,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         // COMPONENTES
         RatingBar ratingBar = findViewById(R.id.rbShowRoom);
-        TextView textViewNombre = findViewById(R.id.textViewTituloTrailer);
         TextView textViewResumen = findViewById(R.id.textViewResumenDetalle);
 
         // Seteo
@@ -172,7 +171,6 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         delegate.getSupportActionBar().setCustomView(view);
         ratingBar.setRating(cantEstrellasData);
-        textViewNombre.setText(nombre);
         textViewResumen.setText(resumen);
 
         //Cargar Comentarios

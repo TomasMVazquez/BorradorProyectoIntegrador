@@ -53,29 +53,15 @@
                     />
             </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textViewTituloTrailer"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="65"
-                    android:textColor="@color/tw__solid_white"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:textSize="26sp"
-                    tools:text="How the Grinch Stole Christmas"
-                    />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
-                    android:orientation="vertical"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
                     >
                     <android.support.v7.widget.AppCompatRatingBar
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/rbShowRoom"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
@@ -92,15 +78,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_gravity="bottom"
                         >
+
                         <Button
                             android:id="@+id/btnFavorito"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="50dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/ic_favorite_border"
-                            />
+                            android:background="@drawable/ic_favorite_border" />
 
                         <Button
                             android:id="@+id/btnCompartir"
@@ -116,7 +104,7 @@
                 </LinearLayout>
 
 
-            </LinearLayout>
+
 
             <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
