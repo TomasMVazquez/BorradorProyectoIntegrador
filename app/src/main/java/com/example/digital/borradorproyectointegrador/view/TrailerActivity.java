@@ -153,7 +153,8 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         // Seteo
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
-        delegate.getSupportActionBar().setTitle(nombre);
+        delegate.getSupportActionBar().setTitle("Titulo");
+        delegate.getSupportActionBar().setSubtitle(nombre);
         ratingBar.setRating(cantEstrellasData);
         textViewNombre.setText(nombre);
         textViewResumen.setText(resumen);
