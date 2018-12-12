@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
@@ -122,7 +123,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         Toolbar toolbar = findViewById(R.id.toolbarTrailer);
         delegate.setSupportActionBar(toolbar);
 
-        Objects.requireNonNull(delegate.getSupportActionBar()).setTitle(null);
+        Objects.requireNonNull(delegate.getSupportActionBar()).setTitle("");
 
         if (delegate.getSupportActionBar() != null) {
             delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -150,6 +151,9 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         TextView textViewResumen = findViewById(R.id.textViewResumenDetalle);
 
         // Seteo
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbar);
+        collapsingToolbarLayout.setTitleEnabled(false);
+        delegate.getSupportActionBar().setTitle(nombre);
         ratingBar.setRating(cantEstrellasData);
         textViewNombre.setText(nombre);
         textViewResumen.setText(resumen);
