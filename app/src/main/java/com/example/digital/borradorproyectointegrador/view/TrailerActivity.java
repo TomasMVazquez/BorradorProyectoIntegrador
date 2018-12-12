@@ -28,10 +28,15 @@ import android.widget.Toast;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
+import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
+import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
 import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
 import com.example.digital.borradorproyectointegrador.dao.dao_video.DAOVideo;
 import com.example.digital.borradorproyectointegrador.dao.dao_video_tv.DAOVideoTV;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
+import com.example.digital.borradorproyectointegrador.model.genero.Genero;
+import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
+import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
@@ -91,6 +96,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     private String resumen;
     private Integer id;
     private String poster_path;
+    private String origLanguage;
+    private String release_date;
+    private String revenue;
+    private String runtime;
+    private String tagline;
     private Button btnFavorito;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -100,7 +110,11 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     private DatabaseReference usuarioPerfilDB;
     private ShareActionProvider mShareActionProvider;
     private AdaptadorRecyclerComentarioTrailer adaptadorRecyclerComentarioTrailer;
-
+    private ControllerPelicula controllerPelicula;
+    private ControllerSerie controllerSerie;
+    private Peliculas pelicula;
+    private Serie serie;
+    private TextView textViewInfoPeli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,9 +162,15 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         id = bundle.getInt(String.valueOf(KEY_ID));
         validarSiFavorito(id);
 
+
+
+
+
+
         // COMPONENTES
         RatingBar ratingBar = findViewById(R.id.rbShowRoom);
         TextView textViewResumen = findViewById(R.id.textViewResumenDetalle);
+        textViewInfoPeli = findViewById(R.id.textViewInfoPeli);
 
         // Seteo
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbar);
@@ -173,6 +193,15 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         delegate.getSupportActionBar().setCustomView(view);
         ratingBar.setRating(cantEstrellasData);
         textViewResumen.setText(resumen);
+        controllerPelicula = new ControllerPelicula();
+        controllerSerie = new ControllerSerie();
+        traerInfoAdicional(id);
+
+
+
+
+
+
 
         //Cargar Comentarios
         //Recycler
@@ -665,5 +694,41 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         });
 
     }
+
+    public void traerInfoAdicional(Integer id){
+        if (tipo == 0){
+            controllerPelicula.entregarUnaPelicula(id, TrailerActivity.this, new ResultListener<Peliculas>() {
+                @Override
+                public void finish(Peliculas Resultado) {
+                    List genres = Resultado.getGenre_ids();
+                    origLanguage = Resultado.getOriginal_language();
+                    release_date = Resultado.getRelease_date();
+                    revenue = Resultado.getRevenue();
+                    runtime = Resultado.getRuntime();
+                    tagline = Resultado.getTagline();
+
+                    textViewInfoPeli.setText(origLanguage + release_date + revenue + runtime + tagline);
+
+                }
+            });
+        } else if (tipo == 1){
+            controllerSerie.entregarUnaSerie(id, this, new ResultListener<Serie>() {
+                @Override
+                public void finish(Serie Resultado) {
+                    origLanguage = Resultado.getOriginal_language();
+                    release_date = Resultado.getFirst_air_date();
+                    String homepage = Resultado.getHomepage();
+                    String in_production = Resultado.getIn_production();
+                    String numberEpisodes = Resultado.getNumber_of_episodes();
+                    String numberSeasons = Resultado.getNumber_of_seasons();
+                    String status = Resultado.getStatus();
+
+
+                    textViewInfoPeli.setText(origLanguage + release_date + homepage + in_production + numberEpisodes + numberSeasons + status);
+                }
+            });
+        }
+    }
+
 }
 
