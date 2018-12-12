@@ -68,6 +68,7 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
     public static final String KEY_CANT_ESTRELLAS = "cantEstrellas";
     public static final String KEY_NOMBRE = "nombre";
     public static final String KEY_RESUMEN = "resumen";
+    public static final String KEY_RELEASE_DATE = "release";
     public static final Integer KEY_ID = null;
     public static final String API_KEY = "AIzaSyBwKk1MoedjyracfPjgvI7_0zpSpPan5nU";
     public static String VIDEO_ID = "videoKey";

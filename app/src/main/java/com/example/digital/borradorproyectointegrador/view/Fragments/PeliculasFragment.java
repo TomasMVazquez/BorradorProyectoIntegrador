@@ -151,6 +151,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         bundle.putInt(String.valueOf(TrailerActivity.KEY_ID), peliculas.getId());
         bundle.putString(TrailerActivity.KEY_RESUMEN, peliculas.getOverview());
         bundle.putString(TrailerActivity.KEY_POSTER_PATH,peliculas.getPoster_path());
+        bundle.putString(TrailerActivity.KEY_RELEASE_DATE, peliculas.getRelease_date());
         intent.putExtras(bundle);
         startActivity(intent);
     }
