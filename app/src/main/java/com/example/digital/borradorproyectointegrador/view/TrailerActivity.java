@@ -30,18 +30,16 @@ import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ComentariosController;
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
-import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
-import com.example.digital.borradorproyectointegrador.dao.dao_video.DAOVideo;
-import com.example.digital.borradorproyectointegrador.dao.dao_video_tv.DAOVideoTV;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_peliculas.DAOPelicula;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_video.DAOVideo;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_video_tv.DAOVideoTV;
 import com.example.digital.borradorproyectointegrador.model.comentario.Comentario;
-import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.AdaptadorRecyclerComentarioTrailer;
-import com.example.digital.borradorproyectointegrador.view.Fragments.FiltroFragment;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -193,8 +191,8 @@ public class TrailerActivity extends YouTubeBaseActivity implements YouTubePlaye
         delegate.getSupportActionBar().setCustomView(view);
         ratingBar.setRating(cantEstrellasData);
         textViewResumen.setText(resumen);
-        controllerPelicula = new ControllerPelicula();
-        controllerSerie = new ControllerSerie();
+        controllerPelicula = new ControllerPelicula(this);
+        controllerSerie = new ControllerSerie(this);
         traerInfoAdicional(id);
 
 

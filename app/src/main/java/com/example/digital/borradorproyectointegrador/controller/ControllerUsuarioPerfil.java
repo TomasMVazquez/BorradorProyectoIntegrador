@@ -3,7 +3,7 @@ package com.example.digital.borradorproyectointegrador.controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.digital.borradorproyectointegrador.dao.dao_perfil_usuario.DAOUsuarioPerfil;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_perfil_usuario.DAOUsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;
 import com.google.firebase.auth.FirebaseUser;

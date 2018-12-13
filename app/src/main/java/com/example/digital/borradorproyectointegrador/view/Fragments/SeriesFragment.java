@@ -16,9 +16,13 @@ import android.widget.TextView;
 
 import com.example.digital.borradorproyectointegrador.R;
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
+import com.example.digital.borradorproyectointegrador.dao.database.DaoSerieDB;
+import com.example.digital.borradorproyectointegrador.dao.database.DatabaseHelper;
+import com.example.digital.borradorproyectointegrador.dao.database.MyDatabase;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
+import com.example.digital.borradorproyectointegrador.util.Util;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.SerieAdaptador;
 import com.example.digital.borradorproyectointegrador.view.TrailerActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +70,7 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
         //Lista
         final RecyclerView recyclerViewSeri = view.findViewById(R.id.recylcerViewSeries);
 
-        final ControllerSerie controllerSerie = new ControllerSerie();
+        final ControllerSerie controllerSerie = new ControllerSerie(getContext());
 
         controllerSerie.entregarSerie(view.getContext(), new ResultListener<List<Serie>>() {
             @Override
@@ -79,37 +83,50 @@ public class SeriesFragment extends Fragment implements SerieAdaptador.AdapterSe
             final List<Serie> favoritasS = new ArrayList<>();
             final TextView textSinFav = view.findViewById(R.id.textSinFavS);
 
-            DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
-            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+            if (Util.hayInternet(getContext())) {
+                DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+                usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
 
-                    if (usuario.getSeriesFavoritas()!=null){
-                        for (int i = 0; i < usuario.getSeriesFavoritas().size();i++){
-                            controllerSerie.entregarUnaSerie(usuario.getSeriesFavoritas().get(i), view.getContext(), new ResultListener<Serie>() {
-                                @Override
-                                public void finish(Serie Resultado) {
-                                    favoritasS.add(Resultado);
-                                    serieAdaptador.setSerieList(favoritasS);
-                                    if (favoritasS.size()>0){
-                                        textSinFav.setText("");
-                                    }else {
-                                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                        if (usuario.getSeriesFavoritas() != null) {
+                            for (int i = 0; i < usuario.getSeriesFavoritas().size(); i++) {
+                                controllerSerie.entregarUnaSerie(usuario.getSeriesFavoritas().get(i), view.getContext(), new ResultListener<Serie>() {
+                                    @Override
+                                    public void finish(Serie Resultado) {
+                                        favoritasS.add(Resultado);
+                                        MyDatabase database = DatabaseHelper.getInstance(getContext().getApplicationContext());
+                                        DaoSerieDB daoSerieDB = database.getDaoSerieDB();
+                                        daoSerieDB.insertarSeries(favoritasS);
+                                        serieAdaptador.setSerieList(favoritasS);
+                                        if (favoritasS.size() > 0) {
+                                            textSinFav.setText("");
+                                        } else {
+                                            textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                        } else {
+                            textSinFav.setText(getResources().getString(R.string.favoritosVacio));
                         }
-                    }else{
-                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }else {
+                controllerSerie.entregarSerie(getContext(), new ResultListener<List<Serie>>() {
+                    @Override
+                    public void finish(List<Serie> Resultado) {
+                        serieAdaptador.setSerieList(Resultado);
+                        textSinFav.setText("");
+                    }
+                });
+            }
 
         }
 

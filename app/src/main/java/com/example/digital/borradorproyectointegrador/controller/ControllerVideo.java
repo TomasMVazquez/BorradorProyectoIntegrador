@@ -3,7 +3,7 @@ package com.example.digital.borradorproyectointegrador.controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.digital.borradorproyectointegrador.dao.dao_video.DAOVideo;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_video.DAOVideo;
 import com.example.digital.borradorproyectointegrador.model.videos.Video;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;

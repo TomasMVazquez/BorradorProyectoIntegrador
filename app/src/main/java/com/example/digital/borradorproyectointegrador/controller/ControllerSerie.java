@@ -3,8 +3,13 @@ package com.example.digital.borradorproyectointegrador.controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.digital.borradorproyectointegrador.dao.dao_serie.DAOSerie;
-import com.example.digital.borradorproyectointegrador.dao.dao_serie.DAOUnaSerie;
+import com.example.digital.borradorproyectointegrador.dao.database.DaoPeliculaDB;
+import com.example.digital.borradorproyectointegrador.dao.database.DaoSerieDB;
+import com.example.digital.borradorproyectointegrador.dao.database.DatabaseHelper;
+import com.example.digital.borradorproyectointegrador.dao.database.MyDatabase;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_serie.DAOSerie;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_serie.DAOUnaSerie;
+import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;
@@ -13,6 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerSerie {
+
+    private DaoSerieDB daoSerieDB;
+
+    public ControllerSerie(Context context) {
+        MyDatabase database = DatabaseHelper.getInstance(context.getApplicationContext());
+
+        daoSerieDB = database.getDaoSerieDB();
+    }
 
     public void entregarSerie(Context context, final ResultListener<List<Serie>> listResultListener){
 
@@ -27,6 +40,8 @@ public class ControllerSerie {
             });
 
         }else {
+            List<Serie> series = daoSerieDB.buscarSeries();
+            listResultListener.finish(series);
             Toast.makeText(context, "NO HAY INTERNET", Toast.LENGTH_SHORT).show();
         }
 

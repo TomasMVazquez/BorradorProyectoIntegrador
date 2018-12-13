@@ -1,12 +1,20 @@
 package com.example.digital.borradorproyectointegrador.model.pelicula;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity (tableName = "peliculas")
 public class Peliculas {
 
-    private String title;
+    @PrimaryKey
     private Integer id;
+    private String title;
     private String poster_path;
+    @Ignore
     private List<Integer> genre_ids;
     private String overview;
     private String release_date;
@@ -30,6 +38,9 @@ public class Peliculas {
         this.runtime = runtime;
         this.status = status;
         this.tagline = tagline;
+    }
+
+    public Peliculas() {
     }
 
     public Double getVote_average() {
@@ -78,6 +89,50 @@ public class Peliculas {
 
     public String getTagline() {
         return tagline;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public void setVote_average(Double vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
+    }
+
+    public void setRevenue(String revenue) {
+        this.revenue = revenue;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
     }
 
     @Override

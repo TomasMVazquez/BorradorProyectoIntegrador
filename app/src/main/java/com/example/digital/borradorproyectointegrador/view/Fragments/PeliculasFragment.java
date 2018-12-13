@@ -23,12 +23,16 @@ import com.example.digital.borradorproyectointegrador.controller.ControllerGener
 import com.example.digital.borradorproyectointegrador.controller.ControllerPelicula;
 import com.example.digital.borradorproyectointegrador.controller.ControllerSerie;
 import com.example.digital.borradorproyectointegrador.controller.ControllerUsuarioPerfil;
+import com.example.digital.borradorproyectointegrador.dao.database.DaoPeliculaDB;
+import com.example.digital.borradorproyectointegrador.dao.database.DatabaseHelper;
+import com.example.digital.borradorproyectointegrador.dao.database.MyDatabase;
 import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.model.serie.Serie;
 import com.example.digital.borradorproyectointegrador.model.usuario_perfil.UsuarioPerfil;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.R;
+import com.example.digital.borradorproyectointegrador.util.Util;
 import com.example.digital.borradorproyectointegrador.view.Adaptadores.PeliculaAdaptador;
 import com.example.digital.borradorproyectointegrador.view.AgregarComentarioActivity;
 import com.example.digital.borradorproyectointegrador.view.MainActivity;
@@ -49,6 +53,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
 
     private PeliculaAdaptador peliculaAdaptador;
     private ControllerPelicula controllerPelicula;
+    private DaoPeliculaDB daoPeliculaDB;
 
     public PeliculasFragment() {
         // Required empty public constructor
@@ -80,7 +85,7 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
         //Lista
         final RecyclerView recyclerViewPeli = view.findViewById(R.id.recylcerViewPeliculas);
         //Controller
-        controllerPelicula = new ControllerPelicula();
+        controllerPelicula = new ControllerPelicula(getContext());
 
         controllerPelicula.entregarPeliculas(view.getContext(), new ResultListener<List<Peliculas>>() {
             @Override
@@ -95,37 +100,50 @@ public class PeliculasFragment extends Fragment implements PeliculaAdaptador.Ada
             final List<Peliculas> favoritas = new ArrayList<>();
             final TextView textSinFav = view.findViewById(R.id.textSinFavP);
 
-            DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
-            usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (Util.hayInternet(getContext())) {
+                DatabaseReference usuarioPerfilDB = mReference.child(getResources().getString(R.string.child_usuarios)).child(currentUser.getUid());
+                usuarioPerfilDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
+                        UsuarioPerfil usuario = dataSnapshot.getValue(UsuarioPerfil.class);
 
-                    if (usuario.getPeliculasFavoritas()!=null){
-                        for (int i = 0; i < usuario.getPeliculasFavoritas().size(); i++) {
-                            controllerPelicula.entregarUnaPelicula(usuario.getPeliculasFavoritas().get(i), view.getContext(), new ResultListener<Peliculas>() {
-                                @Override
-                                public void finish(Peliculas Resultado) {
-                                    favoritas.add(Resultado);
-                                    peliculaAdaptador.setPeliculas(favoritas);
-                                    if (favoritas.size()>0){
-                                        textSinFav.setText("");
-                                    }else {
-                                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                        if (usuario.getPeliculasFavoritas() != null) {
+                            for (int i = 0; i < usuario.getPeliculasFavoritas().size(); i++) {
+                                controllerPelicula.entregarUnaPelicula(usuario.getPeliculasFavoritas().get(i), view.getContext(), new ResultListener<Peliculas>() {
+                                    @Override
+                                    public void finish(Peliculas Resultado) {
+                                        favoritas.add(Resultado);
+                                        MyDatabase database = DatabaseHelper.getInstance(getContext().getApplicationContext());
+                                        daoPeliculaDB = database.getDaoPeliculaDB();
+                                        daoPeliculaDB.insertarPeliculas(favoritas);
+                                        peliculaAdaptador.setPeliculas(favoritas);
+                                        if (favoritas.size() > 0) {
+                                            textSinFav.setText("");
+                                        } else {
+                                            textSinFav.setText(getResources().getString(R.string.favoritosVacio));
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                        } else {
+                            textSinFav.setText(getResources().getString(R.string.favoritosVacio));
                         }
-                    }else{
-                        textSinFav.setText(getResources().getString(R.string.favoritosVacio));
                     }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            }else {
+                controllerPelicula.entregarPeliculas(getContext(), new ResultListener<List<Peliculas>>() {
+                    @Override
+                    public void finish(List<Peliculas> Resultado) {
+                        peliculaAdaptador.setPeliculas(Resultado);
+                        textSinFav.setText("");
+                    }
+                });
+            }
         }
         return view;
     }

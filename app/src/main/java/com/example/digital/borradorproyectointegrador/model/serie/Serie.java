@@ -1,14 +1,21 @@
 package com.example.digital.borradorproyectointegrador.model.serie;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity (tableName = "series")
 public class Serie {
 
     //Atributos
+    @PrimaryKey
+    private Integer id;
     private Integer tipo = 2;
     private String name;
-    private Integer id;
     private String poster_path;
+    @Ignore
     private List<Integer> genre_ids;
     private String overview;
     private String first_air_date;
@@ -39,6 +46,9 @@ public class Serie {
         this.number_of_seasons = number_of_seasons;
         this.original_language = original_language;
         this.status = status;
+    }
+
+    public Serie() {
     }
 
     //Getter
@@ -96,6 +106,58 @@ public class Serie {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setFirst_air_date(String first_air_date) {
+        this.first_air_date = first_air_date;
+    }
+
+    public void setVote_average(Double vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public void setIn_production(String in_production) {
+        this.in_production = in_production;
+    }
+
+    public void setNumber_of_episodes(String number_of_episodes) {
+        this.number_of_episodes = number_of_episodes;
+    }
+
+    public void setNumber_of_seasons(String number_of_seasons) {
+        this.number_of_seasons = number_of_seasons;
+    }
+
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     //toString

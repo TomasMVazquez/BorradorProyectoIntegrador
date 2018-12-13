@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (tab){
             case 0:
                 final RecyclerView recyclerView = findViewById(R.id.recylcerViewPeliculas);
-                ControllerPelicula controllerPelicula = new ControllerPelicula();
+                ControllerPelicula controllerPelicula = new ControllerPelicula(this);
 
                 controllerPelicula.entregarPeliculasGeneros(MainActivity.this, filtro, new ResultListener<List<Peliculas>>() {
                     @Override
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case 1:
                 final RecyclerView recyclerViewSeries = findViewById(R.id.recylcerViewSeries);
-                ControllerSerie controllerSerie = new ControllerSerie();
+                ControllerSerie controllerSerie = new ControllerSerie(this);
                 controllerSerie.entregarSerieGeneros(MainActivity.this, filtro, new ResultListener<List<Serie>>() {
                     @Override
                     public void finish(List<Serie> Resultado) {
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (tab){
             case 0:
                 final RecyclerView recyclerView = findViewById(R.id.recylcerViewPeliculas);
-                ControllerPelicula controllerPelicula = new ControllerPelicula();
+                ControllerPelicula controllerPelicula = new ControllerPelicula(this);
                 controllerPelicula.entregarPeliculas(MainActivity.this, new ResultListener<List<Peliculas>>() {
                     @Override
                     public void finish(List<Peliculas> Resultado) {
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case 1:
                 final RecyclerView recyclerViewSeries = findViewById(R.id.recylcerViewSeries);
-                ControllerSerie controllerSerie = new ControllerSerie();
+                ControllerSerie controllerSerie = new ControllerSerie(this);
                 controllerSerie.entregarSerie(MainActivity.this, new ResultListener<List<Serie>>() {
                     @Override
                     public void finish(List<Serie> Resultado) {

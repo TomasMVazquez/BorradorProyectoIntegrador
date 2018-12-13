@@ -2,7 +2,7 @@ package com.example.digital.borradorproyectointegrador.controller;
 
 import android.content.Context;
 
-import com.example.digital.borradorproyectointegrador.dao.dao_generos.DAOGenero;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_generos.DAOGenero;
 import com.example.digital.borradorproyectointegrador.model.genero.Genero;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;

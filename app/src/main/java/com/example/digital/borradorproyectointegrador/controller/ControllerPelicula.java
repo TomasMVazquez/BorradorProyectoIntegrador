@@ -3,8 +3,11 @@ package com.example.digital.borradorproyectointegrador.controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOPelicula;
-import com.example.digital.borradorproyectointegrador.dao.dao_peliculas.DAOUnaPelicula;
+import com.example.digital.borradorproyectointegrador.dao.database.DaoPeliculaDB;
+import com.example.digital.borradorproyectointegrador.dao.database.DatabaseHelper;
+import com.example.digital.borradorproyectointegrador.dao.database.MyDatabase;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_peliculas.DAOPelicula;
+import com.example.digital.borradorproyectointegrador.dao.internet.dao_peliculas.DAOUnaPelicula;
 import com.example.digital.borradorproyectointegrador.model.pelicula.Peliculas;
 import com.example.digital.borradorproyectointegrador.util.ResultListener;
 import com.example.digital.borradorproyectointegrador.util.Util;
@@ -14,6 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerPelicula {
+    private DaoPeliculaDB daoPeliculaDB;
+
+    public ControllerPelicula(Context context) {
+        MyDatabase database = DatabaseHelper.getInstance(context.getApplicationContext());
+
+        daoPeliculaDB = database.getDaoPeliculaDB();
+    }
 
     public void entregarPeliculas(Context context, final ResultListener<List<Peliculas>> listResultListener){
 
@@ -28,6 +38,8 @@ public class ControllerPelicula {
             });
 
         }else {
+            List<Peliculas> peliculas = daoPeliculaDB.buscarPeliculas();
+            listResultListener.finish(peliculas);
             Toast.makeText(context, "NO HAY INTERNET", Toast.LENGTH_SHORT).show();
         }
 
